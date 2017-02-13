@@ -14,33 +14,48 @@ public class Hero extends GameObjects{
 	public boolean movement(String movement, char[][]dungeon)
 	{
 		boolean levelRunning = true;
+		int nextX = 0, nextY = 0;
 		switch(movement)
 		{
 		case "w":
 		{
-			if(this.getCoordinates().getY() - 1 >= 0)
-				
-				
-				
+			nextY = this.getCoord().getY() - 1;
+			nextX = this.getCoord().getX();	
+			break;
 		}
-		case 'a':
+		case "a":
 		{
-			
+			nextY = this.getCoord().getY();
+			nextX = this.getCoord().getX() -1;
+			break;
 		}
-		case 's':
+		case "s":
 		{
-			
+			nextY = this.getCoord().getY() + 1;
+			nextX = this.getCoord().getX();
+			break;
 		}
-		case 'd':
+		case "d":
 		{
-			
+			nextY = this.getCoord().getY();
+			nextX = this.getCoord().getX() + 1;
+			break;
 		}
 		}
+		auxMovement(nextX, nextY, dungeon);
 		return levelRunning;
 	}
 	
 	public State getState()
 	{
 		return currentState;
+	}
+	
+	public boolean auxMovement(int x, int y,char[][] dungeon)
+	{
+		char currentTile = dungeon[y][x];
+		if(currentTile == 'X' || currentTile == 'G' || currentTile == 'O')
+			return false;
+		return true;
 	}
 }
