@@ -20,6 +20,18 @@ public class Hero extends GameObjects{
 		{
 			
 		}
+		case 'a':
+		{
+			
+		}
+		case 's':
+		{
+			
+		}
+		case 'd':
+		{
+			
+		}
 		}
 		return levelRunning;
 	}
