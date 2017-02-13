@@ -1,7 +1,5 @@
 package logic;
 
-import java.awt.Point;
-
 public class GameObjects {
 
 	private Point coordinates;
