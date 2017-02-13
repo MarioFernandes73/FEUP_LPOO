@@ -11,14 +11,17 @@ public class Hero extends GameObjects{
 		currentState = State.ALIVE;
 	}
 
-	public boolean movement(String movement)
+	public boolean movement(String movement, char[][]dungeon)
 	{
 		boolean levelRunning = true;
 		switch(movement)
 		{
 		case "w":
 		{
-			
+			if(this.getCoordinates().getY() - 1 >= 0)
+				
+				
+				
 		}
 		case 'a':
 		{

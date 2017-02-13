@@ -42,4 +42,8 @@ public class Dungeon {
 		return dungeonString;
 	}
 	
+	public char[][] getDungeon()
+	{
+		return dungeon;
+	}
 }
