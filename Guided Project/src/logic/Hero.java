@@ -52,9 +52,13 @@ public class Hero extends GameObjects{
 		return currentState;
 	}
 	
-	public boolean auxMovement(int x, int y, Dungeon dungeon)
+	public boolean auxMovement(int x, int y, Dungeon dungeon) //returns true if the hero 
 	{
 		char currentTile = dungeon.getDungeon()[y][x];
+		
+		if(x < 0 || y< 0 || x>dungeon.getWidth() || y>dungeon.getHeight()) //if the hero gets out of coordinates, we don't want to update its movement
+			return false;
+		
 		if(currentTile == 'X' || currentTile == 'G' || currentTile == 'O')
 			return false;
 		return true;
