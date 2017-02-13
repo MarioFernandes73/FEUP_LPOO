@@ -5,8 +5,9 @@ import java.util.Arrays;
 public class Guard extends GameObjects {
 	
 	private char[] movementList;
+	private int nextMovement;
 	
-	static char[] defaultMovementList = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d',};
+	static String[] defaultMovementList = {"a","s","s","s","s","a","a","a","a","a","a","s","d","d","d","d","d","d","d",};
 	
 	public Guard(int x, int y, char symbol) 
 	{
@@ -18,9 +19,9 @@ public class Guard extends GameObjects {
 		return movementList;
 	}
 
-	public nextMovement()
+	public void auxMovement()
 	{
-		movement()
+		
 	}
 
 	
