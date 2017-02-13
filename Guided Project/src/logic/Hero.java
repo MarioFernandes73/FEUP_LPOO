@@ -4,6 +4,7 @@ public class Hero extends GameObjects{
 	
 	public enum State {ALIVE, DEAD};
 	private State currentState;
+	private boolean key;
 	
 	public Hero(int x, int y, char symbol)
 	{
@@ -11,7 +12,7 @@ public class Hero extends GameObjects{
 		currentState = State.ALIVE;
 	}
 
-	public boolean movement(String movement, char[][]dungeon)
+	public boolean movement(String movement, Dungeon dungeon)
 	{
 		boolean levelRunning = true;
 		int nextX = 0, nextY = 0;
@@ -51,9 +52,9 @@ public class Hero extends GameObjects{
 		return currentState;
 	}
 	
-	public boolean auxMovement(int x, int y,char[][] dungeon)
+	public boolean auxMovement(int x, int y, Dungeon dungeon)
 	{
-		char currentTile = dungeon[y][x];
+		char currentTile = dungeon.getDungeon()[y][x];
 		if(currentTile == 'X' || currentTile == 'G' || currentTile == 'O')
 			return false;
 		return true;
