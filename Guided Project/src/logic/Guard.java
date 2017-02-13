@@ -1,10 +1,8 @@
 package logic;
 
-import java.util.Arrays;
-
-public class Guard extends GameObjects {
+public class Guard extends Character {
 	
-	private char[] movementList;
+	private String[] movementList;
 	private int nextMovement;
 	
 	static String[] defaultMovementList = {"a","s","s","s","s","a","a","a","a","a","a","s","d","d","d","d","d","d","d",};
@@ -12,18 +10,7 @@ public class Guard extends GameObjects {
 	public Guard(int x, int y, char symbol) 
 	{
 		super(x, y, symbol);
-	}
-
-	public char[] getMovementList() 
-	{
-		return movementList;
-	}
-
-	public void auxMovement()
-	{
-		
-	}
-
-	
-	
+		movementList = defaultMovementList;
+		nextMovement = 0;
+	}	
 }

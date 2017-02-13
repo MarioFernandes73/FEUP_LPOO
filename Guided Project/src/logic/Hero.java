@@ -1,22 +1,19 @@
 package logic;
 
-public class Hero extends GameObjects{
+public class Hero extends Character{
 	
-	public enum State {ALIVE, DEAD};
-	private State currentState;
 	private boolean key;
 	
 	public Hero(int x, int y, char symbol)
 	{
 		super(x,y,symbol);
-		currentState = State.ALIVE;
+		key = false;
 	}
 	
-	public State getState()
+	public boolean getKey()
 	{
-		return currentState;
+		return key;
 	}
-	
 	
 	@Override
 	public boolean auxMovement(int nextX, int nextY, Dungeon dungeon) //returns true if the hero 

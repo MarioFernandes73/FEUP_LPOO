@@ -1,5 +1,7 @@
 package logic;
 
+import logic.Character.State;
+
 public class Dungeon {
 	
 	private int height;
@@ -7,7 +9,7 @@ public class Dungeon {
 	private static char dungeon[][];
 	
 	//Default Dungeon (used for early tests)
-	static char[][] defaultDungeon = 
+	static char[][] defaultDungeon1 = 
 		{{'X','X','X','X','X','X','X','X','X','X'},
 		 {'X','H',' ',' ','I',' ','X',' ','G','X'},
 		 {'X','X','X',' ','X','X','X',' ',' ','X'},
@@ -19,14 +21,49 @@ public class Dungeon {
 		 {'X',' ','I',' ','I',' ','X','k',' ','X'},
 		 {'X','X','X','X','X','X','X','X','X','X'}};
 	
+	static char[][] defaultDungeon2 = 
+		{{'X','X','X','X','X','X','X','X','X','X'},
+		 {'I',' ',' ',' ','O',' ',' ',' ','k','X'},
+		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		 {'X','H',' ',' ',' ',' ',' ',' ',' ','X'},
+		 {'X','X','X','X','X','X','X','X','X','X'}};
 	
-	public Dungeon()
+	
+	public Dungeon(int level)
 	{
-		dungeon = defaultDungeon;
-		height = defaultDungeon.length;	//generic defaultDungeon height
-		width = defaultDungeon[0].length;	//length of the first line of the defaultDungeon; generic since defaultDungeon always has the same width
+		if(level == 1)
+		{
+			dungeon = defaultDungeon1;			
+		}
+		else if(level == 2)
+		{
+			dungeon = defaultDungeon2;
+		}
+
+		height = dungeon.length;	//generic defaultDungeon height
+		width = dungeon[0].length;	//length of the first line of the defaultDungeon; generic since defaultDungeon always has the same width
 	}
 
+	public char[][] getDungeon()
+	{
+		return dungeon;
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	public int getHeight()
+	{
+		return height;
+	}
+	
 	
 	public String printDungeonString()
 	{
@@ -42,18 +79,120 @@ public class Dungeon {
 		return dungeonString;
 	}
 	
-	public char[][] getDungeon()
+	public void updateDungeon(Hero hero, Guard guard, Key key, Lever lever)
 	{
-		return dungeon;
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				final char currentTile = dungeon[i][j];
+				if(currentTile != 'X' && currentTile != ' ' && currentTile != 'k' && currentTile != 'I' && currentTile != 'S')
+				{
+					dungeon[i][j] = ' ';
+				}
+			}
+		}
+		
+		if(key != null)
+		{
+			dungeon[key.getCoord().getY()][key.getCoord().getX()] = 'k';
+		}
+		if(lever != null)
+		{
+			dungeon[lever.getCoord().getY()][lever.getCoord().getX()] = 'k';
+		}
+		
+		if (hero.getState() != State.DEAD)
+		{
+			dungeon[hero.getCoord().getY()][hero.getCoord().getX()] = 'H';
+		}
+		
+		if(guard.getState() != State.DEAD)
+		{
+			dungeon[guard.getCoord().getY()][guard.getCoord().getX()] = 'G';
+		}
 	}
 	
-	public int getWidth()
+	public void updateDoors()
 	{
-		return width;
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if(dungeon[i][j] == 'I')
+				{
+					dungeon[i][j] = 'S';
+				}
+				else if(dungeon[i][j] == 'S')
+				{
+					dungeon[i][j] = 'I';
+				}
+			}
+		}
 	}
 	
-	public int getHeight()
+	//spawn functions: once the map is ready, the objects will spawn on the map on the marked locations.
+	public Hero spawnHero()
 	{
-		return height;
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				final char currentTile = dungeon[i][j];
+				if(currentTile == 'H')
+					return new Hero(j,i,'H');
+			}
+		}
+		return null;
 	}
+	
+	public Guard spawnGuard()
+	{
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				final char currentTile = dungeon[i][j];
+				if(currentTile == 'G')
+					return new Guard(j,i,'G');
+			}
+		}
+		return null;
+	}
+	
+	public Lever spawnLever(int currentLevel)
+	{
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				final char currentTile = dungeon[i][j];
+				if(currentTile == 'k' && currentLevel == 1)
+				{
+					return new Lever(j,i,'k');
+				}
+					
+			}
+		}
+		return null;
+	}
+	
+	public Key spawnKey(int currentLevel)
+	{
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				final char currentTile = dungeon[i][j];
+				if(currentTile == 'k' && currentLevel == 2)
+				{
+					return new Key(j,i,'k');
+				}
+					
+			}
+		}
+		return null;
+	}
+	
+
 }
