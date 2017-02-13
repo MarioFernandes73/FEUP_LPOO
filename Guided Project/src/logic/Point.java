@@ -13,7 +13,8 @@ public class Point {
 	
 	public Point(Point p)
 	{
-		
+		this.x = p.getX();
+		this.y = p.getY();
 	}
 	
 	public Point(int x, int y)
@@ -48,4 +49,13 @@ public class Point {
 		this.x=p.getX();
 		this.y=p.getY();
 	}
+	
+	public boolean equals(Point p)
+	{
+		if(this.x == p.getX() && this.y == p.getY())
+			return true;
+		
+		return false;
+	}
+	
 }

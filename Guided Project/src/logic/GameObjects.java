@@ -10,4 +10,14 @@ public class GameObjects {
 		this.coordinates = new Point(x,y);
 		this.symbol=symbol;
 	}
+	
+	public char getSymbol()
+	{
+		return symbol;
+	}
+	
+	public Point getCoord()
+	{
+		return coordinates;
+	}
 }

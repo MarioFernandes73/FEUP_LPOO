@@ -19,16 +19,8 @@ public class Game {
 	
 	public boolean playerTurn(String hero_movement)
 	{
-		hero.movement(hero_movement);
+		hero.movement(hero_movement, dungeon);
 		return running;
-	}
-	
-	public boolean isAlive()
-	{
-		if(hero.getState() != DEAD)
-		{
-			return true;
-		}
 	}
 	
 }
