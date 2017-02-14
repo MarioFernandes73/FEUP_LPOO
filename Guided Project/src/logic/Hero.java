@@ -25,6 +25,7 @@ public class Hero extends Character{
 			return super.auxMovement(nextX, nextY, dungeon);
 		}
 		
+		//if(nextTile == 'k' )
 		return true;
 	}
 }
