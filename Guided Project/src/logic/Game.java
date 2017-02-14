@@ -50,7 +50,7 @@ public class Game {
 		{
 			return false;
 		}
-		if(heroState == 1)		// hero has made a valid movement
+		else if(heroState == 1)		// hero has made a valid movement
 		{
 			
 		}

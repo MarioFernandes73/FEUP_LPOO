@@ -33,7 +33,7 @@ public class Hero extends Character{
 		{
 			return 2;
 		}
-		else if(nextTile == 'S' && )
+		else if(nextTile == 'S')
 		{
 			return 3;
 		}

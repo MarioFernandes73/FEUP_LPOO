@@ -55,17 +55,19 @@ public class Character extends GameObjects {
 				break;
 			}
 		}
-		final int validMove = auxMovement(nextX, nextY, dungeon);
+		
+		int validMove = 1;//by default its 1, which means it is a valid movement without any consequences in the game state
+		
+		if(nextX >= 0 && nextY >= 0 && nextX < dungeon.getWidth() && nextY < dungeon.getHeight())
+			validMove = auxMovement(nextX, nextY, dungeon);//this function is called if the movement keeps the character on screen
+		else //if the movement puts the character OUT of screen, then the validMove will return 1, however without updating its position on screen
+			return validMove;
 		
 		if (validMove != 0)
 		{
 			super.getCoord().setLocation(nextX, nextY);
+		}
 			return validMove;
-		}
-		else
-		{
-			return 0;
-		}
 	}
 	
 	// returns possible if the current movement is a valid one or false if it's invalid
