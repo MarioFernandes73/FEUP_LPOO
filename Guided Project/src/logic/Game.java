@@ -38,6 +38,7 @@ public class Game {
 	
 	public boolean playerTurn(String heroMovement)
 	{
+		guard.movement(guard.nextMovement(), dungeon);
 		final int heroState = hero.movement(heroMovement, dungeon);
 		final boolean running = heroStateStateMachine(heroState);
 		dungeon.updateDungeon(hero, guard, key, lever, doors);
