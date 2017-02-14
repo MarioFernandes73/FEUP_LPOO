@@ -46,7 +46,7 @@ public class Game {
 	
 	public boolean heroStateStateMachine(int heroState)
 	{
-		if(heroState == 0 || heroState == 3)		// hero has either died or finished the level
+		if((heroState == 0 && hero.isDead()) || heroState == 3)		// hero has either died or finished the level
 		{
 			return false;
 		}

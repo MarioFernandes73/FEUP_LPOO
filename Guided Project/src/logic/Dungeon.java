@@ -94,12 +94,20 @@ public class Dungeon {
 				}
 			}
 		}
-		
-		updateObjects(hero, guard, key, lever, doors);
+		updateDoors(doors);
+		updateObjects(hero, guard, key, lever);
 	}
 	
-	public void updateObjects(Hero hero, Guard guard, Key key, Lever lever, ArrayList<Door> doors)
+	public void updateObjects(Hero hero, Guard guard, Key key, Lever lever)
 	{
+		if(key != null)
+		{
+			dungeon[key.getCoord().getY()][key.getCoord().getX()] = 'k';
+		}
+		if(lever != null)
+		{
+			dungeon[lever.getCoord().getY()][lever.getCoord().getX()] = 'k';
+		}
 		if (hero.isDead() == false)
 		{
 			dungeon[hero.getCoord().getY()][hero.getCoord().getX()] = 'H';
@@ -109,15 +117,7 @@ public class Dungeon {
 		{
 			dungeon[guard.getCoord().getY()][guard.getCoord().getX()] = 'G';
 		}
-		if(key != null)
-		{
-			dungeon[key.getCoord().getY()][key.getCoord().getX()] = 'k';
-		}
-		if(lever != null)
-		{
-			dungeon[lever.getCoord().getY()][lever.getCoord().getX()] = 'k';
-		}
-		updateDoors(doors);
+
 	}
 	
 	public void updateDoors(ArrayList<Door> doors)
