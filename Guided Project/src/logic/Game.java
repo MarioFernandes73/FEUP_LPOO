@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class Game {
 
 	private boolean running;
@@ -9,6 +11,7 @@ public class Game {
 	private Guard guard;
 	private Key key;
 	private Lever lever;
+	private ArrayList<Door> doors;
 
 	public Game(int level)
 	{
@@ -20,6 +23,7 @@ public class Game {
 		guard = dungeon.spawnGuard();
 		key = dungeon.spawnKey(level);
 		lever = dungeon.spawnLever(level);
+		doors = dungeon.spawnDoors();
 	}
 	
 	public String printDungeonString()
@@ -27,11 +31,41 @@ public class Game {
 		return dungeon.printDungeonString();
 	}
 	
-	public boolean playerTurn(String hero_movement)
+	public Hero getHero()
 	{
-		running = hero.movement(hero_movement, dungeon);
-		dungeon.updateDungeon(hero, guard, key, lever);
+		return hero;
+	}
+	
+	public boolean playerTurn(String heroMovement)
+	{
+		final int heroState = hero.movement(heroMovement, dungeon);
+		final boolean running = heroStateStateMachine(heroState);
+		dungeon.updateDungeon(hero, guard, key, lever, doors);
 		return running;
+	}
+	
+	public boolean heroStateStateMachine(int heroState)
+	{
+		if(heroState == 0 || heroState == 3)		// hero has either died or finished the level
+		{
+			return false;
+		}
+		if(heroState == 1)		// hero has made a valid movement
+		{
+			
+		}
+		else if(heroState == 2)		// hero has walked over a level/key
+		{
+			if(key == null)
+			{
+				dungeon.changeDoors();
+			}
+			else
+			{
+				hero.setKey(true);
+			}
+		}
+		return true;
 	}
 	
 }

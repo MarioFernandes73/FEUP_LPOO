@@ -15,17 +15,28 @@ public class Hero extends Character{
 		return key;
 	}
 	
+	public void setKey(boolean key)
+	{
+		this.key = key;
+	}
+	
 	@Override
-	public boolean auxMovement(int nextX, int nextY, Dungeon dungeon) //returns true if the hero 
+	public int auxMovement(int nextX, int nextY, Dungeon dungeon) //returns true if the hero 
 	{
 		char nextTile = dungeon.getDungeon()[nextY][nextX];
 		
 		if(nextTile == 'X' || nextTile == 'I' || nextTile == ' ')
 		{
 			return super.auxMovement(nextX, nextY, dungeon);
+		}	
+		else if(nextTile == 'k')
+		{
+			return 2;
 		}
-		
-		//if(nextTile == 'k' )
-		return true;
+		else if(nextTile == 'S' && )
+		{
+			return 3;
+		}
+		return 1;
 	}
 }

@@ -1,6 +1,8 @@
 package logic;
 
+import java.util.ArrayList;
 import logic.Character.State;
+
 
 public class Dungeon {
 	
@@ -79,7 +81,7 @@ public class Dungeon {
 		return dungeonString;
 	}
 	
-	public void updateDungeon(Hero hero, Guard guard, Key key, Lever lever)
+	public void updateDungeon(Hero hero, Guard guard, Key key, Lever lever, ArrayList<Door> doors)
 	{
 		for (int i = 0; i < height; i++)
 		{
@@ -93,6 +95,20 @@ public class Dungeon {
 			}
 		}
 		
+		updateObjects(hero, guard, key, lever, doors);
+	}
+	
+	public void updateObjects(Hero hero, Guard guard, Key key, Lever lever, ArrayList<Door> doors)
+	{
+		if (hero.isDead() == false)
+		{
+			dungeon[hero.getCoord().getY()][hero.getCoord().getX()] = 'H';
+		}
+		
+		if(guard.isDead() == false)
+		{
+			dungeon[guard.getCoord().getY()][guard.getCoord().getX()] = 'G';
+		}
 		if(key != null)
 		{
 			dungeon[key.getCoord().getY()][key.getCoord().getX()] = 'k';
@@ -101,19 +117,15 @@ public class Dungeon {
 		{
 			dungeon[lever.getCoord().getY()][lever.getCoord().getX()] = 'k';
 		}
-		
-		if (hero.getState() != State.DEAD)
-		{
-			dungeon[hero.getCoord().getY()][hero.getCoord().getX()] = 'H';
-		}
-		
-		if(guard.getState() != State.DEAD)
-		{
-			dungeon[guard.getCoord().getY()][guard.getCoord().getX()] = 'G';
-		}
+		updateDoors(doors);
 	}
 	
-	public void updateDoors()
+	public void updateDoors(ArrayList<Door> doors)
+	{
+		
+	}
+	
+	public void changeDoors()
 	{
 		for (int i = 0; i < height; i++)
 		{
@@ -179,20 +191,66 @@ public class Dungeon {
 	
 	public Key spawnKey(int currentLevel)
 	{
-		for (int i = 0; i < height; i++)
+		if(currentLevel == 2)
 		{
-			for (int j = 0; j < width; j++)
+			for (int i = 0; i < height; i++)
 			{
-				final char currentTile = dungeon[i][j];
-				if(currentTile == 'k' && currentLevel == 2)
+				for (int j = 0; j < width; j++)
 				{
-					return new Key(j,i,'k');
+					final char currentTile = dungeon[i][j];
+					if(currentTile == 'k')
+					{
+						return new Key(j,i,'k');
+					}
+						
 				}
-					
 			}
 		}
 		return null;
 	}
 	
+	public ArrayList<Door> spawnDoors()
+	{
+		ArrayList<Door>doors = new ArrayList<Door>();
+		for (int i =	 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				final char currentTile = dungeon[i][j];
+				if(currentTile == 'I' || currentTile == 'S')
+				{
+					final boolean trueDoor = checkAdjacent(i,j,'D');
+					final Door door = new Door(j,i,currentTile,trueDoor);
+					doors.add(door);
+				}
+					
+			}
+		}
+		return doors;
+	}
+	
+	//checks adjacent tiles for a specific symbol
+	public boolean checkAdjacent(int x, int y, char symbol)
+	{
+		if(x == 0 || x == width)
+		{
+			final char adjacentLeft = dungeon[x][y-1];
+			final char adjacentRight = dungeon[x][y+1];
+			if(symbol == 'D' && (adjacentLeft == 'I' || adjacentRight == 'S'))
+			{
+				return true;
+			}
+		}
+		else if (y == 0 || y == width)
+		{
+			final char adjacentUp = dungeon[x-1][y];
+			final char adjacentDown = dungeon[x+1][y];
+			if(symbol == 'D' && (adjacentUp == 'I' || adjacentDown == 'S'))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

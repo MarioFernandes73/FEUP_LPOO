@@ -16,7 +16,16 @@ public class Character extends GameObjects {
 		return currentState;
 	}
 	
-	public boolean movement(String movement, Dungeon dungeon)
+	public boolean isDead()
+	{
+		if (currentState == State.DEAD)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public int movement(String movement, Dungeon dungeon)
 	{
 		int nextX = 0, nextY = 0;
 		switch(movement)
@@ -46,32 +55,36 @@ public class Character extends GameObjects {
 				break;
 			}
 		}
-		final boolean validMove = auxMovement(nextX, nextY, dungeon);
+		final int validMove = auxMovement(nextX, nextY, dungeon);
 		
-		if (validMove)
+		if (validMove != 0)
 		{
 			super.getCoord().setLocation(nextX, nextY);
-			return true;
+			return validMove;
 		}
 		else
 		{
-			return false;
+			return 0;
 		}
 	}
 	
 	// returns possible if the current movement is a valid one or false if it's invalid
-	public boolean auxMovement(int nextX,int nextY, Dungeon dungeon)
+	public int auxMovement(int nextX,int nextY, Dungeon dungeon)
 	{
 		final char nextTile = dungeon.getDungeon()[nextY][nextX];
 		if(nextTile == ' ')
 		{
-			return true;
+			return 1;
 		}
 		else if(nextTile == 'X' || nextTile == 'I')
 		{
-			return false;
+			return 0;
+		}
+		else if(nextTile == 'k')
+		{
+			return 2;
 		}
 		
-		return true;
+		return 1;
 	}
 }

@@ -32,6 +32,5 @@ public class GameObjects {
 	{
 		this.visible = visible;
 	}
-
 }
 
