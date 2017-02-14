@@ -56,6 +56,10 @@ public class Character extends GameObjects {
 			}
 		}
 		
+		if(nextY < 0 || nextX < 0 || nextY >=dungeon.getWidth() || nextX >= dungeon.getHeight())
+		{
+			return 0;
+		}
 		final int validMove = auxMovement(nextX, nextY, dungeon);//by default its 1, which means it is a valid movement without any consequences in the game state
 		
 		if (validMove != 0)
