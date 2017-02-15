@@ -31,6 +31,5 @@ public class Ogre extends Character {
 			randomMove = "d";
 		}
 		return randomMove;
-	}
-	
+	}	
 }

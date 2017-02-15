@@ -81,17 +81,29 @@ public class Character extends GameObjects {
 	public int auxMovement(int nextX,int nextY, Dungeon dungeon)
 	{
 		final int nextTile = dungeon.getDungeon()[nextY][nextX];
-		if(nextTile == 0)
+		if(nextTile == 0)	//empty tile
 		{
 			return 1;
 		}
+		//blocked tile
 		else if(nextTile == 1 || nextTile == 4 || nextTile == 6 || (nextX < 0 || nextY < 0 || nextX >= dungeon.getWidth() || nextY >= dungeon.getHeight()))
 		{
 			return 0;
 		}
-		else if(nextTile == 8 || nextTile == 9)
+		//exit tile
+		else if (nextTile == 7)
 		{
 			return 2;
+		}
+		//lever tile
+		else if(nextTile == 8)
+		{
+			return 3;
+		}
+		//key tile
+		else if(nextTile == 9)
+		{
+			return 4;
 		}
 		
 		return 1;
