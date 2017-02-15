@@ -5,7 +5,7 @@ import java.util.Random;
 public class Character extends GameObjects {
 
 	public enum State {ALIVE, HASKEY, DEAD};
-	private State currentState;
+	protected State currentState;
 	
 	public Character(int x, int y, int identifier)
 	{
@@ -18,7 +18,7 @@ public class Character extends GameObjects {
 		return currentState;
 	}
 	
-	public boolean isDead()
+	public boolean isDead(Dungeon dungeon)
 	{
 		if (currentState == State.DEAD)
 		{

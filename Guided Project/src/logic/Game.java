@@ -21,6 +21,10 @@ public class Game {
 		spawnEntities();
 	}
 	
+	public Dungeon getDungeon()
+	{
+		return dungeon;
+	}
 	public void spawnEntities()
 	{
 		for (int i = 0; i < dungeon.getHeight(); i++)
