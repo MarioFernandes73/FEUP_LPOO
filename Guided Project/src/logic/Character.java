@@ -5,7 +5,7 @@ import java.util.Random;
 public class Character extends GameObjects {
 
 	public enum State {ALIVE, HASKEY, DEAD};
-	private State currentState;
+	protected State currentState;
 	
 	public Character(int x, int y, int identifier)
 	{
@@ -18,7 +18,7 @@ public class Character extends GameObjects {
 		return currentState;
 	}
 	
-	public boolean isDead()
+	public boolean isDead(Dungeon dungeon)
 	{
 		if (currentState == State.DEAD)
 		{
@@ -85,7 +85,7 @@ public class Character extends GameObjects {
 		{
 			return 1;
 		}
-		else if(nextTile == 1 || nextTile == 4 || nextTile == 6 || (nextX < 0 || nextY < 0 || nextX >= dungeon.getWidth() || nextY >= dungeon.getHeight()))
+		else if(nextTile == 1 || nextTile == 4 || nextTile == 6)
 		{
 			return 0;
 		}
@@ -93,7 +93,6 @@ public class Character extends GameObjects {
 		{
 			return 2;
 		}
-		
 		return 1;
 	}
 }

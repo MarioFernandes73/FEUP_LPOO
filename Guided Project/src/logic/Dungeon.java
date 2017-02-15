@@ -114,12 +114,11 @@ public class Dungeon {
 			final int leverIdentifier = lever.getIdentifier();
 			updateTile(leverCoord, leverIdentifier);
 		}
-		if (hero.isDead() == false)
-		{
+
 			final Point heroCoord = hero.getCoord();
 			final int heroIdentifier = hero.getIdentifier();
 			updateTile(heroCoord, heroIdentifier);
-		}
+		
 	}
 	
 	public void updateNpcs(ArrayList<Character> npcs)
@@ -127,12 +126,12 @@ public class Dungeon {
 		for (int i = 0; i<npcs.size(); i++)
 		{
 			final Character npc = npcs.get(i);
-			if(npc.isDead() == false)
-			{
+			//if(npc.isDead() == false)
+			//{
 				final Point guardCoord = npc.getCoord();
 				final int guardIdentifier = npc.getIdentifier();
 				updateTile(guardCoord, guardIdentifier);
-			}
+			//}
 		}
 	}
 	
@@ -177,18 +176,24 @@ public class Dungeon {
 		}
 	}
 	
-	//checks adjacent tiles for a specific identifier (does nothing yet)
+	//returns true if a given identifier is located in an adjacent tile, false otherwise
 	public boolean checkAdjacent(int x, int y, int identifier)
 	{
-		if(x == 0 || x == width)
+		if(x > 0 && dungeon[y][x-1]==identifier)//checks left
 		{
-			final int adjacentLeft = dungeon[x][y-1];
-			final int adjacentRight = dungeon[x][y+1];
+			return true;
 		}
-		else if (y == 0 || y == width)
+		if (x < (width-1) && dungeon[y][x+1]==identifier)//checks right
 		{
-			final int adjacentUp = dungeon[x-1][y];
-			final int adjacentDown = dungeon[x+1][y];
+			return true;
+		}
+		if(y > 0 && dungeon[y-1][x]==identifier)//checks top
+		{
+			return true;
+		}
+		if (y < (height-1) && dungeon[y+1][x]==identifier)//checks bottom
+		{
+			return true;
 		}
 		return false;
 	}

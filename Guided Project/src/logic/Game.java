@@ -21,6 +21,10 @@ public class Game {
 		spawnEntities();
 	}
 	
+	public Dungeon getDungeon()
+	{
+		return dungeon;
+	}
 	public void spawnEntities()
 	{
 		for (int i = 0; i < dungeon.getHeight(); i++)
@@ -68,8 +72,8 @@ public class Game {
 	
 	public boolean playerTurn(String heroMovement)
 	{
-		final int heroState = hero.movement(heroMovement, dungeon);		//hero moves
 		final boolean runningNpcs = npcsMovement();						//npcs move and interact
+		final int heroState = hero.movement(heroMovement, dungeon);		//hero moves
 		final boolean runningHero = heroStateStateMachine(heroState);	//hero interact
 		dungeon.updateDungeon(hero, npcs, key, lever, doors);			//dungeon updates (effectively and visually)
 		running = (runningHero || runningNpcs);	
@@ -94,7 +98,7 @@ public class Game {
 	
 	public boolean heroStateStateMachine(int heroState)
 	{		
-		if(hero.isDead() || heroState == 2)		// hero has either died or finished the level
+		if(heroState == 2)		// hero has either died or finished the level
 		{
 			return false;
 		}
