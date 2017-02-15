@@ -4,9 +4,9 @@ public class Hero extends Character{
 	
 	private boolean key;
 	
-	public Hero(int x, int y, char symbol)
+	public Hero(int x, int y, int identifier)
 	{
-		super(x,y,symbol);
+		super(x,y,identifier);
 		key = false;
 	}
 	
@@ -23,19 +23,23 @@ public class Hero extends Character{
 	@Override
 	public int auxMovement(int nextX, int nextY, Dungeon dungeon) //returns true if the hero 
 	{
-		char nextTile = dungeon.getDungeon()[nextY][nextX];
+		final int nextTile = dungeon.getDungeon()[nextY][nextX];
 		
-		if(nextTile == 'X' || nextTile == 'I' || nextTile == ' ')
+		if(nextTile == 0 || nextTile == 1 || nextTile == 4 || nextTile == 6 )	//moves to a generic tile (wall, closed door etc.)
 		{
 			return super.auxMovement(nextX, nextY, dungeon);
 		}	
-		else if(nextTile == 'k')
+		else if(nextTile == 7 ) // moves to an opened exit door
 		{
 			return 2;
 		}
-		else if(nextTile == 'S')
+		else if(nextTile == 8)	//moves to a lever
 		{
 			return 3;
+		}
+		else if(nextTile == 9)	// moves to a key
+		{
+			return 4;
 		}
 		return 1;
 	}

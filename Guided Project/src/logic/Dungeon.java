@@ -8,32 +8,32 @@ public class Dungeon {
 	
 	private int height;
 	private int width;
-	private static char dungeon[][];
+	private static int dungeon[][];
 	
 	//Default Dungeon (used for early tests)
-	static char[][] defaultDungeon1 = 
-		{{'X','X','X','X','X','X','X','X','X','X'},
-		 {'X','H',' ',' ','I',' ','X',' ','G','X'},
-		 {'X','X','X',' ','X','X','X',' ',' ','X'},
-		 {'X',' ','I',' ','I',' ','X',' ',' ','X'},
-		 {'X','X','X',' ','X','X','X',' ',' ','X'},
-		 {'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X','X','X',' ','X','X','X','X',' ','X'},
-		 {'X',' ','I',' ','I',' ','X','k',' ','X'},
-		 {'X','X','X','X','X','X','X','X','X','X'}};
+	static int[][] defaultDungeon1 = 
+		{{1,1,1,1,1,1,1,1,1,1},
+		 {1,2,0,0,4,0,1,0,3,1},
+		 {1,1,1,0,1,1,1,0,0,1},
+		 {1,0,4,0,4,0,1,0,0,1},
+		 {1,1,1,0,1,1,1,0,0,1},
+		 {6,0,0,0,0,0,0,0,0,1},
+		 {6,0,0,0,0,0,0,0,0,1},
+		 {1,1,1,0,1,1,1,1,0,1},
+		 {1,0,4,0,4,0,1,8,0,1},
+		 {1,1,1,1,1,1,1,1,1,1}};
 	
-	static char[][] defaultDungeon2 = 
-		{{'X','X','X','X','X','X','X','X','X','X'},
-		 {'I',' ',' ',' ','O',' ',' ',' ','k','X'},
-		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X','H',' ',' ',' ',' ',' ',' ',' ','X'},
-		 {'X','X','X','X','X','X','X','X','X','X'}};
+	static int[][] defaultDungeon2 = 
+		{{1,1,1,1,1,1,1,1,1,1},
+		 {4,0,0,0,10,0,0,0,9,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,2,0,0,0,0,0,0,0,1},
+		 {1,1,1,1,1,1,1,1,1,1}};
 	
 	
 	public Dungeon(int level)
@@ -51,7 +51,7 @@ public class Dungeon {
 		width = dungeon[0].length;	//length of the first line of the defaultDungeon; generic since defaultDungeon always has the same width
 	}
 
-	public char[][] getDungeon()
+	public int[][] getDungeon()
 	{
 		return dungeon;
 	}
@@ -74,7 +74,8 @@ public class Dungeon {
 		{
 			for (int j = 0; j < width; j++)
 			{
-				dungeonString += dungeon[i][j] + " ";
+				final char currentTile = Auxiliary.identifierSwitch(dungeon[i][j]);
+				dungeonString += currentTile + " ";
 			}
 			dungeonString += "\n";
 		}
@@ -87,10 +88,10 @@ public class Dungeon {
 		{
 			for (int j = 0; j < width; j++)
 			{
-				final char currentTile = dungeon[i][j];
-				if(currentTile != 'X' && currentTile != ' ' && currentTile != 'k' && currentTile != 'I' && currentTile != 'S')
+				final int currentTile = dungeon[i][j];
+				if(currentTile != 0 && currentTile != 1)
 				{
-					dungeon[i][j] = ' ';
+					dungeon[i][j] = 0;
 				}
 			}
 		}
@@ -102,153 +103,85 @@ public class Dungeon {
 	{
 		if(key != null)
 		{
-			dungeon[key.getCoord().getY()][key.getCoord().getX()] = 'k';
+			final Point keyCoord = key.getCoord();
+			final int keyIdentifier = key.getIdentifier();
+			updateTile(keyCoord, keyIdentifier);
 		}
 		if(lever != null)
 		{
-			dungeon[lever.getCoord().getY()][lever.getCoord().getX()] = 'k';
+			final Point leverCoord = lever.getCoord();
+			final int leverIdentifier = lever.getIdentifier();
+			updateTile(leverCoord, leverIdentifier);
 		}
 		if (hero.isDead() == false)
 		{
-			dungeon[hero.getCoord().getY()][hero.getCoord().getX()] = 'H';
+			final Point heroCoord = hero.getCoord();
+			final int heroIdentifier = hero.getIdentifier();
+			updateTile(heroCoord, heroIdentifier);
 		}
 		
 		if(guard.isDead() == false)
 		{
-			dungeon[guard.getCoord().getY()][guard.getCoord().getX()] = 'G';
+			final Point guardCoord = guard.getCoord();
+			final int guardIdentifier = guard.getIdentifier();
+			updateTile(guardCoord, guardIdentifier);
 		}
 
 	}
 	
 	public void updateDoors(ArrayList<Door> doors)
 	{
-		
+		for (int i = 0; i < doors.size(); i++)
+		{
+			final Point doorCoord = doors.get(i).getCoord();
+			final int doorIdentifier = doors.get(i).getIdentifier();
+			updateTile (doorCoord, doorIdentifier);
+		}
 	}
 	
-	public void changeDoors()
+	public void updateTile(Point p, int identifier)
 	{
-		for (int i = 0; i < height; i++)
+		final int xCoord = p.getX();
+		final int yCoord = p.getY();
+		dungeon[yCoord][xCoord] = identifier;
+	}
+	
+	public void changeDoors(ArrayList<Door> doors)
+	{
+		for(int i = 0; i < doors.size(); i++)
 		{
-			for (int j = 0; j < width; j++)
+			final int currentIdentifier = doors.get(i).getIdentifier();
+			if(currentIdentifier == 4)
 			{
-				if(dungeon[i][j] == 'I')
-				{
-					dungeon[i][j] = 'S';
-				}
-				else if(dungeon[i][j] == 'S')
-				{
-					dungeon[i][j] = 'I';
-				}
+				doors.get(i).setIdentifier(5);
+			}
+			else if(currentIdentifier == 5)
+			{
+				doors.get(i).setIdentifier(4);
+			}
+			else if(currentIdentifier == 6)
+			{
+				doors.get(i).setIdentifier(7);
+			}
+			else if(currentIdentifier == 7)
+			{
+				doors.get(i).setIdentifier(6);
 			}
 		}
 	}
 	
-	//spawn functions: once the map is ready, the objects will spawn on the map on the marked locations.
-	public Hero spawnHero()
-	{
-		for (int i = 0; i < height; i++)
-		{
-			for (int j = 0; j < width; j++)
-			{
-				final char currentTile = dungeon[i][j];
-				if(currentTile == 'H')
-					return new Hero(j,i,'H');
-			}
-		}
-		return null;
-	}
-	
-	public Guard spawnGuard()
-	{
-		for (int i = 0; i < height; i++)
-		{
-			for (int j = 0; j < width; j++)
-			{
-				final char currentTile = dungeon[i][j];
-				if(currentTile == 'G')
-					return new Guard(j,i,'G');
-			}
-		}
-		return null;
-	}
-	
-	public Lever spawnLever(int currentLevel)
-	{
-		for (int i = 0; i < height; i++)
-		{
-			for (int j = 0; j < width; j++)
-			{
-				final char currentTile = dungeon[i][j];
-				if(currentTile == 'k' && currentLevel == 1)
-				{
-					return new Lever(j,i,'k');
-				}
-					
-			}
-		}
-		return null;
-	}
-	
-	public Key spawnKey(int currentLevel)
-	{
-		if(currentLevel == 2)
-		{
-			for (int i = 0; i < height; i++)
-			{
-				for (int j = 0; j < width; j++)
-				{
-					final char currentTile = dungeon[i][j];
-					if(currentTile == 'k')
-					{
-						return new Key(j,i,'k');
-					}
-						
-				}
-			}
-		}
-		return null;
-	}
-	
-	public ArrayList<Door> spawnDoors()
-	{
-		ArrayList<Door>doors = new ArrayList<Door>();
-		for (int i =	 0; i < height; i++)
-		{
-			for (int j = 0; j < width; j++)
-			{
-				final char currentTile = dungeon[i][j];
-				if(currentTile == 'I' || currentTile == 'S')
-				{
-					final boolean trueDoor = checkAdjacent(i,j,'D');
-					final Door door = new Door(j,i,currentTile,trueDoor);
-					doors.add(door);
-				}
-					
-			}
-		}
-		return doors;
-	}
-	
-	//checks adjacent tiles for a specific symbol
-	public boolean checkAdjacent(int x, int y, char symbol)
+	//checks adjacent tiles for a specific identifier (does nothing yet)
+	public boolean checkAdjacent(int x, int y, int identifier)
 	{
 		if(x == 0 || x == width)
 		{
-			final char adjacentLeft = dungeon[x][y-1];
-			final char adjacentRight = dungeon[x][y+1];
-			if(symbol == 'D' && (adjacentLeft == 'I' || adjacentRight == 'S'))
-			{
-				return true;
-			}
+			final int adjacentLeft = dungeon[x][y-1];
+			final int adjacentRight = dungeon[x][y+1];
 		}
 		else if (y == 0 || y == width)
 		{
-			final char adjacentUp = dungeon[x-1][y];
-			final char adjacentDown = dungeon[x+1][y];
-			if(symbol == 'D' && (adjacentUp == 'I' || adjacentDown == 'S'))
-			{
-				return true;
-			}
+			final int adjacentUp = dungeon[x-1][y];
+			final int adjacentDown = dungeon[x+1][y];
 		}
 		return false;
 	}

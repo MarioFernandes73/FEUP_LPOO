@@ -2,8 +2,8 @@ package logic;
 
 public class Lever extends GameObjects{
 
-	public Lever(int x, int y, char symbol)
+	public Lever(int x, int y, int identifier)
 	{
-		super(x,y,symbol);
+		super(x,y,identifier);
 	}
 }

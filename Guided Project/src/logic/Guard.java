@@ -7,9 +7,9 @@ public class Guard extends Character {
 	
 	static String[] defaultMovementList = {"a","s","s","s","s","a","a","a","a","a","a","s","d","d","d","d","d","d","d","w","w","w","w","w"};
 	
-	public Guard(int x, int y, char symbol) 
+	public Guard(int x, int y, int identifier) 
 	{
-		super(x, y, symbol);
+		super(x, y, identifier);
 		movementList = defaultMovementList;
 		nextMovement = 0;
 	}

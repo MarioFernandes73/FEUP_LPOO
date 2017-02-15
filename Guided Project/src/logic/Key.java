@@ -2,9 +2,9 @@ package logic;
 
 public class Key extends GameObjects {
 
-	public Key(int x, int y, char symbol)
+	public Key(int x, int y, int identifier)
 	{
-		super(x,y,symbol);
+		super(x,y,identifier);
 	}
 	
 }

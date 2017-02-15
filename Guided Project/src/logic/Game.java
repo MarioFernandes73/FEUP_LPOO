@@ -11,19 +11,50 @@ public class Game {
 	private Guard guard;
 	private Key key;
 	private Lever lever;
-	private ArrayList<Door> doors;
+	private ArrayList<Door> doors = new ArrayList<Door>();
+	private Ogre ogre;
 
 	public Game(int level)
 	{
 		dungeon = new Dungeon(level);
-		hero = new Hero(1,1,'H');
 		this.level = level;
-		
-		hero = dungeon.spawnHero();
-		guard = dungeon.spawnGuard();
-		key = dungeon.spawnKey(level);
-		lever = dungeon.spawnLever(level);
-		doors = dungeon.spawnDoors();
+		running = true;
+		spawnEntities();
+	}
+	
+	public void spawnEntities()
+	{
+		for (int i = 0; i < dungeon.getHeight(); i++)
+		{
+			for (int j = 0; j< dungeon.getWidth(); j++)
+			{
+				final int tile = dungeon.getDungeon()[i][j];
+				if(tile == 2)
+				{
+					hero = new Hero(j,i,tile);
+				}
+				else if (tile == 3)
+				{
+					guard = new Guard(j,i,tile);
+				}
+				else if(tile == 4 || tile == 5 || tile == 6 || tile == 7)
+				{
+					doors.add(new Door(j,i,tile));
+				}
+				else if(tile == 8)
+				{
+					lever = new Lever(j,i,tile);
+				}
+				else if(tile == 9)
+				{
+					key = new Key(j,i,tile);
+				}
+				else if(tile == 10)
+				{
+					ogre = new Ogre(j,i,tile);
+				}
+			}
+		}
 	}
 	
 	public String printDungeonString()
@@ -46,27 +77,27 @@ public class Game {
 	}
 	
 	public boolean heroStateStateMachine(int heroState)
-	{
-		if((heroState == 0 && hero.isDead()) || heroState == 3)		// hero has either died or finished the level
+	{		
+		if((heroState == 0 && hero.isDead()) || heroState == 2)		// hero has either died or finished the level
 		{
 			return false;
 		}
 		else if(heroState == 1)		// hero has made a valid movement
 		{
-			
+			return true;
 		}
-		else if(heroState == 2)		// hero has walked over a level/key
+//		else if(heroState == 2)		// hero has finished the level
+//		{
+//
+//		}
+		else if(heroState == 3)		// hero has walked over a lever
 		{
-			if(key == null)
-			{
-				dungeon.changeDoors();
-			}
-			else
-			{
-				hero.setKey(true);
-			}
+			dungeon.changeDoors(doors);
+		}
+		else if(heroState == 4)		//hero has walked over a key
+		{
+			hero.setKey(true);			
 		}
 		return true;
-	}
-	
+	}	
 }

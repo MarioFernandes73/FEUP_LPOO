@@ -2,12 +2,12 @@ package logic;
 
 public class Character extends GameObjects {
 
-	public enum State {ALIVE, DEAD};
+	public enum State {ALIVE, HASKEY, DEAD};
 	private State currentState;
 	
-	public Character(int x, int y, char symbol)
+	public Character(int x, int y, int identifier)
 	{
-		super(x,y,symbol);
+		super(x,y,identifier);
 		currentState = State.ALIVE;
 	}
 	
@@ -72,16 +72,16 @@ public class Character extends GameObjects {
 	// returns possible if the current movement is a valid one or false if it's invalid
 	public int auxMovement(int nextX,int nextY, Dungeon dungeon)
 	{
-		final char nextTile = dungeon.getDungeon()[nextY][nextX];
-		if(nextTile == ' ')
+		final int nextTile = dungeon.getDungeon()[nextY][nextX];
+		if(nextTile == 0)
 		{
 			return 1;
 		}
-		else if(nextTile == 'X' || nextTile == 'I' || (nextX < 0 || nextY < 0 || nextX >= dungeon.getWidth() || nextY >= dungeon.getHeight()))
+		else if(nextTile == 1 || nextTile == 4 || nextTile == 6 || (nextX < 0 || nextY < 0 || nextX >= dungeon.getWidth() || nextY >= dungeon.getHeight()))
 		{
 			return 0;
 		}
-		else if(nextTile == 'k')
+		else if(nextTile == 8 || nextTile == 9)
 		{
 			return 2;
 		}
