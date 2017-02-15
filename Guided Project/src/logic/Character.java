@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.Random;
+
 public class Character extends GameObjects {
 
 	public enum State {ALIVE, HASKEY, DEAD};
@@ -23,6 +25,12 @@ public class Character extends GameObjects {
 			return true;
 		}
 		return false;
+	}
+	
+	// constructs a random movement and makes it
+	public String createMovement()
+	{
+		return "";
 	}
 	
 	public int movement(String movement, Dungeon dungeon)

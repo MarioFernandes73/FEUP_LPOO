@@ -13,7 +13,7 @@ public class Guard extends Character {
 		movementList = defaultMovementList;
 		nextMovement = 0;
 	}
-	public String nextMovement()
+	public String createMovement()
 	{
 		String movement = defaultMovementList[nextMovement];
 		

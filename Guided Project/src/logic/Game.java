@@ -8,11 +8,10 @@ public class Game {
 	private Dungeon dungeon;
 	private int level;
 	private Hero hero;
-	private Guard guard;
 	private Key key;
 	private Lever lever;
 	private ArrayList<Door> doors = new ArrayList<Door>();
-	private Ogre ogre;
+	private ArrayList<Character> npcs = new ArrayList<Character>();
 
 	public Game(int level)
 	{
@@ -35,7 +34,7 @@ public class Game {
 				}
 				else if (tile == 3)
 				{
-					guard = new Guard(j,i,tile);
+					npcs.add(new Guard(j,i,tile));
 				}
 				else if(tile == 4 || tile == 5 || tile == 6 || tile == 7)
 				{
@@ -51,7 +50,7 @@ public class Game {
 				}
 				else if(tile == 10)
 				{
-					ogre = new Ogre(j,i,tile);
+					npcs.add(new Ogre(j,i,tile));
 				}
 			}
 		}
@@ -69,16 +68,33 @@ public class Game {
 	
 	public boolean playerTurn(String heroMovement)
 	{
-		guard.movement(guard.nextMovement(), dungeon);
-		final int heroState = hero.movement(heroMovement, dungeon);
-		final boolean running = heroStateStateMachine(heroState);
-		dungeon.updateDungeon(hero, guard, key, lever, doors);
-		return running;
+		final int heroState = hero.movement(heroMovement, dungeon);		//hero moves
+		final boolean runningNpcs = npcsMovement();						//npcs move and interact
+		final boolean runningHero = heroStateStateMachine(heroState);	//hero interact
+		dungeon.updateDungeon(hero, npcs, key, lever, doors);			//dungeon updates (effectively and visually)
+		running = (runningHero || runningNpcs);	
+		return running;													//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
+	
+	public boolean npcsMovement()
+	{
+		for (int i = 0; i < npcs.size(); i++)
+		{
+			final Character npc = npcs.get(i);
+			final String move = npc.createMovement();
+			final int running = npc.movement(move, dungeon);
+			if (running == 1)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	
 	public boolean heroStateStateMachine(int heroState)
 	{		
-		if((heroState == 0 && hero.isDead()) || heroState == 2)		// hero has either died or finished the level
+		if(hero.isDead() || heroState == 2)		// hero has either died or finished the level
 		{
 			return false;
 		}

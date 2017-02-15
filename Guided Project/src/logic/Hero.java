@@ -25,7 +25,7 @@ public class Hero extends Character{
 	{
 		final int nextTile = dungeon.getDungeon()[nextY][nextX];
 		
-		if(nextTile == 0 || nextTile == 1 || nextTile == 4 || nextTile == 6 )	//moves to a generic tile (wall, closed door etc.)
+		if(nextTile == 0 || nextTile == 1)	//moves to a generic tile (wall, free space)
 		{
 			return super.auxMovement(nextX, nextY, dungeon);
 		}	

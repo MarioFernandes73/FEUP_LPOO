@@ -82,7 +82,7 @@ public class Dungeon {
 		return dungeonString;
 	}
 	
-	public void updateDungeon(Hero hero, Guard guard, Key key, Lever lever, ArrayList<Door> doors)
+	public void updateDungeon(Hero hero, ArrayList<Character> npcs, Key key, Lever lever, ArrayList<Door> doors)
 	{
 		for (int i = 0; i < height; i++)
 		{
@@ -96,10 +96,11 @@ public class Dungeon {
 			}
 		}
 		updateDoors(doors);
-		updateObjects(hero, guard, key, lever);
+		updateNpcs(npcs);
+		updateObjects(hero, key, lever);
 	}
 	
-	public void updateObjects(Hero hero, Guard guard, Key key, Lever lever)
+	public void updateObjects(Hero hero, Key key, Lever lever)
 	{
 		if(key != null)
 		{
@@ -119,14 +120,20 @@ public class Dungeon {
 			final int heroIdentifier = hero.getIdentifier();
 			updateTile(heroCoord, heroIdentifier);
 		}
-		
-		if(guard.isDead() == false)
+	}
+	
+	public void updateNpcs(ArrayList<Character> npcs)
+	{
+		for (int i = 0; i<npcs.size(); i++)
 		{
-			final Point guardCoord = guard.getCoord();
-			final int guardIdentifier = guard.getIdentifier();
-			updateTile(guardCoord, guardIdentifier);
+			final Character npc = npcs.get(i);
+			if(npc.isDead() == false)
+			{
+				final Point guardCoord = npc.getCoord();
+				final int guardIdentifier = npc.getIdentifier();
+				updateTile(guardCoord, guardIdentifier);
+			}
 		}
-
 	}
 	
 	public void updateDoors(ArrayList<Door> doors)
