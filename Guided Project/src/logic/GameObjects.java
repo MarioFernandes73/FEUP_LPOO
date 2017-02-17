@@ -44,5 +44,10 @@ public class GameObjects {
 	{
 		this.identifier = identifier;
 	}
+	
+	public void move(Point p)
+	{
+		this.coordinates.setLocation(p);
+	}
 }
 

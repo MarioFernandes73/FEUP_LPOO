@@ -26,12 +26,14 @@ public class Main {
 			if(heroMovement.equals("w") || heroMovement.equals("a") || heroMovement.equals("s") || heroMovement.equals("d") )
 			{
 				running = game.playerTurn(heroMovement);
-				if(game.getHero().isDead(game.getDungeon()))
-				{break;}
+				if(game.getHero().isDead())
+				{
+					break;
+				}
 				
 				if(running == false)		// level has ended
 				{
-					final boolean heroIsDead = game.getHero().isDead(game.getDungeon());
+					final boolean heroIsDead = game.getHero().isDead();
 					if((currentLevel == maximumLevels) || heroIsDead)
 					{
 						break;		

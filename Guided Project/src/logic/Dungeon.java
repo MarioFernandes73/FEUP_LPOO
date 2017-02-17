@@ -1,7 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import logic.Character.State;
 
 
 public class Dungeon {
@@ -126,12 +125,12 @@ public class Dungeon {
 		for (int i = 0; i<npcs.size(); i++)
 		{
 			final Character npc = npcs.get(i);
-			//if(npc.isDead() == false)
-			//{
+			if(npc.isDead() == false)
+			{
 				final Point guardCoord = npc.getCoord();
 				final int guardIdentifier = npc.getIdentifier();
 				updateTile(guardCoord, guardIdentifier);
-			//}
+			}
 		}
 	}
 	
@@ -177,25 +176,49 @@ public class Dungeon {
 	}
 	
 	//returns true if a given identifier is located in an adjacent tile, false otherwise
-	public boolean checkAdjacent(int x, int y, int identifier)
+	public boolean checkAdjacent(Point p, int identifier)
 	{
+		final int x = p.getX();
+		final int y = p.getY();
 		if(x > 0 && dungeon[y][x-1]==identifier)//checks left
 		{
+			System.out.println("LEFT");
 			return true;
 		}
 		if (x < (width-1) && dungeon[y][x+1]==identifier)//checks right
 		{
+			System.out.println("RIGHT");
 			return true;
 		}
-		if(y > 0 && dungeon[y-1][x]==identifier)//checks top
+		if((y > 0) && dungeon[y-1][x]==identifier)//checks top
 		{
+			System.out.println("TOP");
 			return true;
 		}
-		if (y < (height-1) && dungeon[y+1][x]==identifier)//checks bottom
+		if ((y < (height-1)) && dungeon[y+1][x]==identifier)//checks bottom
 		{
+			System.out.println("BOTTOM");
 			return true;
 		}
 		return false;
 	}
+	
+	public int getTile(Point p)
+	{
+		final int xCoord = p.getX();
+		final int yCoord = p.getY();
+		return dungeon[yCoord][xCoord];
+	}
 
+	public void openDoor(ArrayList<Door> doors, Point p)
+	{
+		for(int i = 0; i < doors.size(); i++)
+		{
+			final Point doorCoord = doors.get(i).getCoord();
+			if(doorCoord == p)
+			{
+				doors.get(i).changeOpenedState();
+			}
+		}
+	}
 }

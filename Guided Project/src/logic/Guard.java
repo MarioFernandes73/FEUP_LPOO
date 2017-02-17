@@ -13,16 +13,26 @@ public class Guard extends Character {
 		movementList = defaultMovementList;
 		nextMovement = 0;
 	}
+	
+	@Override
 	public String createMovement()
 	{
-		String movement = defaultMovementList[nextMovement];
-		
-		//prepares the movement for the next update
-		if(nextMovement+1 == defaultMovementList.length)
-			nextMovement = 0;
-		else 
-			nextMovement++;
-		
+		String movement = defaultMovementList[nextMovement];		
 		return movement;
+	}
+	
+	@Override
+	public void move(Point p)
+	{
+		this.getCoord().setLocation(p);
+		nextMovement++;
+	}
+	
+	@Override
+	public boolean attack(Dungeon dungeon)
+	{
+		final Point coord = this.getCoord();
+		final boolean heroHit = dungeon.checkAdjacent(coord, 2);
+		return heroHit;
 	}
 }

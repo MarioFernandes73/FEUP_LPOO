@@ -25,6 +25,130 @@ public class Game {
 	{
 		return dungeon;
 	}
+	
+	
+	public String printDungeonString()
+	{
+		return dungeon.printDungeonString();
+	}
+	
+	public Hero getHero()
+	{
+		return hero;
+	}
+	
+	public boolean playerTurn(String heroMovement)
+	{
+		//hero turn
+		final Point heroNextCoord = hero.movement(heroMovement);								//hero moves and will (return) the state he is (dead, finishing the level, activating a lever, opening a door).
+		final int nextTile = dungeon.getTile(heroNextCoord);									//next tile identifier
+		final boolean runningHero = InteractionStateMachine(hero, nextTile, heroNextCoord);		//hero interact
+		dungeon.updateDungeon(hero, npcs, key, lever, doors);									//dungeon updates (effectively and visually)
+		//npc turn
+		npcsMovement();																			//npcs move
+		npcsAttack();																			//npcs attack
+		dungeon.updateDungeon(hero, npcs, key, lever, doors);									//dungeon updates (effectively and visually)
+		running = (hero.isDead() || runningHero);												//changes running to the appropriate state according to this turn
+		return running;																			//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
+	}
+	
+	public void npcsAttack()
+	{
+		for(int i = 0; i < npcs.size(); i++)
+		{
+			final boolean heroHit = npcs.get(i).attack(dungeon);
+			if(heroHit == true)
+			{
+				hero.died();
+			}
+		}
+	}
+	
+	public void npcsMovement()
+	{
+		for (int i = 0; i < npcs.size(); i++)
+		{
+			final Character npc = npcs.get(i);
+			final String move = npc.createMovement();
+			final Point npcTileMoved = npc.movement(move);
+			final int nextTile = dungeon.getTile(npcTileMoved);
+			final boolean runningNpc = InteractionStateMachine(npc, nextTile, npcTileMoved);		
+		}
+	}
+	
+	//returns true if the level is running or false if the level is over
+	//based on the the state of the hero and the tile he has just moved to determines what happens in the dungeon
+	//based on the tile he has just moved to, determines the action of the hero.
+	public boolean InteractionStateMachine(Character character, int tileMoved, Point tileCoord)
+	{
+		final boolean isVulnerable = character.isVulnerable();
+		if(tileMoved == 0)								//character selected an empty tile to move
+		{
+			character.move(tileCoord);
+		}
+		else if(tileMoved == 1)							// character selected a wall tile to move
+		{
+			
+		}
+		else if(tileMoved == 2)							// character moved to the hero tile
+		{
+			hero.died();
+		}
+		else if(tileMoved == 3)							// character moved to a guard tile;
+		{
+			if(isVulnerable)
+			{
+				character.died();
+			}
+		}
+		else if(tileMoved == 4 || tileMoved == 6)		// character moved to a closed door
+		{
+			final boolean closedDoorInteraction = character.closedDoorInteraction();
+			if(closedDoorInteraction)
+			{
+				dungeon.openDoor(doors, tileCoord);
+			}
+		}
+		else if(tileMoved == 5)							// character moved to an opened normal door
+		{
+			character.move(tileCoord);
+		}
+		else if(tileMoved == 7)							// character moved to an opened exit door
+		{
+			character.move(tileCoord);
+			character.getCoord().setLocation(tileCoord);
+			final boolean advanceLevel = character.canFinishLevel();
+			if(advanceLevel)
+			{
+				return false;
+			}
+			
+		}
+		else if(tileMoved == 8)							// character moved to a lever tile
+		{
+			character.move(tileCoord);
+			final boolean leverInteraction = character.leverInteraction();
+			if(leverInteraction)
+			{
+				dungeon.changeDoors(doors);				
+			}	
+		}
+		else if(tileMoved == 9)							// character moved to a key tile
+		{
+			character.move(tileCoord);
+			character.carryKey();
+		}
+		else if(tileMoved == 10)						// character moved to an ogre tile
+		{
+			if(isVulnerable)
+			{
+				character.died();
+			}
+		}
+		
+		return true;
+	}	
+	
 	public void spawnEntities()
 	{
 		for (int i = 0; i < dungeon.getHeight(); i++)
@@ -59,75 +183,4 @@ public class Game {
 			}
 		}
 	}
-	
-	public String printDungeonString()
-	{
-		return dungeon.printDungeonString();
-	}
-	
-	public Hero getHero()
-	{
-		return hero;
-	}
-	
-	public boolean playerTurn(String heroMovement)
-	{
-		final int heroTileMoved = hero.movement(heroMovement, dungeon);	//hero moves and will (return) the state he is (dead, finishing the level, activating a lever, opening a door).
-		final boolean runningNpcs = npcsMovement();						//npcs move and interact
-		final boolean runningHero = heroStateMachine(heroTileMoved);	//hero interact
-		dungeon.updateDungeon(hero, npcs, key, lever, doors);			//dungeon updates (effectively and visually)
-		running = (runningHero && runningNpcs);	
-		return running;													//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
-	}
-	
-	public boolean npcsMovement()
-	{
-		for (int i = 0; i < npcs.size(); i++)
-		{
-			final Character npc = npcs.get(i);
-			final String move = npc.createMovement();
-			final int npcTileMoved = npc.movement(move, dungeon);
-			final boolean running = npcStateMachine(npc, npcTileMoved);
-			if(running == false)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	
-	//returns true if the level is running or false if the level is over
-	//based on the state of the npc and the tile has has just moved to determines what happens in the dungeon
-	//based on the tile he has just moved to, determines the action of the npc.
-	public boolean npcStateMachine(Character npc, int npcTileMoved)
-	{
-		//if()
-	
-		return true;
-	}
-	
-	//returns true if the level is running or false if the level is over
-	//based on the the state of the hero and the tile he has just moved to determines what happens in the dungeon
-	//based on the tile he has just moved to, determines the action of the hero.
-	public boolean heroStateMachine(int heroTileMoved)
-	{		
-		if(hero.isDead() || heroTileMoved == 2)		// hero has either died or finished the level
-		{
-			return false;
-		}
-		else if(heroTileMoved == 1)		// hero has made a valid movement
-		{
-			return true;
-		}
-		else if(heroTileMoved == 3)		// hero has walked over a lever
-		{
-			dungeon.changeDoors(doors);
-		}
-		else if(heroTileMoved == 4)		//hero has walked over a key
-		{
-			hero.setKey(true);			
-		}
-		return true;
-	}	
 }
