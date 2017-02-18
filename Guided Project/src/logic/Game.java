@@ -39,6 +39,8 @@ public class Game {
 	
 	public boolean playerTurn(String heroMovement)
 	{
+		//prepare dungeon for next turn
+		resetSymbols();
 		//hero turn
 		final Point heroNextCoord = hero.movement(heroMovement);								//hero moves and will (return) the state he is (dead, finishing the level, activating a lever, opening a door).
 		final int nextTile = dungeon.getTile(heroNextCoord);									//next tile identifier
@@ -46,22 +48,63 @@ public class Game {
 		dungeon.updateDungeon(hero, npcs, key, lever, doors);									//dungeon updates (effectively and visually)
 		//npc turn
 		npcsMovement();																			//npcs move
-		npcsAttack();																			//npcs attack
+																			//npcs attack
 		dungeon.updateDungeon(hero, npcs, key, lever, doors);									//dungeon updates (effectively and visually)
+		npcsAttack();	
 		running = (hero.isDead() || runningHero);												//changes running to the appropriate state according to this turn
 		return running;																			//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
 	
+	public void resetSymbols()
+	{
+		if(key!=null && key.getSymbol() == '$')
+		{
+			key.setSymbol('k');
+		}
+
+	}
+	
 	public void npcsAttack()
 	{
+		boolean heroHit = false;
 		for(int i = 0; i < npcs.size(); i++)
 		{
-			final boolean heroHit = npcs.get(i).attack(dungeon);
-			if(heroHit == true)
+			Point[] tilesAttacked = npcs.get(i).attack();
+			Point[] tilesAttackedWeapon = npcs.get(i).weaponAttack();
+			for(int j = 0; j < tilesAttacked.length; j++)
+			{
+				final boolean normalAttack = dungeon.checkTile(tilesAttacked[j], 2);
+				heroHit = (heroHit | normalAttack);
+			}
+			if(tilesAttackedWeapon != null)
+			{
+				//check if weapon is on top of key
+				final boolean checkWeaponPosKey = dungeon.checkTile(tilesAttackedWeapon[0], 9);
+				final boolean checkWeaponPosSpace = dungeon.checkTile(tilesAttackedWeapon[0], 0);
+				if(checkWeaponPosKey)
+				{
+					key.setSymbol('$');
+				}
+				else if(checkWeaponPosSpace)
+				{
+					dungeon.setTile(tilesAttackedWeapon[0], 11);
+				}
+				
+				for(int j = 0; j < tilesAttackedWeapon.length; j++)
+				{
+					//check if weapon has killed hero
+					final boolean weaponAttack = dungeon.checkTile(tilesAttackedWeapon[j], 2);
+					heroHit = (heroHit | weaponAttack);
+				}
+			}
+			
+			if(heroHit)
 			{
 				hero.died();
+				return;
 			}
 		}
+
 	}
 	
 	public void npcsMovement()
@@ -136,7 +179,11 @@ public class Game {
 		else if(tileMoved == 9)							// character moved to a key tile
 		{
 			character.move(tileCoord);
-			character.carryKey();
+			final boolean hasKey = character.carryKey();
+			if(hasKey)
+			{
+				key=null;
+			}
 		}
 		else if(tileMoved == 10)						// character moved to an ogre tile
 		{

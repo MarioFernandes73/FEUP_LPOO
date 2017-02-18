@@ -50,10 +50,32 @@ public abstract class Auxiliary {
 		{
 			return 'O';
 		}
+		case 11:
+		{
+			return '*';
+		}
 		default:
 		{
 			return ' ';
 		}
 		}
+	}
+	
+	public static Point[] getAdjacentPos(Point p)
+	{
+		Point[] adjacentPos = new Point[5];
+		final int xCoord = p.getX();
+		final int yCoord = p.getY();
+		final Point adjacentUp = new Point(xCoord, yCoord-1);
+		final Point adjacentDown = new Point(xCoord, yCoord+1);
+		final Point adjacentLeft = new Point(xCoord-1, yCoord);
+		final Point adjacentRight = new Point(xCoord+1, yCoord);
+		adjacentPos[0]=p;
+		adjacentPos[1]=adjacentUp;
+		adjacentPos[2]=adjacentDown;
+		adjacentPos[3]=adjacentLeft;
+		adjacentPos[4]=adjacentRight;
+
+		return adjacentPos;
 	}
 }

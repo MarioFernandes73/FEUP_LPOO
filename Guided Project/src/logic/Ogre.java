@@ -37,19 +37,23 @@ public class Ogre extends Character {
 	}
 	
 	@Override
-	public boolean attack(Dungeon dungeon)
+	public Point[] attack()
 	{
-		final Point coord = this.getCoord();
-		final boolean heroHit = dungeon.checkAdjacent(coord, 2);
-		
+		Point[] areaAttacked = Auxiliary.getAdjacentPos(this.getCoord());
+		return areaAttacked;
+	}
+	
+	@Override
+	public Point[] weaponAttack()
+	{
+		Point[] areaAttacked = null;
 		if(club)
 		{
 			final String randomPosition = createMovement();
 			final Point clubPosition = this.movement(randomPosition);
-			checkClubPos(clubPosition, dungeon);
+			areaAttacked = Auxiliary.getAdjacentPos(clubPosition);
 		}
-		
-		return heroHit;
+		return areaAttacked;
 	}
 	
 	public void checkClubPos(Point p, Dungeon dungeon)

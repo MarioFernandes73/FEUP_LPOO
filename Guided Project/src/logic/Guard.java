@@ -17,7 +17,7 @@ public class Guard extends Character {
 	@Override
 	public String createMovement()
 	{
-		String movement = defaultMovementList[nextMovement];		
+		String movement = defaultMovementList[nextMovement];
 		return movement;
 	}
 	
@@ -26,13 +26,16 @@ public class Guard extends Character {
 	{
 		this.getCoord().setLocation(p);
 		nextMovement++;
+		if(nextMovement >= movementList.length)
+		{
+			nextMovement=0;
+		}
 	}
 	
 	@Override
-	public boolean attack(Dungeon dungeon)
+	public Point[] attack()
 	{
-		final Point coord = this.getCoord();
-		final boolean heroHit = dungeon.checkAdjacent(coord, 2);
-		return heroHit;
+		Point[] areaAttacked = Auxiliary.getAdjacentPos(this.getCoord());
+		return areaAttacked;
 	}
 }

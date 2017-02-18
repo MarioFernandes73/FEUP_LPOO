@@ -44,9 +44,10 @@ public class Hero extends Character{
 	}
 	
 	@Override
-	public void carryKey()
+	public boolean carryKey()
 	{
 		key = true;
+		return true;
 	}
 	
 	@Override

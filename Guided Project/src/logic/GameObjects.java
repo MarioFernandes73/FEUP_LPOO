@@ -15,6 +15,11 @@ public class GameObjects {
 		visible = true;
 	}
 	
+	public void setSymbol(char symbol)
+	{
+		this.symbol = symbol;
+	}
+	
 	public char getSymbol()
 	{
 		return symbol;

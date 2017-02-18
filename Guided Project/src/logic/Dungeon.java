@@ -24,7 +24,7 @@ public class Dungeon {
 	
 	static int[][] defaultDungeon2 = 
 		{{1,1,1,1,1,1,1,1,1,1},
-		 {4,0,0,0,10,0,0,0,9,1},
+		 {6,0,0,0,10,0,0,0,9,1},
 		 {1,0,0,0,0,0,0,0,0,1},
 		 {1,0,0,0,0,0,0,0,0,1},
 		 {1,0,0,0,0,0,0,0,0,1},
@@ -65,6 +65,12 @@ public class Dungeon {
 		return height;
 	}
 	
+	public void setTile(Point p, int identifier)
+	{
+		final int x = p.getX();
+		final int y = p.getY();
+		dungeon[y][x] = identifier;
+	}
 	
 	public String printDungeonString()
 	{
@@ -175,8 +181,24 @@ public class Dungeon {
 		}
 	}
 	
+	public boolean checkTile(Point p, int identifier)
+	{
+		final int x = p.getX();
+		final int y = p.getY();
+		if(x > 0 && y > 0 && x <= height && y <= width)
+		{
+			final int dungeonTileIdentifier = dungeon[y][x];
+			if(dungeonTileIdentifier == identifier)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}	
+	
 	//returns true if a given identifier is located in an adjacent tile, false otherwise
-	public boolean checkAdjacent(Point p, int identifier)
+	/*public boolean checkAdjacent(Point p, int identifier)
 	{
 		final int x = p.getX();
 		final int y = p.getY();
@@ -202,7 +224,7 @@ public class Dungeon {
 		}
 		return false;
 	}
-	
+	*/
 	public int getTile(Point p)
 	{
 		final int xCoord = p.getX();
@@ -215,7 +237,7 @@ public class Dungeon {
 		for(int i = 0; i < doors.size(); i++)
 		{
 			final Point doorCoord = doors.get(i).getCoord();
-			if(doorCoord == p)
+			if(doorCoord.equals(p))
 			{
 				doors.get(i).changeOpenedState();
 			}

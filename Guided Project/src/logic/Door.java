@@ -28,5 +28,9 @@ public class Door extends GameObjects{
 		{
 			this.setIdentifier(5);
 		}
+		else if(this.getIdentifier() == 6)
+		{
+			this.setIdentifier(7);
+		}
 	}
 }

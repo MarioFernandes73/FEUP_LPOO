@@ -67,9 +67,16 @@ public class Character extends GameObjects {
 		return new Point(nextX,nextY);
 	}
 	
-	public boolean attack(Dungeon dungeon)
+	public Point[] attack()
 	{
-		return false;
+		final Point[] noAttack = null;
+		return noAttack;
+	}
+	
+	public Point[] weaponAttack()
+	{
+		final Point[] noAttack = null;
+		return noAttack;
 	}
 	
 	public void died()
@@ -102,8 +109,8 @@ public class Character extends GameObjects {
 		return false;
 	}
 	
-	public void carryKey()
+	public boolean carryKey()
 	{
-		
+		return false;
 	}
 }
