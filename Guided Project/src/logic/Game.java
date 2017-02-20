@@ -209,7 +209,7 @@ public class Game {
 				}
 				else if (tile == 3)
 				{
-					npcs.add(new Guard(j,i,tile));
+					npcs.add(new Guard(j,i,tile));//construtor necessita de variavel personalidade
 				}
 				else if(tile == 4 || tile == 5 || tile == 6 || tile == 7)
 				{
