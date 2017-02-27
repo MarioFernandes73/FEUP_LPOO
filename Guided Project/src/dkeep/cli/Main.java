@@ -1,16 +1,18 @@
-package cli;
+package dkeep.cli;
 
 
 
-import logic.*;
+import dkeep.logic.*;
 
 import java.util.Scanner;
+
+import dkeep.logic.Game;
 
 public class Main {
 
 	public static void main(String[] args)
 	{
-		int currentLevel = 1;
+		int currentLevel = 2;
 		final int maximumLevels = 2;
 		Game game = new Game(currentLevel);
 		

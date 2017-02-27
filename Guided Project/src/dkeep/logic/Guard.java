@@ -1,4 +1,4 @@
-package logic;
+package dkeep.logic;
 
 import java.util.Random;
 
@@ -17,13 +17,13 @@ public class Guard extends Character {
 	private int nextMovement;
 	private int movementDirection = 1;//1 means it will move in the standard direction, -1 it will move in the opposite direction
 	static String[] defaultMovementList = {"a","s","s","s","s","a","a","a","a","a","a","s","d","d","d","d","d","d","d","w","w","w","w","w"};
-
-	public Guard(int x, int y, int identifier, Personality persona) 
-	{
-		super(x, y, identifier);
+	
+	public Guard(Point coord, int identifier, Personality personality) 
+{
+		super(coord, identifier,true,true);
 		movementList = defaultMovementList;
 		nextMovement = 0;
-		personality = persona;
+		this.personality = personality;
 	}
 
 	@Override

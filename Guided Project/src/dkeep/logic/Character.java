@@ -1,16 +1,14 @@
-package logic;
+package dkeep.logic;
 
-public class Character extends GameObjects {
+public class Character extends GameObject {
 
-	public enum State {ALIVE, HASKEY, DEAD};
+	public enum State {ALIVE, DEAD};
 	private State currentState;
-	private boolean vulnerable;
-	
-	public Character(int x, int y, int identifier)
+
+	public Character(Point coord, int identifier, boolean passable, boolean movable)
 	{
-		super(x,y,identifier);
+		super(coord, identifier, passable,movable);
 		currentState = State.ALIVE;
-		vulnerable = true;
 	}
 	
 	public State getState()
@@ -82,31 +80,6 @@ public class Character extends GameObjects {
 	public void died()
 	{
 		this.currentState = State.DEAD;
-	}
-
-	public boolean isVulnerable()
-	{
-		return vulnerable;
-	}
-	
-	public void setVulnerable(boolean vulnerable)
-	{
-		this.vulnerable=vulnerable;
-	}
-	
-	public boolean closedDoorInteraction()
-	{
-		return false;
-	}
-	
-	public boolean canFinishLevel()
-	{
-		return false;
-	}
-	
-	public boolean leverInteraction()
-	{
-		return false;
 	}
 	
 	public boolean carryKey()

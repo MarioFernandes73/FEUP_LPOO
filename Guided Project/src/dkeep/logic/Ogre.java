@@ -1,4 +1,4 @@
-package logic;
+package dkeep.logic;
 
 import java.util.Random;
 
@@ -6,9 +6,9 @@ public class Ogre extends Character {
 	
 	private boolean club;
 	
-	public Ogre(int x, int y, int identifier)
+	public Ogre(Point coord, int identifier)
 	{
-		super(x,y,identifier);
+		super(coord, identifier,true,true);
 		this.club = true;
 	}
 
@@ -60,7 +60,7 @@ public class Ogre extends Character {
 	{
 		final int nextX = p.getX();
 		final int nextY = p.getY();
-		final int nextTile = dungeon.getDungeon()[nextY][nextX];
+		//final int nextTile = dungeon.getDungeon()[nextY][nextX];
 		int nextTileIdentifier = 0;
 		//maquina de estados..
 	}
