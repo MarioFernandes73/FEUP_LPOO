@@ -1,6 +1,9 @@
 package dkeep.logic;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import dkeep.logic.Guard.Personality;
 
 public class Game {
 
@@ -17,34 +20,10 @@ public class Game {
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private ArrayList<Character> npcs = new ArrayList<Character>();
 	private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();
-
-	//Default Dungeon (used for early tests)
-	 int[][] defaultDungeon1 = 
-		{{1,1,1,1,1,1,1,1,1,1},
-		 {1,2,0,0,4,0,1,0,3,1},
-		 {1,1,1,0,1,1,1,0,0,1},
-		 {1,0,4,0,4,0,1,0,0,1},
-		 {1,1,1,0,1,1,1,0,0,1},
-		 {6,0,0,0,0,0,0,0,0,1},
-		 {6,0,0,0,0,0,0,0,0,1},
-		 {1,1,1,0,1,1,1,1,0,1},
-		 {1,0,4,0,4,0,1,8,0,1},
-		 {1,1,1,1,1,1,1,1,1,1}};
 	
-	int[][] defaultDungeon2 = 
-		{{1,1,1,1,1,1,1,1,1,1},
-		 {6,0,0,0,10,0,0,0,9,1},
-		 {1,0,0,0,0,0,0,0,0,1},
-		 {1,0,0,0,0,0,0,0,0,1},
-		 {1,0,0,0,0,0,0,0,0,1},
-		 {1,0,0,0,0,0,0,0,0,1},
-		 {1,0,0,0,0,0,0,0,0,1},
-		 {1,0,0,0,0,0,0,0,0,1},
-		 {1,2,0,0,0,0,0,0,0,1},
-		 {1,1,1,1,1,1,1,1,1,1}};
-	
-	public Game(int level)
+	public Game(int level, int[][]dungeonModel)
 	{
+		this.dungeonModel=dungeonModel;
 		genericEmptyTile = new Empty(0);
 		genericWallTile = new Wall(1);
 		this.level = level;
@@ -54,15 +33,6 @@ public class Game {
 	
 	public GameObject[][] createDungeon(int dungeonIdentifier)
 	{
-		if(dungeonIdentifier == 1)
-		{
-			dungeonModel = this.defaultDungeon1;
-		}
-		else
-		{
-			dungeonModel = this.defaultDungeon2;
-		}
-		
 		GameObject[][] defaultDungeon = new GameObject[dungeonModel.length][dungeonModel[0].length];
 		
 		//cycle that creates the skeleton of the dungeon (nothing but walls and empty tiles)
@@ -81,44 +51,62 @@ public class Game {
 				}
 				else
 				{
-					GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
-					if(identifier == 2)
+					if(identifier != 3)
 					{
-						hero = (Hero) object;
+						GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
+						if(identifier == 2)
+						{
+							hero = (Hero) object;
+							if(level == 2)
+							{
+								hero.setSymbol('A');
+							}
+							allObjects.add(hero);
+						}
+						else if(identifier == 4 || identifier == 5 || identifier == 6 || identifier == 7)
+						{
+							doors.add((Door) object);
+						}						
+						else if(identifier == 8)
+						{
+							lever = (Lever) object;
+							allObjects.add(lever);
+						}
+						else if(identifier == 9)
+						{
+							key = (Key) object;
+							allObjects.add(key);
+						}
+						else if(identifier == 10)
+						{
+							Random ogreGenerator = new Random();
+							npcs.add((Ogre) object);
+							int ogreQuantity = ogreGenerator.nextInt(2);	// from 0 to 2 extra ogres
+							for(int k = 0; k < ogreQuantity; k++)
+							{
+								npcs.add(new Ogre(object.getCoord(),10));
+							}	
+						}
+						if(!object.canMove())
+						{
+							defaultDungeon[i][j] = object;
+						}
+						else
+						{
+							defaultDungeon[i][j] = genericEmptyTile;
+						}
 					}
 					else if(identifier == 3)
 					{
-						npcs.add((Guard) object);
-					}
-					else if(identifier == 4 || identifier == 5 || identifier == 6 || identifier == 7)
-					{
-						doors.add((Door) object);
-					}						
-					else if(identifier == 8)
-					{
-						lever = (Lever) object;
-					}
-					else if(identifier == 9)
-					{
-						key = (Key) object;
-					}
-					else if(identifier == 10)
-					{
-						npcs.add((Ogre) object);
-					}
-					if(!object.canMove())
-					{
-						defaultDungeon[i][j] = object;
-					}
-					else
-					{
+						GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, Personality.DRUNKEN);
+						npcs.add((Guard) objectGuard);
 						defaultDungeon[i][j] = genericEmptyTile;
-						allObjects.add(object);
-					}
-					
+					}	
 				}
 			}
 		}
+		allObjects.addAll(npcs);
+		allObjects.addAll(doors);
 		if(level == 2)
 		{
 			club = new Club(null, 11);
@@ -146,15 +134,35 @@ public class Game {
 	public boolean playerTurn(String heroMovement)
 	{
 		//hero turn
-		Point heroNextCoord = hero.movement(heroMovement);								//hero moves and will (return) the state he is (dead, finishing the level, activating a lever, opening a door).
-		GameObject nextTile = dungeon.getTile(heroNextCoord);									//next tile identifier
+		Point heroNextCoord = hero.movement(heroMovement);					//hero moves and will (return) the state he is (dead, finishing the level, activating a lever, opening a door).
+		GameObject nextTile = dungeon.getTile(heroNextCoord);				//next tile identifier
 		boolean runningHero = InteractionStateMachine(hero, nextTile, heroNextCoord);		//hero interact
-//npc turn
-		npcsMovement();																			//npcs move
-																			//npcs attack
-//npcsAttack();	
-		running = (hero.isDead() || runningHero);												//changes running to the appropriate state according to this turn
-		return running;																			//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
+		if(level == 2)
+		{
+			heroAttack();
+		}
+		
+		//npc turn
+		npcsMovement();			//npcs move
+		//npcsAttack();			//npcs attack	
+		running = (hero.isDead() || runningHero);	//changes running to the appropriate state according to this turn
+		return running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
+	}
+	
+	public void heroAttack()
+	{
+		Point[] tilesAttacked = hero.attack();
+		for(int i = 0; i<tilesAttacked.length; i++)
+		{
+			for(int j = 0; j<npcs.size(); j++)
+			{
+				Character currentNpc = npcs.get(j);
+				if(currentNpc.getCoord().equals(tilesAttacked[i]))
+				{
+					currentNpc.stunned();
+				}
+			}
+		}
 	}
 	
 	public void npcsAttack()
@@ -194,9 +202,13 @@ public class Game {
 		for (int i = 0; i < npcs.size(); i++)
 		{
 			Character npc = npcs.get(i);
-			Point npcNextCoord = npc.movement(npc.createMovement());
-			GameObject nextTile = dungeon.getTile(npcNextCoord);
-			InteractionStateMachine(npc, nextTile, npcNextCoord);		
+			String npcMovement = npc.createMovement();
+			if(npcMovement != null)
+			{
+				Point npcNextCoord = npc.movement(npcMovement);
+				GameObject nextTile = dungeon.getTile(npcNextCoord);
+				InteractionStateMachine(npc, nextTile, npcNextCoord);
+			}
 		}
 	}
 	

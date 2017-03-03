@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import dkeep.logic.Guard.Personality;
+
 public abstract class Auxiliary {
 
 	public static char identifierSwitch(int identifier)
@@ -64,7 +66,21 @@ public abstract class Auxiliary {
 		}
 		}
 	}
-	
+
+	public static GameObject getNewEntity(Point coord, int identifier, Personality personality)
+	{
+		switch(identifier)
+		{
+		case 3:
+		{
+			return new Guard(coord, identifier, personality);
+		}
+		default:
+		{
+			return getNewEntity(coord, identifier);
+		}
+		}
+	}
 	
 	public static GameObject getNewEntity(Point coord, int identifier)
 	{
@@ -82,10 +98,6 @@ public abstract class Auxiliary {
 		case 2:
 		{
 			return new Hero(coord, identifier);
-		}
-		case 3:
-		{
-			return new Guard(coord, identifier);
 		}
 		case 4:
 		case 5:
@@ -112,6 +124,30 @@ public abstract class Auxiliary {
 		}
 		}
 		return null;
+	}
+	
+	public static String reverseMovement(String movement)
+	{
+		String finalMovement = null;
+		
+		if(movement == "w")
+		{
+			finalMovement = "s";
+		}
+		else if(movement == "s")
+		{
+			finalMovement = "w";
+		}
+		else if(movement == "a")
+		{
+			finalMovement = "d";
+		}
+		else if(movement == "d")
+		{
+			finalMovement = "a";
+		}
+		
+		return finalMovement;
 	}
 	
 	public static Point[] getAdjacentPos(Point p)

@@ -20,9 +20,18 @@ public class Hero extends Character{
 		this.key = key;
 	}
 
+	public Point[] attack()
+	{
+		return Auxiliary.getAdjacentPos(this.getCoord());
+	}
+	
 	@Override
 	public boolean carryKey()
 	{
+		if(this.getState() == State.ARMED)
+		{
+			this.setSymbol('K');
+		}
 		key = true;
 		return true;
 	}

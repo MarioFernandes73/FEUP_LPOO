@@ -1,7 +1,5 @@
 package dkeep.cli;
 
-
-
 import dkeep.logic.*;
 
 import java.util.Scanner;
@@ -10,11 +8,51 @@ import dkeep.logic.Game;
 
 public class Main {
 
+	
+	//Default Dungeon (used for early tests)
+	 static int[][] defaultDungeon1 = 
+		{{1,1,1,1,1,1,1,1,1,1},
+		 {1,2,0,0,4,0,1,0,3,1},
+		 {1,1,1,0,1,1,1,0,0,1},
+		 {1,0,4,0,4,0,1,0,0,1},
+		 {1,1,1,0,1,1,1,0,0,1},
+		 {6,0,0,0,0,0,0,0,0,1},
+		 {6,0,0,0,0,0,0,0,0,1},
+		 {1,1,1,0,1,1,1,1,0,1},
+		 {1,0,4,0,4,0,1,8,0,1},
+		 {1,1,1,1,1,1,1,1,1,1}};
+	
+	static int[][] defaultDungeon2 = 
+		{{1,1,1,1,1,1,1,1,1,1},
+		 {6,0,0,0,10,0,0,0,9,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,0,0,0,0,0,0,0,0,1},
+		 {1,2,0,0,0,0,0,0,0,1},
+		 {1,1,1,1,1,1,1,1,1,1}};
+	
+	
+	
+	
 	public static void main(String[] args)
 	{
 		int currentLevel = 2;
 		final int maximumLevels = 2;
-		Game game = new Game(currentLevel);
+		int[][] dungeonModel = null;
+		
+		if(currentLevel == 1)
+		{
+			dungeonModel = defaultDungeon1;
+		}
+		else
+		{
+			dungeonModel = defaultDungeon2;
+		}
+		
+		Game game = new Game(currentLevel, dungeonModel);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean running = true;
@@ -44,12 +82,14 @@ public class Main {
 					{
 						running = true;
 						currentLevel ++;
-						game = new Game(currentLevel);						
+						dungeonModel = defaultDungeon2;
+						game = new Game(currentLevel, dungeonModel);						
 					}
 				}
 			}
 		}
 		
+		System.out.println(game.printDungeonString());
 		System.out.println("GAME OVER!");
 		
 	}

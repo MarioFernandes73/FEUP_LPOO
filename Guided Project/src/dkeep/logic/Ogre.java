@@ -5,15 +5,19 @@ import java.util.Random;
 public class Ogre extends Character {
 	
 	private boolean club;
+	private int sleepTime;
 	
 	public Ogre(Point coord, int identifier)
 	{
 		super(coord, identifier,true,true);
 		this.club = true;
+		this.sleepTime = 0;
 	}
 
 	public String createMovement()
 	{
+		if(sleepTime <= 0)
+		{
 		String randomMove = "";
 		Random generator = new Random();
 		int randomMoveIdentifier = generator.nextInt(3)+1;
@@ -33,7 +37,19 @@ public class Ogre extends Character {
 		{
 			randomMove = "d";
 		}
+		
 		return randomMove;
+		}
+		else
+		{
+			sleepTime--;
+			if(sleepTime <= 0)
+			{
+				this.setSymbol('O');
+			}
+			return null;
+		}
+			
 	}
 	
 	@Override
@@ -56,12 +72,9 @@ public class Ogre extends Character {
 		return areaAttacked;
 	}
 	
-	public void checkClubPos(Point p, Dungeon dungeon)
+	public void stunned()
 	{
-		final int nextX = p.getX();
-		final int nextY = p.getY();
-		//final int nextTile = dungeon.getDungeon()[nextY][nextX];
-		int nextTileIdentifier = 0;
-		//maquina de estados..
+		sleepTime = 2;
+		this.setSymbol('8');
 	}
 }

@@ -2,7 +2,7 @@ package dkeep.logic;
 
 public class Character extends GameObject {
 
-	public enum State {ALIVE, DEAD};
+	public enum State {ALIVE, ARMED, DEAD};
 	private State currentState;
 
 	public Character(Point coord, int identifier, boolean passable, boolean movable)
@@ -67,13 +67,13 @@ public class Character extends GameObject {
 	
 	public Point[] attack()
 	{
-		final Point[] noAttack = null;
+		Point[] noAttack = null;
 		return noAttack;
 	}
 	
 	public Point[] weaponAttack()
 	{
-		final Point[] noAttack = null;
+		Point[] noAttack = null;
 		return noAttack;
 	}
 	
@@ -85,5 +85,10 @@ public class Character extends GameObject {
 	public boolean carryKey()
 	{
 		return false;
+	}
+	
+	public void stunned()
+	{
+		
 	}
 }
