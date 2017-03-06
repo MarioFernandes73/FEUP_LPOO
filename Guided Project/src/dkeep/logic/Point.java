@@ -50,11 +50,14 @@ public class Point {
 		this.y=p.getY();
 	}
 	
-	public boolean equals(Point p)
+	public boolean equals(Object obj)
 	{
-		if(this.x == p.getX() && this.y == p.getY())
-			return true;
-		
+		if(obj instanceof Point)
+		{
+			Point newPoint = (Point)obj;
+			if(this.x == newPoint.getX() && this.y == newPoint.getY())
+				return true;
+		}
 		return false;
 	}
 	

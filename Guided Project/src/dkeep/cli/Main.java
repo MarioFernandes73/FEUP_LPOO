@@ -73,7 +73,7 @@ public class Main {
 				
 				if(running == false)		// level has ended
 				{
-					final boolean heroIsDead = game.getHero().isDead();
+					boolean heroIsDead = game.getHero().isDead();
 					if((currentLevel == maximumLevels) || heroIsDead)
 					{
 						break;		

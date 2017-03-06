@@ -144,8 +144,8 @@ public class Game {
 		
 		//npc turn
 		npcsMovement();			//npcs move
-		//npcsAttack();			//npcs attack	
-		running = (hero.isDead() || runningHero);	//changes running to the appropriate state according to this turn
+		npcsAttack();			//npcs attack	
+		running = (!(hero.isDead()) && runningHero);	//changes running to the appropriate state according to this turn
 		return running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
 	
@@ -224,7 +224,7 @@ public class Game {
 			
 			if(nextTile.getIdentifier() == 7 && character instanceof Hero)
 			{
-				return false;
+				return false;	//hero has finished the level
 			}
 			else if(nextTile instanceof Lever && character instanceof Hero)
 			{
@@ -258,5 +258,14 @@ public class Game {
 		}
 	}
 	
+	public boolean gameRunning()
+	{
+		return running;
+	}
+
+	public int getLevel() {
+		
+		return this.level;
+	}
 	
 }
