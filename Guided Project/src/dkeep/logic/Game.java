@@ -3,6 +3,7 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.Random;
 
+import dkeep.logic.Character.State;
 import dkeep.logic.Guard.Personality;
 
 public class Game {
@@ -13,25 +14,36 @@ public class Game {
 	private Hero hero;
 	private Key key;
 	private Lever lever;
-	private int dungeonModel[][];
 	private Wall genericWallTile;
 	private Empty genericEmptyTile;
-	private Club club;
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private ArrayList<Character> npcs = new ArrayList<Character>();
 	private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();
 	
-	public Game(int level, int[][]dungeonModel)
+	private boolean movingEnemies;
+	private boolean attackingEnemies;
+	private boolean attackingEnemiesWeapons;
+	private boolean attackingHero;
+	private Personality personality;
+	private int ogreQuantity;
+	
+	public Game(int level, int[][]dungeonModel, boolean movingEnemies, boolean attackingEnemies, boolean attackingEnemiesWeapons, boolean attackingHero, Personality personality, int ogreQuantity )
 	{
-		this.dungeonModel=dungeonModel;
 		genericEmptyTile = new Empty(0);
 		genericWallTile = new Wall(1);
 		this.level = level;
 		running = true;
-		dungeon = new Dungeon(createDungeon(level));		
+		this.movingEnemies = movingEnemies;
+		this.attackingEnemies = attackingEnemies;
+		this.attackingEnemiesWeapons = attackingEnemiesWeapons;
+		this.attackingHero = attackingHero;
+		this.personality=personality;
+		this.ogreQuantity = ogreQuantity;
+		dungeon = new Dungeon(createDungeon(level,dungeonModel));	
+
 	}
 	
-	public GameObject[][] createDungeon(int dungeonIdentifier)
+	public GameObject[][] createDungeon(int dungeonIdentifier,int[][] dungeonModel)
 	{
 		GameObject[][] defaultDungeon = new GameObject[dungeonModel.length][dungeonModel[0].length];
 		
@@ -60,6 +72,7 @@ public class Game {
 							if(level == 2)
 							{
 								hero.setSymbol('A');
+								hero.setState(State.ARMED);
 							}
 							allObjects.add(hero);
 						}
@@ -79,13 +92,11 @@ public class Game {
 						}
 						else if(identifier == 10)
 						{
-							Random ogreGenerator = new Random();
 							npcs.add((Ogre) object);
-							int ogreQuantity = ogreGenerator.nextInt(2);	// from 0 to 2 extra ogres
-							for(int k = 0; k < ogreQuantity; k++)
+							for(int k = 0; k<this.ogreQuantity; k++)
 							{
 								npcs.add(new Ogre(object.getCoord(),10));
-							}	
+							}
 						}
 						if(!object.canMove())
 						{
@@ -98,7 +109,7 @@ public class Game {
 					}
 					else if(identifier == 3)
 					{
-						GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, Personality.DRUNKEN);
+						GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, personality);
 						npcs.add((Guard) objectGuard);
 						defaultDungeon[i][j] = genericEmptyTile;
 					}	
@@ -107,10 +118,16 @@ public class Game {
 		}
 		allObjects.addAll(npcs);
 		allObjects.addAll(doors);
-		if(level == 2)
+		if(level == 2 && this.attackingEnemiesWeapons)
 		{
-			club = new Club(null, 11);
-			allObjects.add(club);
+			for (int i = 0; i < npcs.size(); i++)
+			{
+				Character currentNpc = npcs.get(i);
+				if(currentNpc instanceof Ogre)
+				{
+					((Ogre)currentNpc).setWeapon(new Club(null,11));
+				}
+			}
 		}
 		return defaultDungeon;
 	}
@@ -137,14 +154,20 @@ public class Game {
 		Point heroNextCoord = hero.movement(heroMovement);					//hero moves and will (return) the state he is (dead, finishing the level, activating a lever, opening a door).
 		GameObject nextTile = dungeon.getTile(heroNextCoord);				//next tile identifier
 		boolean runningHero = InteractionStateMachine(hero, nextTile, heroNextCoord);		//hero interact
-		if(level == 2)
+		if(level == 2 && attackingHero)
 		{
 			heroAttack();
 		}
 		
 		//npc turn
-		npcsMovement();			//npcs move
-		npcsAttack();			//npcs attack	
+		if(movingEnemies)
+		{
+			npcsMovement();			//npcs move
+		}
+		if(attackingEnemies)
+		{
+			npcsAttack();			//npcs attack	
+		}
 		running = (!(hero.isDead()) && runningHero);	//changes running to the appropriate state according to this turn
 		return running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
@@ -157,9 +180,9 @@ public class Game {
 			for(int j = 0; j<npcs.size(); j++)
 			{
 				Character currentNpc = npcs.get(j);
-				if(currentNpc.getCoord().equals(tilesAttacked[i]))
+				if(currentNpc.getCoord().equals(tilesAttacked[i]) && currentNpc instanceof Ogre)
 				{
-					currentNpc.stunned();
+					((Ogre)currentNpc).stunned();
 				}
 			}
 		}
@@ -170,16 +193,17 @@ public class Game {
 		boolean heroHit = false;
 		for(int i = 0; i < npcs.size(); i++)
 		{
-			Point[] tilesAttacked = npcs.get(i).attack();				//area of attack of the npc (standard)
-			Point[] tilesAttackedWeapon = npcs.get(i).weaponAttack();	//area of attack of the weapon of the npc
+			Character currentNpc = npcs.get(i);
+			Point[] tilesAttacked = currentNpc.attack();				//area of attack of the npc (standard)
+			Point[] tilesAttackedWeapon = currentNpc.weaponAttack();	//area of attack of the weapon of the npc
 			for(int j = 0; j < tilesAttacked.length; j++)
 			{
 				if(tilesAttacked[j].equals(hero.getCoord()))
 					heroHit = true;
 			}
-			if(tilesAttackedWeapon != null)
+			if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && attackingEnemiesWeapons)
 			{
-				club.move(tilesAttackedWeapon[0]);
+				currentNpc.getWeapon().move(tilesAttackedWeapon[0]);
 				for(int j = 0; j < tilesAttackedWeapon.length; j++)
 				{
 					//check if weapon has killed hero
@@ -232,7 +256,7 @@ public class Game {
 			}
 			else if(nextTile instanceof Key && character instanceof Hero)
 			{
-				character.carryKey();
+				((Hero)character).carryKey();
 				key=null;
 				dungeon.setTile(nextTile.getCoord(), genericEmptyTile);
 			}
@@ -268,4 +292,13 @@ public class Game {
 		return this.level;
 	}
 	
+	public ArrayList<GameObject> getAllObjects()
+	{
+		return this.allObjects;
+	}
+	
+	public ArrayList<Character> getNpcs()
+	{
+		return this.npcs;
+	}
 }

@@ -13,11 +13,6 @@ public class Dungeon {
 		this.dungeon = dungeon;
 	}
 	
-	public GameObject[][] getDungeon()
-	{
-		return dungeon;
-	}
-	
 	
 	public void setTile(Point p, GameObject object)
 	{
@@ -46,14 +41,27 @@ public class Dungeon {
 			{
 				int yCoord = currentObject.getCoord().getY();
 				int xCoord = currentObject.getCoord().getX();
-				if(dungeonInstant[yCoord][xCoord] instanceof Key && currentObject instanceof Club)
+				dungeonInstant[yCoord][xCoord] = currentObject;
+				
+				if(currentObject instanceof Ogre)
 				{
-					dungeonInstant[yCoord][xCoord] = new Collision(currentObject.getCoord(),12);
+					if(((Ogre) currentObject).getWeapon() != null && ((Ogre) currentObject).getWeapon().getCoord() != null)
+					{
+						int yCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getY();
+						int xCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getX();
+						if(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Key)
+						{
+							dungeonInstant[yCoordWeapon][xCoordWeapon] = new Collision(currentObject.getCoord(),12);
+						}
+						else
+						{
+							dungeonInstant[yCoordWeapon][xCoordWeapon] = ((Ogre) currentObject).getWeapon();
+						}
+					}
 				}
-				else
-				{
-					dungeonInstant[yCoord][xCoord] = currentObject;
-				}
+				
+				
+				
 			}
 		}
 		
@@ -68,35 +76,8 @@ public class Dungeon {
 		return dungeonString;
 	}
 	
-	public boolean checkTile(Point p, GameObject object)
-	{
-		int xCoord = p.getX();
-		int yCoord = p.getY();
-		if(xCoord > 0 && yCoord > 0 && xCoord <= dungeon.length && yCoord <= dungeon[0].length)
-		{
-			if(dungeon[yCoord][xCoord].equals(object))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}	
-	
 	public GameObject getTile(Point p)
 	{
 		return dungeon[p.getY()][p.getX()];
-	}
-
-	public void openDoor(ArrayList<Door> doors, Point p)
-	{
-		for(int i = 0; i < doors.size(); i++)
-		{
-			final Point doorCoord = doors.get(i).getCoord();
-			if(doorCoord.equals(p))
-			{
-				doors.get(i).changeOpenedState();
-			}
-		}
 	}
 }

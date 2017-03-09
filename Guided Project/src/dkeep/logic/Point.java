@@ -5,18 +5,6 @@ public class Point {
 	private int x;
 	private int y;
 	
-	public Point()
-	{
-		x = 0;
-		y = 0;
-	}
-	
-	public Point(Point p)
-	{
-		this.x = p.getX();
-		this.y = p.getY();
-	}
-	
 	public Point(int x, int y)
 	{
 		this.x=x;
@@ -33,23 +21,6 @@ public class Point {
 		return y;
 	}
 	
-	public Point getLocation()
-	{
-		return new Point(x,y);
-	}
-	
-	public void setLocation(int x, int y)
-	{
-		this.x=x;
-		this.y=y;
-	}
-	
-	public void setLocation(Point p)
-	{
-		this.x=p.getX();
-		this.y=p.getY();
-	}
-	
 	public boolean equals(Object obj)
 	{
 		if(obj instanceof Point)
@@ -60,5 +31,24 @@ public class Point {
 		}
 		return false;
 	}
+
+	public Point[] getAdjacentPos()
+	{
+		Point[] adjacentPos = new Point[5];
+		final int xCoord = this.getX();
+		final int yCoord = this.getY();
+		final Point adjacentUp = new Point(xCoord, yCoord-1);
+		final Point adjacentDown = new Point(xCoord, yCoord+1);
+		final Point adjacentLeft = new Point(xCoord-1, yCoord);
+		final Point adjacentRight = new Point(xCoord+1, yCoord);
+		adjacentPos[0]=this;
+		adjacentPos[1]=adjacentUp;
+		adjacentPos[2]=adjacentDown;
+		adjacentPos[3]=adjacentLeft;
+		adjacentPos[4]=adjacentRight;
+
+		return adjacentPos;
+	}
+	
 	
 }

@@ -5,6 +5,7 @@ import dkeep.logic.*;
 import java.util.Scanner;
 
 import dkeep.logic.Game;
+import dkeep.logic.Guard.Personality;
 
 public class Main {
 
@@ -35,12 +36,11 @@ public class Main {
 		 {1,1,1,1,1,1,1,1,1,1}};
 	
 	
-	
-	
 	public static void main(String[] args)
 	{
-		int currentLevel = 2;
+		int currentLevel = 1;
 		final int maximumLevels = 2;
+		int ogreQuantity = 3;
 		int[][] dungeonModel = null;
 		
 		if(currentLevel == 1)
@@ -52,7 +52,7 @@ public class Main {
 			dungeonModel = defaultDungeon2;
 		}
 		
-		Game game = new Game(currentLevel, dungeonModel);
+		Game game = new Game(currentLevel, dungeonModel, true, true, true, true, Personality.SUSPICIOUS, ogreQuantity);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean running = true;
@@ -83,7 +83,7 @@ public class Main {
 						running = true;
 						currentLevel ++;
 						dungeonModel = defaultDungeon2;
-						game = new Game(currentLevel, dungeonModel);						
+						game = new Game(currentLevel, dungeonModel, true, true, true, true, Personality.ROOKIE, 3);						
 					}
 				}
 			}

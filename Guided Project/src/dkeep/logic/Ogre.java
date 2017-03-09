@@ -4,13 +4,12 @@ import java.util.Random;
 
 public class Ogre extends Character {
 	
-	private boolean club;
+	private Club club;
 	private int sleepTime;
 	
 	public Ogre(Point coord, int identifier)
 	{
 		super(coord, identifier,true,true);
-		this.club = true;
 		this.sleepTime = 0;
 	}
 
@@ -20,7 +19,7 @@ public class Ogre extends Character {
 		{
 		String randomMove = "";
 		Random generator = new Random();
-		int randomMoveIdentifier = generator.nextInt(3)+1;
+		int randomMoveIdentifier = generator.nextInt(4)+1;
 		if(randomMoveIdentifier == 1)
 		{
 			randomMove = "w";
@@ -55,7 +54,7 @@ public class Ogre extends Character {
 	@Override
 	public Point[] attack()
 	{
-		Point[] areaAttacked = Auxiliary.getAdjacentPos(this.getCoord());
+		Point[] areaAttacked = this.getCoord().getAdjacentPos();
 		return areaAttacked;
 	}
 	
@@ -63,11 +62,9 @@ public class Ogre extends Character {
 	public Point[] weaponAttack()
 	{
 		Point[] areaAttacked = null;
-		if(club)
+		if(club != null)
 		{
-			final String randomPosition = createMovement();
-			final Point clubPosition = this.movement(randomPosition);
-			areaAttacked = Auxiliary.getAdjacentPos(clubPosition);
+			areaAttacked = this.movement(createMovement()).getAdjacentPos();
 		}
 		return areaAttacked;
 	}
@@ -76,5 +73,15 @@ public class Ogre extends Character {
 	{
 		sleepTime = 2;
 		this.setSymbol('8');
+	}
+	
+	public void setWeapon(Club club)
+	{
+		this.club=club;
+	}
+	
+	public Club getWeapon()
+	{
+		return this.club;
 	}
 }

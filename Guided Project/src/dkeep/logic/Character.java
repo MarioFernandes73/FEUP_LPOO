@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import dkeep.logic.Character.State;
+
 public class Character extends GameObject {
 
 	public enum State {ALIVE, ARMED, DEAD};
@@ -14,6 +16,11 @@ public class Character extends GameObject {
 	public State getState()
 	{
 		return currentState;
+	}
+	
+	public void setState (State state)
+	{
+		this.currentState = state;
 	}
 	
 	public boolean isDead()
@@ -82,13 +89,8 @@ public class Character extends GameObject {
 		this.currentState = State.DEAD;
 	}
 	
-	public boolean carryKey()
+	public Club getWeapon()
 	{
-		return false;
-	}
-	
-	public void stunned()
-	{
-		
+		return null;
 	}
 }

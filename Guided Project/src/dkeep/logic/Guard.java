@@ -61,25 +61,22 @@ public class Guard extends Character {
 				}
 				//chance to sleep
 				Random sleepGenerator = new Random();
-				int randomSleepIdentifier = sleepGenerator.nextInt(9)+1;	// range 1-10
+				int randomSleepIdentifier = sleepGenerator.nextInt(10)+1;	// range 1-10
 				if(randomSleepIdentifier == 6 || randomSleepIdentifier == 7)	//20% chance sleep 1 turn
 				{
 					sleepTime = 1;
-					movingDirection = 1;
 				}
 				else if(randomSleepIdentifier == 8 || randomSleepIdentifier == 9)	// 20% chance to sleep 2 turns
 				{
 					sleepTime = 2;
-					movingDirection = -1;
 				}
 				else if(randomSleepIdentifier == 10)	// 10% to sleep 3 turns
 				{
 					sleepTime = 3;
-					movingDirection = 1;
 				}
 				if(sleepTime > 0)		//guard will be asleep for the next turn
 				{
-					randomSleepIdentifier = sleepGenerator.nextInt(1)+1;	//range 1-2
+					randomSleepIdentifier = sleepGenerator.nextInt(2)+1;	//range 1-2
 					if(randomSleepIdentifier == 1)		// 50% chance to move back
 					{
 						this.movingDirection = 1;
@@ -103,6 +100,7 @@ public class Guard extends Character {
 		case SUSPICIOUS:
 			if(movingDirection == 1)
 			{
+				movement = defaultMovementList[nextMovement];
 				nextMovement++;
 				if(nextMovement >= movementList.length)
 				{
@@ -121,9 +119,9 @@ public class Guard extends Character {
 			Random directionGenerator = new Random();
 			if(movingDirection == 1)//chance of turning back
 			{
-				
 				int directionRandomIdentifier = directionGenerator.nextInt(Math.abs(sleepTime)+1);	//
-				if(directionRandomIdentifier > 1)	// 100% to keep going to the front on the first try, 50% at the second, 25% at the third
+				System.out.println(directionRandomIdentifier);
+				if(directionRandomIdentifier > 1)	// 100% to keep going to the front on the first try, 75% at the second, 50% at the third...
 				{
 					movingDirection = -1;
 				}
@@ -134,7 +132,7 @@ public class Guard extends Character {
 			}
 			else if(movingDirection == -1)
 			{
-				if(directionGenerator.nextInt(9)+1 == 1) // 90% to turn to the front;
+				if(directionGenerator.nextInt(10)+1 > 1) // 90% to turn to the front;
 				{
 					movingDirection = 1;
 					sleepTime = 0;
@@ -151,7 +149,7 @@ public class Guard extends Character {
 	@Override
 	public Point[] attack()
 	{
-		Point[] areaAttacked = Auxiliary.getAdjacentPos(this.getCoord());
+		Point[] areaAttacked = this.getCoord().getAdjacentPos();
 		return areaAttacked;
 	}
 }

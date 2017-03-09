@@ -15,17 +15,11 @@ public class Hero extends Character{
 		return key;
 	}
 	
-	public void setKey(boolean key)
-	{
-		this.key = key;
-	}
-
 	public Point[] attack()
 	{
-		return Auxiliary.getAdjacentPos(this.getCoord());
+		return this.getCoord().getAdjacentPos();
 	}
 	
-	@Override
 	public boolean carryKey()
 	{
 		if(this.getState() == State.ARMED)
