@@ -7,9 +7,9 @@ public class Character extends GameObject {
 	public enum State {ALIVE, ARMED, DEAD};
 	private State currentState;
 
-	public Character(Point coord, int identifier, boolean passable, boolean movable)
+	public Character(Point coord, char symbol, boolean passable, boolean movable)
 	{
-		super(coord, identifier, passable,movable);
+		super(coord, symbol, passable,movable);
 		currentState = State.ALIVE;
 	}
 	

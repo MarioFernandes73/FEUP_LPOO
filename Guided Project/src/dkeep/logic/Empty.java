@@ -2,8 +2,8 @@ package dkeep.logic;
 
 public class Empty extends GameObject {
 
-	public Empty(int identifier)
+	public Empty()
 	{
-		super(null, identifier,true,false);
+		super(null, ' ' ,true,false);
 	}
 }

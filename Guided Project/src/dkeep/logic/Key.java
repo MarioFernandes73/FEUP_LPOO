@@ -2,9 +2,9 @@ package dkeep.logic;
 
 public class Key extends GameObject {
 
-	public Key(Point coord, int identifier)
+	public Key(Point coord)
 	{
-		super(coord,identifier,true,false);
+		super(coord, 'k',true,false);
 	}
 	
 }

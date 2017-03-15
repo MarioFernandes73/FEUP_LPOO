@@ -2,8 +2,8 @@ package dkeep.logic;
 
 public class Lever extends GameObject{
 
-	public Lever(Point coord, int identifier)
+	public Lever(Point coord)
 	{
-		super(coord, identifier,true,false);
+		super(coord, 'k', true, false);
 	}
 }

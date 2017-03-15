@@ -2,8 +2,8 @@ package dkeep.logic;
 
 public class Club extends GameObject {
 
-	public Club(Point coord, int identifier)
+	public Club(Point coord)
 	{
-		super(coord, identifier, true,true);
+		super(coord, '*', true, true);
 	}
 }

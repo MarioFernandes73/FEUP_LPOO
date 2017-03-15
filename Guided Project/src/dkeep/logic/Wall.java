@@ -2,9 +2,9 @@ package dkeep.logic;
 
 public class Wall extends GameObject {
 	
-	public Wall(int identifier)
+	public Wall()
 	{
-		super(null, identifier,false,false);
+		super(null, 'X', false, false);
 	}
 
 }

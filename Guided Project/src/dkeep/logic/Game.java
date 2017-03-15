@@ -12,8 +12,6 @@ public class Game {
 	private Dungeon dungeon;
 	private int level;
 	private Hero hero;
-	private Key key;
-	private Lever lever;
 	private Wall genericWallTile;
 	private Empty genericEmptyTile;
 	private ArrayList<Door> doors = new ArrayList<Door>();
@@ -29,8 +27,8 @@ public class Game {
 	
 	public Game(int level, int[][]dungeonModel, boolean movingEnemies, boolean attackingEnemies, boolean attackingEnemiesWeapons, boolean attackingHero, Personality personality, int ogreQuantity )
 	{
-		genericEmptyTile = new Empty(0);
-		genericWallTile = new Wall(1);
+		genericEmptyTile = new Empty();
+		genericWallTile = new Wall();
 		this.level = level;
 		running = true;
 		this.movingEnemies = movingEnemies;
@@ -61,43 +59,45 @@ public class Game {
 				{
 					defaultDungeon[i][j] = genericWallTile;
 				}
+				else if(identifier == 3)
+				{
+					GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, personality);
+					npcs.add((Guard) objectGuard);
+					defaultDungeon[i][j] = genericEmptyTile;
+				}	
 				else
 				{
-					if(identifier != 3)
+					GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
+					switch(identifier)
 					{
-						GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
-						if(identifier == 2)
+					case 2:
+						hero = (Hero) object;
+						if(level == 2)
 						{
-							hero = (Hero) object;
-							if(level == 2)
-							{
-								hero.setSymbol('A');
-								hero.setState(State.ARMED);
-							}
-							allObjects.add(hero);
+							hero.setSymbol('A');
+							hero.setState(State.ARMED);
 						}
-						else if(identifier == 4 || identifier == 5 || identifier == 6 || identifier == 7)
+						allObjects.add(hero);
+						break;
+					case 4:
+					case 5:
+					case 6:
+					case 7:
+						doors.add((Door) object);
+						break;
+					case 8:
+					case 9:
+						allObjects.add(object);
+						break;
+					case 10:
+						npcs.add((Ogre) object);
+						for(int k = 0; k<this.ogreQuantity; k++)
 						{
-							doors.add((Door) object);
-						}						
-						else if(identifier == 8)
-						{
-							lever = (Lever) object;
-							allObjects.add(lever);
+							npcs.add(new Ogre(object.getCoord()));
 						}
-						else if(identifier == 9)
-						{
-							key = (Key) object;
-							allObjects.add(key);
-						}
-						else if(identifier == 10)
-						{
-							npcs.add((Ogre) object);
-							for(int k = 0; k<this.ogreQuantity; k++)
-							{
-								npcs.add(new Ogre(object.getCoord(),10));
-							}
-						}
+						break;
+					}
+
 						if(!object.canMove())
 						{
 							defaultDungeon[i][j] = object;
@@ -107,17 +107,10 @@ public class Game {
 							defaultDungeon[i][j] = genericEmptyTile;
 						}
 					}
-					else if(identifier == 3)
-					{
-						GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, personality);
-						npcs.add((Guard) objectGuard);
-						defaultDungeon[i][j] = genericEmptyTile;
-					}	
+
 				}
 			}
-		}
 		allObjects.addAll(npcs);
-		allObjects.addAll(doors);
 		if(level == 2 && this.attackingEnemiesWeapons)
 		{
 			for (int i = 0; i < npcs.size(); i++)
@@ -125,7 +118,7 @@ public class Game {
 				Character currentNpc = npcs.get(i);
 				if(currentNpc instanceof Ogre)
 				{
-					((Ogre)currentNpc).setWeapon(new Club(null,11));
+					((Ogre)currentNpc).setWeapon(new Club(null));
 				}
 			}
 		}
@@ -246,40 +239,43 @@ public class Game {
 		{
 			character.move(characterNextCoord);
 			
-			if(nextTile.getIdentifier() == 7 && character instanceof Hero)
+			if(nextTile instanceof Door && ((Door)nextTile).isEndingDoor() && character instanceof Hero)
 			{
 				return false;	//hero has finished the level
 			}
+
 			else if(nextTile instanceof Lever && character instanceof Hero)
 			{
-				changeDoors(doors);
+				changeDoors();
 			}
 			else if(nextTile instanceof Key && character instanceof Hero)
 			{
 				((Hero)character).carryKey();
-				key=null;
 				dungeon.setTile(nextTile.getCoord(), genericEmptyTile);
 			}
 		}
 		else
 		{
-			if(nextTile.getIdentifier() == 6 && character instanceof Hero)
+			if(nextTile instanceof DoorClosed && character instanceof Hero)
 			{
 				if(hero.getKey())
 				{
-					changeDoors(doors);
+					changeDoors();
 				}
 			}
 		}
 		return true;
 	}	
 	
-	public void changeDoors(ArrayList<Door> doors)
+	public void changeDoors()
 	{
+		ArrayList<Door> newDoors = new ArrayList<Door>();
 		for(int i = 0; i < doors.size(); i++)
 		{
-			doors.get(i).changeOpenedState();
+			dungeon.setTile(doors.get(i).getCoord(), doors.get(i).changeOpenedState());
+			newDoors.add(doors.get(i).changeOpenedState());
 		}
+		this.doors = newDoors;
 	}
 	
 	public boolean gameRunning()

@@ -7,9 +7,9 @@ public class Ogre extends Character {
 	private Club club;
 	private int sleepTime;
 	
-	public Ogre(Point coord, int identifier)
+	public Ogre(Point coord)
 	{
-		super(coord, identifier,true,true);
+		super(coord, 'O',true,true);
 		this.sleepTime = 0;
 	}
 

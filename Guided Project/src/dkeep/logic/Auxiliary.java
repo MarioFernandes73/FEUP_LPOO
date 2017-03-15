@@ -1,71 +1,11 @@
 package dkeep.logic;
 
+import dkeep.logic.Door.State;
 import dkeep.logic.Guard.Personality;
 
 public abstract class Auxiliary {
 
-	public static char identifierSwitch(int identifier)
-	{
-		switch(identifier)
-		{
-		case 0:
-		{
-			return ' ';
-		}
-		case 1:
-		{
-			return 'X';
-		}
-		case 2:
-		{
-			return 'H';
-		}
-		case 3:
-		{
-			return 'G';
-		}
-		case 4:
-		{
-			return 'I';
-		}
-		case 5:
-		{
-			return 'S';
-		}
-		case 6:
-		{
-			return 'I';
-		}
-		case 7:
-		{
-			return 'S';
-		}
-		case 8:
-		{
-			return 'k';
-		}
-		case 9:
-		{
-			return 'k';
-		}
-		case 10:
-		{
-			return 'O';
-		}
-		case 11:
-		{
-			return '*';
-		}
-		case 12:
-		{
-			return '$';
-		}
-		default:
-		{
-			return ' ';
-		}
-		}
-	}
+	
 
 	public static GameObject getNewEntity(Point coord, int identifier, Personality personality)
 	{
@@ -73,7 +13,7 @@ public abstract class Auxiliary {
 		{
 		case 3:
 		{
-			return new Guard(coord, identifier, personality);
+			return new Guard(coord, personality);
 		}
 		default:
 		{
@@ -84,43 +24,39 @@ public abstract class Auxiliary {
 	
 	public static GameObject getNewEntity(Point coord, int identifier)
 	{
-		
 		switch(identifier)
 		{
-		case 0:
-		{
-			return new Empty(identifier);
-		}
-		case 1:
-		{
-			return new Wall(identifier);
-		}
 		case 2:
 		{
-			return new Hero(coord, identifier);
+			return new Hero(coord);
 		}
 		case 4:
+		{
+			return new DoorClosed(coord, State.InDoor);
+		}
 		case 5:
+		{
+			return new DoorOpened(coord, State.InDoor);
+		}
 		case 6:
+		{
+			return new DoorClosed(coord, State.OutDoor);
+		}
 		case 7:
 		{
-			return new Door(coord, identifier);
+			return new DoorOpened(coord, State.OutDoor);
 		}
 		case 8:
 		{
-			return new Lever(coord, identifier);
+			return new Lever(coord);
 		}
 		case 9:
 		{
-			return new Key(coord, identifier);
+			return new Key(coord);
 		}
 		case 10:
 		{
-			return new Ogre(coord, identifier);
-		}
-		case 11:
-		{
-			return new Club(coord, identifier);
+			return new Ogre(coord);
 		}
 		}
 		return null;

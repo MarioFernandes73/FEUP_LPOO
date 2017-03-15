@@ -4,9 +4,9 @@ public class Hero extends Character{
 	
 	private boolean key;
 	
-	public Hero(Point coord, int identifier)
+	public Hero(Point coord)
 	{
-		super(coord,identifier,true,true);
+		super(coord,'H',true,true);
 		key = false;
 	}
 	

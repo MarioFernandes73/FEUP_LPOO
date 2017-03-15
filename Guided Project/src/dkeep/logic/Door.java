@@ -2,22 +2,31 @@ package dkeep.logic;
 
 public class Door extends GameObject{
 	
-	public Door(Point coord, int identifier)
+	public enum State {OutDoor, InDoor}
+	private State doorType;
+	
+	public Door(Point coord, char symbol, State doorType)
 	{
-		super(coord, identifier,false,false);
+		super(coord, symbol, false, false);
+		this.setDoorType(doorType);
+		
 	}
 	
-	public void changeOpenedState()
+	public Door changeOpenedState()
 	{
-		this.setPassable(true);
-		if(this.getIdentifier() == 4)
-		{
-			this.setIdentifier(5);	
-		}
-		else if(this.getIdentifier() == 6)
-		{
-			this.setIdentifier(7);
-		}
-		this.setSymbol('S');
+		return null;
+	}
+
+	public State getDoorType() {
+		return doorType;
+	}
+
+	public void setDoorType(State doorType) {
+		this.doorType = doorType;
+	}
+	
+	public boolean isEndingDoor()
+	{
+		return (this.doorType == State.OutDoor && this.isPassable());
 	}
 }

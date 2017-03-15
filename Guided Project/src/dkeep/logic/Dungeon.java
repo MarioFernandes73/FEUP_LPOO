@@ -53,7 +53,7 @@ public class Dungeon {
 						{
 							dungeonInstant[yCoordWeapon][xCoordWeapon] = new Collision(currentObject.getCoord(),12);
 						}
-						else
+						else if(!(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Collision))
 						{
 							dungeonInstant[yCoordWeapon][xCoordWeapon] = ((Ogre) currentObject).getWeapon();
 						}
@@ -69,7 +69,7 @@ public class Dungeon {
 		{
 			for (int j = 0; j < dungeonInstant[i].length; j++)
 			{
-				dungeonString += dungeonInstant[i][j].getSymbol() + " ";
+				dungeonString += dungeonInstant[i][j].toString() + " ";
 			}
 			dungeonString += "\n";
 		}

@@ -52,7 +52,7 @@ public class Main {
 			dungeonModel = defaultDungeon2;
 		}
 		
-		Game game = new Game(currentLevel, dungeonModel, true, true, true, true, Personality.SUSPICIOUS, ogreQuantity);
+		Game game = new Game(currentLevel, dungeonModel, false, false, false, true, Personality.SUSPICIOUS, ogreQuantity);
 		
 		Scanner sc = new Scanner(System.in);
 		boolean running = true;

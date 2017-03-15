@@ -4,6 +4,6 @@ public class Collision extends GameObject{
 
 	public Collision(Point coord, int identifier)
 	{
-		super(coord, identifier,true,false);
+		super(coord, '$', true, false);
 	}
 }

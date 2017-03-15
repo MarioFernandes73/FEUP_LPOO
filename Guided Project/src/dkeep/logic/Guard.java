@@ -13,9 +13,9 @@ public class Guard extends Character {
 	private int movingDirection;//1 means it will move in the standard direction, -1 it will move in the opposite direction
 	static String[] defaultMovementList = {"a","s","s","s","s","a","a","a","a","a","a","s","d","d","d","d","d","d","d","w","w","w","w","w"};
 	
-	public Guard(Point coord, int identifier, Personality personality) 
+	public Guard(Point coord, Personality personality) 
 {
-		super(coord, identifier,true,true);
+		super(coord, 'G',true,true);
 		this.personality = personality;
 		movementList = defaultMovementList;
 		nextMovement = 0;
