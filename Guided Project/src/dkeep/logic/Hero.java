@@ -22,10 +22,7 @@ public class Hero extends Character{
 	
 	public boolean carryKey()
 	{
-		if(this.getState() == State.ARMED)
-		{
-			this.setSymbol('K');
-		}
+		this.setSymbol('K');
 		key = true;
 		return true;
 	}

@@ -27,17 +27,17 @@ public class TestDungeonGameLogic {
 						{1,0,0,0,1},
 						{6,0,2,9,1},
 						{1,1,1,1,1}};
-		
+	
 		@Test
 		public void printDungeon(){
-		Game g = new Game(1, map1, false,false,false,false, Personality.ROOKIE, 3);
+		Game g = new Game(new GameState(map1,0));
 		String mapString = "X X X X X \nX H   G X \nI       X \nI k     X \nX X X X X \n";
 		assertEquals(g.getDungeon().printDungeonString(g.getAllObjects()), mapString);
 		}
 		
 		@Test
 		public void testHeroMovementFreeCell() {
-			Game g = new Game(1, map1, false,false,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map1,0));
 			assertEquals(g.getHero().getState(), State.ALIVE);		// hero state is alive
 			assertEquals(g.getHero().toString(),'H'+"");			// hero has normal symbol
 			assertEquals(new Point(1,1), g.getHero().getCoord()); 	// beginning position for the hero
@@ -47,7 +47,7 @@ public class TestDungeonGameLogic {
 		
 		@Test
 		public void testHeroMovementWall() {
-			Game g = new Game(1, map1,false,false,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map1,0));
 			assertEquals(new Point(1,1), g.getHero().getCoord()); 	// beginning position for the hero
 			g.playerTurn("w");										// moves to a wall tile (up)
 			assertEquals(new Point(1,1), g.getHero().getCoord());	// ending position for the hero
@@ -55,17 +55,17 @@ public class TestDungeonGameLogic {
 		
 		@Test
 		public void testHeroCapturedByGuard() {
-			Game g = new Game(1, map1,false,true,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map1,1));
 			assertEquals(new Point(1,1), g.getHero().getCoord()); 	// beginning position for the hero
 			g.playerTurn("d");										// moves to an adjacent tile of a guard
 			assertTrue(g.getHero().isDead());						// hero is dead
-			assertFalse(g.gameRunning());							// game is over
+			assertFalse(g.getGameState().running);							// game is over
 		}
 
 	
 		@Test
 		public void testHeroMoveClosedDoor() {
-			Game g = new Game(1, map1, false, false,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map1,0));
 			assertTrue(g.getDungeon().getTile(new Point(0,3)) instanceof Door);		//Point(0,3) is a door
 			assertEquals(g.getDungeon().getTile(new Point(0,3)).toString(),'I'+"");	//Door is closed
 			assertEquals(new Point(1,1), g.getHero().getCoord()); 	// beginning position for the hero
@@ -73,12 +73,12 @@ public class TestDungeonGameLogic {
 			assertEquals(new Point(1,2),g.getHero().getCoord());	// hero is on the south tile
 			g.playerTurn("a");										// trying to move to closed door
 			assertEquals(new Point(1,2),g.getHero().getCoord());	// hero is still on the same tile
-			assertTrue(g.gameRunning());							// game is still running
+			assertTrue(g.getGameState().running);							// game is still running
 		}
 		
 		@Test
 		public void testHeroOpenDoors() {
-			Game g = new Game(1, map1, false, false,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map1,0));
 			assertTrue(g.getDungeon().getTile(new Point(0,3)) instanceof Door);		//Point(0,3) is a door
 			assertEquals(g.getDungeon().getTile(new Point(0,3)).toString(),'I'+"");	//Door is closed
 			assertEquals(new Point(1,1), g.getHero().getCoord()); 	// beginning position for the hero
@@ -91,40 +91,42 @@ public class TestDungeonGameLogic {
 		
 		@Test
 		public void testHeroFinishesLevel() {
-			Game g = new Game(1, map1, false, false,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map1,0));
 			assertEquals(new Point(1,1), g.getHero().getCoord()); 	// beginning position for the hero
 			g.playerTurn("s");		// moving south
 			g.playerTurn("s");		// hero is on lever tile
 			g.playerTurn("a");		// hero moved to exit
-			assertFalse(g.gameRunning());	// game stopped
+			assertFalse(g.getGameState().running);	// game stopped
 			assertFalse(g.getHero().isDead());	// hero is alive
 		}
 		
 		@Test
-		public void testHeroMoveAdjOgre(){
-			Game g = new Game(2, map2, false, true,false,false, Personality.ROOKIE, 3);
-			assertEquals(g.getHero().getState(), State.ARMED);			// hero is armed
-			assertEquals(g.getHero().toString(), 'A'+"");					// hero has A symbol
+		public void testHeroVulnerableMoveAdjOgre(){
+			Game g = new Game(new GameState(map2,1));
+		//	g.setLevel(2);
+			assertEquals(g.getHero().toString(), 'H'+"");					// hero has H symbol
 			assertEquals(new Point(2,4), g.getHero().getCoord());		// beginning position for the hero
 			g.playerTurn("w");		//moving north
 			g.playerTurn("w");		//moving to adjacent of ogre
 			assertEquals(new Point(2,2), g.getHero().getCoord());		//final position of the hero
 			assertTrue(g.getHero().isDead());		//hero died
-			assertTrue(!g.gameRunning());			//game stopped running
+			assertTrue(!g.getGameState().running);			//game stopped running
 		}
 		
 		@Test
 		public void testHeroMoveKey(){
-			Game g = new Game(2, map2, false, false ,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map2,0));
+			g.setLevel(2);
 			assertEquals(new Point(2,4), g.getHero().getCoord());		// beginning position for the hero
 			g.playerTurn("d"); //moving to key tile
-			assertEquals(g.getHero().toString(),'K'+"");		//hero symbol is K
+			assertEquals(g.getHero().toString(),'K'+"");	//hero symbol is K	
 			assertTrue(g.getHero().getKey());				//hero has key
 		}
 		
 		@Test
 		public void testHeroMoveExitNoKey(){
-			Game g = new Game(2, map2, false, false ,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map2,0));
+			g.setLevel(2);
 			assertEquals(new Point(2,4), g.getHero().getCoord());		// beginning position for the hero
 			g.playerTurn("a");		//move east
 			assertEquals(new Point(1,4), g.getHero().getCoord());		// hero next to an exit
@@ -132,12 +134,13 @@ public class TestDungeonGameLogic {
 			g.playerTurn("a");		//move against exit (without key)
 			assertEquals(new Point(1,4), g.getHero().getCoord());		// hero same position
 			assertEquals(g.getDungeon().getTile(new Point(0,4)).toString(),'I'+"");	// door is still closed
-			assertTrue(g.gameRunning()); //game is still running
+			assertTrue(g.getGameState().running); //game is still running
 		}
 		
 		@Test
 		public void testHeroMoveExitWithKey(){
-			Game g = new Game(2, map2, false, false ,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map2,0));
+			g.setLevel(2);
 			assertEquals(new Point(2,4), g.getHero().getCoord());		// beginning position for the hero
 			g.playerTurn("d");		//move west (takes key)
 			g.playerTurn("a");		//move east
@@ -146,12 +149,13 @@ public class TestDungeonGameLogic {
 			g.playerTurn("a");		//move against exit (with key)
 			assertEquals(new Point(1,4), g.getHero().getCoord());		// hero same position
 			assertEquals(g.getDungeon().getTile(new Point(0,4)).toString(),'S'+"");	// door is opened
-			assertTrue(g.gameRunning()); //game is still running
+			assertTrue(g.getGameState().running); //game is still running
 		}
 		
 		@Test
 		public void testHeroEndsKeep(){
-			Game g = new Game(2, map2, false, false ,false,false, Personality.ROOKIE, 3);
+			Game g = new Game(new GameState(map2,0));
+			g.setLevel(2);
 			assertEquals(new Point(2,4), g.getHero().getCoord());		// beginning position for the hero
 			g.playerTurn("d");		//move west (takes key)
 			g.playerTurn("a");		//move east
@@ -161,7 +165,7 @@ public class TestDungeonGameLogic {
 			g.playerTurn("a");		//move to exit
 			assertEquals(g.getHero().getCoord(), new Point(0,4));	//hero at the exit tile
 			assertFalse(g.getHero().isDead());	//hero is alive
-			assertFalse(g.gameRunning()); //game is not running
+			assertFalse(g.getGameState().running); //game is not running
 		}
 		
 		@Test(timeout=1000)
@@ -169,7 +173,8 @@ public class TestDungeonGameLogic {
 			boolean moveLeft = false, moveRight = false, moveDown = false, moveUp = false;
 			while(!moveLeft || !moveRight || !moveDown || !moveUp)
 			{
-				Game g = new Game(2,map2,true, false, false, false, Personality.ROOKIE, 3);
+				Game g = new Game(new GameState(map2,0));
+				g.setLevel(2);
 				ArrayList<Character> ogres = g.getNpcs();
 				for(int i = 0; i<ogres.size(); i++)
 				{
@@ -209,7 +214,8 @@ public class TestDungeonGameLogic {
 			boolean attackLeft = false, attackUp = false, attackDown = false, attackRight= false;
 			while(!attackLeft || !attackUp || !attackDown || !attackRight)
 			{
-				Game g = new Game(2,map2,false, true, true, false, Personality.ROOKIE, 3);	//game has enemies attacking and with weapons (but not moving)
+				Game g = new Game(new GameState(map2,1));	//game has enemies attacking and with weapons (but not moving)
+				g.setLevel(2);
 				ArrayList<Character> ogres = g.getNpcs();	
 				g.playerTurn("s");	//hero moves against a wall (turn passes)
 				for(int i = 0; i<ogres.size(); i++)
@@ -247,7 +253,8 @@ public class TestDungeonGameLogic {
 			boolean attackRight = false;
 			while(!attackRight)
 			{
-				Game g = new Game(2,map2,false, true, true, false, Personality.ROOKIE, 3);	//game has enemies attacking and with weapons (but not moving)
+				Game g = new Game(new GameState(map2,1));	//game has enemies attacking and with weapons (but not moving)
+				g.setLevel(2);
 				ArrayList<Character> ogres = g.getNpcs();		
 				g.playerTurn("s");	//hero moves against a wall (turn passes)
 				for(int i = 0; i<ogres.size(); i++)
@@ -256,7 +263,6 @@ public class TestDungeonGameLogic {
 					if(weaponCoord.equals(new Point(3,1)))	//at least 1 ogre attacked right
 					{
 						attackRight = true;
-						System.out.println(g.getDungeon().printDungeonString(g.getAllObjects()));
 						assertEquals(g.getDungeon().printDungeonString(g.getAllObjects()).charAt(17),'$');
 						break;
 					}

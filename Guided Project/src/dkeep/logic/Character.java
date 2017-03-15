@@ -1,10 +1,8 @@
 package dkeep.logic;
 
-import dkeep.logic.Character.State;
-
 public class Character extends GameObject {
 
-	public enum State {ALIVE, ARMED, DEAD};
+	public enum State {ALIVE, DEAD};
 	private State currentState;
 
 	public Character(Point coord, char symbol, boolean passable, boolean movable)

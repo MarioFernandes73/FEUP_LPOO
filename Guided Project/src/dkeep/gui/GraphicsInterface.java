@@ -77,7 +77,7 @@ public class GraphicsInterface {
 	 * Create the application.
 	 */
 	public GraphicsInterface() {
-		int currentLevel = 1;
+	/*	int currentLevel = 1;
 		final int maximumLevels = 2;
 		int ogreQuantity = 3;
 		int[][] dungeonModel = null;
@@ -128,7 +128,7 @@ public class GraphicsInterface {
 	}
 
 	System.out.println(game.printDungeonString());
-	System.out.println("GAME OVER!");
+	System.out.println("GAME OVER!");*/
 }
 
 /**

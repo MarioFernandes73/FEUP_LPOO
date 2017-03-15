@@ -8,9 +8,8 @@ import dkeep.logic.Guard.Personality;
 
 public class Game {
 
-	private boolean running;
+	private GameState gameState;
 	private Dungeon dungeon;
-	private int level;
 	private Hero hero;
 	private Wall genericWallTile;
 	private Empty genericEmptyTile;
@@ -18,26 +17,12 @@ public class Game {
 	private ArrayList<Character> npcs = new ArrayList<Character>();
 	private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();
 	
-	private boolean movingEnemies;
-	private boolean attackingEnemies;
-	private boolean attackingEnemiesWeapons;
-	private boolean attackingHero;
-	private Personality personality;
-	private int ogreQuantity;
-	
-	public Game(int level, int[][]dungeonModel, boolean movingEnemies, boolean attackingEnemies, boolean attackingEnemiesWeapons, boolean attackingHero, Personality personality, int ogreQuantity )
+	public Game(GameState gameState)
 	{
 		genericEmptyTile = new Empty();
 		genericWallTile = new Wall();
-		this.level = level;
-		running = true;
-		this.movingEnemies = movingEnemies;
-		this.attackingEnemies = attackingEnemies;
-		this.attackingEnemiesWeapons = attackingEnemiesWeapons;
-		this.attackingHero = attackingHero;
-		this.personality=personality;
-		this.ogreQuantity = ogreQuantity;
-		dungeon = new Dungeon(createDungeon(level,dungeonModel));	
+		this.gameState = gameState;
+		dungeon = new Dungeon(createDungeon(gameState.currentLevel,gameState.dungeonModel));	
 
 	}
 	
@@ -61,7 +46,7 @@ public class Game {
 				}
 				else if(identifier == 3)
 				{
-					GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, personality);
+					GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, gameState.guardPersonality);
 					npcs.add((Guard) objectGuard);
 					defaultDungeon[i][j] = genericEmptyTile;
 				}	
@@ -72,10 +57,9 @@ public class Game {
 					{
 					case 2:
 						hero = (Hero) object;
-						if(level == 2)
+						if(this.gameState.currentLevel == 2)
 						{
 							hero.setSymbol('A');
-							hero.setState(State.ARMED);
 						}
 						allObjects.add(hero);
 						break;
@@ -85,13 +69,9 @@ public class Game {
 					case 7:
 						doors.add((Door) object);
 						break;
-					case 8:
-					case 9:
-						allObjects.add(object);
-						break;
 					case 10:
 						npcs.add((Ogre) object);
-						for(int k = 0; k<this.ogreQuantity; k++)
+						for(int k = 0; k<gameState.ogreQuantity; k++)
 						{
 							npcs.add(new Ogre(object.getCoord()));
 						}
@@ -111,7 +91,7 @@ public class Game {
 				}
 			}
 		allObjects.addAll(npcs);
-		if(level == 2 && this.attackingEnemiesWeapons)
+		if(gameState.attackingEnemiesWeapons)
 		{
 			for (int i = 0; i < npcs.size(); i++)
 			{
@@ -147,22 +127,22 @@ public class Game {
 		Point heroNextCoord = hero.movement(heroMovement);					//hero moves and will (return) the state he is (dead, finishing the level, activating a lever, opening a door).
 		GameObject nextTile = dungeon.getTile(heroNextCoord);				//next tile identifier
 		boolean runningHero = InteractionStateMachine(hero, nextTile, heroNextCoord);		//hero interact
-		if(level == 2 && attackingHero)
+		if(gameState.attackingHero)
 		{
 			heroAttack();
 		}
 		
 		//npc turn
-		if(movingEnemies)
+		if(gameState.movingEnemies)
 		{
 			npcsMovement();			//npcs move
 		}
-		if(attackingEnemies)
+		if(gameState.attackingEnemies)
 		{
 			npcsAttack();			//npcs attack	
 		}
-		running = (!(hero.isDead()) && runningHero);	//changes running to the appropriate state according to this turn
-		return running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
+		gameState.running = (!(hero.isDead()) && runningHero);	//changes running to the appropriate state according to this turn
+		return gameState.running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
 	
 	public void heroAttack()
@@ -194,7 +174,7 @@ public class Game {
 				if(tilesAttacked[j].equals(hero.getCoord()))
 					heroHit = true;
 			}
-			if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && attackingEnemiesWeapons)
+			if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && gameState.attackingEnemiesWeapons)
 			{
 				currentNpc.getWeapon().move(tilesAttackedWeapon[0]);
 				for(int j = 0; j < tilesAttackedWeapon.length; j++)
@@ -278,16 +258,6 @@ public class Game {
 		this.doors = newDoors;
 	}
 	
-	public boolean gameRunning()
-	{
-		return running;
-	}
-
-	public int getLevel() {
-		
-		return this.level;
-	}
-	
 	public ArrayList<GameObject> getAllObjects()
 	{
 		return this.allObjects;
@@ -296,5 +266,21 @@ public class Game {
 	public ArrayList<Character> getNpcs()
 	{
 		return this.npcs;
+	}
+	
+	public GameState getGameState()
+	{
+		return this.gameState;
+	}
+	
+	public void setLevel(int level)
+	{
+		this.gameState.currentLevel = level;
+		if(level == 2)
+		{
+			this.hero.setSymbol('A');
+			this.gameState.attackingHero = true;
+		}
+
 	}
 }
