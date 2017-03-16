@@ -52,7 +52,7 @@ public class Main {
 				}
 			}
 		}
-		
+		sc.close();
 		System.out.println(game.printDungeonString());
 		System.out.println("GAME OVER!");
 		

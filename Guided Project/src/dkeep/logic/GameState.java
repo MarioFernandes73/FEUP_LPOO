@@ -20,11 +20,11 @@ public class GameState {
 		if(currentLevel == 1)
 		{
 			this.dungeonModel = defaultDungeon1;
-			this.attackingHero = false;
 		}
 		else
 		{
 			this.dungeonModel = defaultDungeon2;
+			this.attackingHero = true;
 		}
 	}
 	

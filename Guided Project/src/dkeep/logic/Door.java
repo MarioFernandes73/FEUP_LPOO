@@ -27,6 +27,6 @@ public class Door extends GameObject{
 	
 	public boolean isEndingDoor()
 	{
-		return (this.doorType == State.OutDoor && this.isPassable());
+		return (this.doorType == State.OutDoor);
 	}
 }
