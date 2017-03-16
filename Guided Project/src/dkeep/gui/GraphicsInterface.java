@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
 public class GraphicsInterface {
 
 	private JFrame frmDungeonKeep;
-	private JTextField textFieldOgreQuantity;
+	private IntegerJTextField textFieldOgreQuantity;
 	
 	private JButton btnMoveUp = new JButton("W");
 	private JButton btnMoveLeft = new JButton("A");
@@ -32,6 +32,7 @@ public class GraphicsInterface {
 	private JButton btnMoveDown = new JButton("S");
 	private JLabel lblGameState = new JLabel("You can start a new game.");
 	private JTextArea textAreaGameState = new JTextArea();
+	private JComboBox comboBoxGuardPersonality = new JComboBox();
 
 	Game game;
 	
@@ -82,7 +83,7 @@ public class GraphicsInterface {
 		guardPersonality.setBounds(50, 85, 120, 20);
 		frmDungeonKeep.getContentPane().add(guardPersonality);
 		
-		textFieldOgreQuantity = new JTextField();
+		textFieldOgreQuantity = new IntegerJTextField();
 		textFieldOgreQuantity.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldOgreQuantity.setFont(new Font("Calibri", Font.PLAIN, 14));
 		textFieldOgreQuantity.setText("3");
@@ -90,7 +91,6 @@ public class GraphicsInterface {
 		frmDungeonKeep.getContentPane().add(textFieldOgreQuantity);
 		textFieldOgreQuantity.setColumns(10);
 		
-		JComboBox comboBoxGuardPersonality = new JComboBox();
 		comboBoxGuardPersonality.setFont(new Font("Calibri", Font.PLAIN, 14));
 		comboBoxGuardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBoxGuardPersonality.setBounds(180, 85, 100, 20);
@@ -160,7 +160,7 @@ public class GraphicsInterface {
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game = new Game(new GameState(1));
+				game = new Game(new GameState(1,Integer.parseInt(textFieldOgreQuantity.getText()),comboBoxGuardPersonality.getSelectedIndex()));
 				textAreaGameState.setText(game.printDungeonString());
 				updateButtons(true);
 				lblGameState.setText("Level 1.");
@@ -169,6 +169,7 @@ public class GraphicsInterface {
 		btnNewGame.setFont(new Font("Calibri", Font.BOLD, 14));
 		btnNewGame.setBounds(800, 120, 200, 50);
 		frmDungeonKeep.getContentPane().add(btnNewGame);
+		
 	}
 	
 	private void updateButtons(boolean state)

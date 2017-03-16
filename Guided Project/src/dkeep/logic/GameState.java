@@ -44,7 +44,36 @@ public class GameState {
 	}
 	
 	
-	 static int[][] defaultDungeon1 = 
+	 public GameState(int level, int ogreQuantity, int guardPersonalityIndex) 
+	{
+		this.currentLevel = level;
+		if(currentLevel == 1)
+		{
+			this.dungeonModel = defaultDungeon1;
+			
+			switch(guardPersonalityIndex)
+			{
+			case 0:
+				this.guardPersonality = Personality.ROOKIE;
+				break;
+			case 1:
+				this.guardPersonality = Personality.DRUNKEN;
+				break;
+			case 2:
+				this.guardPersonality = Personality.SUSPICIOUS;
+				break;
+			}		
+		}
+		else
+		{
+			this.dungeonModel = defaultDungeon2;
+			this.attackingHero = true;
+			this.ogreQuantity = ogreQuantity;
+		}
+	}
+
+
+	static int[][] defaultDungeon1 = 
 		{{1,1,1,1,1,1,1,1,1,1},
 		 {1,2,0,0,4,0,1,0,3,1},
 		 {1,1,1,0,1,1,1,0,0,1},
