@@ -80,4 +80,9 @@ public class Dungeon {
 	{
 		return dungeon[p.getY()][p.getX()];
 	}
+	
+	public GameObject[][] getMap()
+	{
+		return this.dungeon;
+	}
 }

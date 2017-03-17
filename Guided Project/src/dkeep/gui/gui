@@ -1,0 +1,69 @@
+package dkeep.gui;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import dkeep.logic.Game;
+import dkeep.logic.GameState;
+
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+
+public class GraphicsInterface {
+	
+
+	
+
+	
+
+
+	/**
+	 * Create the application.
+	 */
+	public GraphicsInterface() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		
+		frmDungeonKeep = new JFrame();
+		frmDungeonKeep.setTitle("Dungeon Keep");
+		frmDungeonKeep.setBounds(100, 100, 1080, 720);
+		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDungeonKeep.getContentPane().setLayout(null);
+		
+		JButton btnPlay = new JButton("Play");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					GameInstance windowGame = new GameInstance();
+					frame.dispose();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnPlay.setBounds(412, 292, 97, 25);
+		frmDungeonKeep.getContentPane().add(btnPlay);
+		
+		
+	}
+	
+	
+	
+}

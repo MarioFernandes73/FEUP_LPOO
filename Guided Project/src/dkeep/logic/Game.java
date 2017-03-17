@@ -283,4 +283,9 @@ public class Game {
 		}
 
 	}
+	
+	public GameObject[][] getMap()
+	{
+		return this.dungeon.getMap();
+	}
 }
