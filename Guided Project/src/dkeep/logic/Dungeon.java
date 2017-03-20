@@ -45,13 +45,19 @@ public class Dungeon {
 				
 				if(currentObject instanceof Ogre)
 				{
+					int yCoordOgre = ((Ogre) currentObject).getCoord().getY();
+					int xCoordOgre = ((Ogre) currentObject).getCoord().getX();
+					if(dungeonInstant[yCoordOgre][xCoordOgre] instanceof Key)
+					{
+						dungeonInstant[yCoordOgre][xCoordOgre] = new Collision(currentObject.getCoord());
+					}
 					if(((Ogre) currentObject).getWeapon() != null && ((Ogre) currentObject).getWeapon().getCoord() != null)
 					{
 						int yCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getY();
 						int xCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getX();
 						if(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Key)
 						{
-							dungeonInstant[yCoordWeapon][xCoordWeapon] = new Collision(currentObject.getCoord(),12);
+							dungeonInstant[yCoordWeapon][xCoordWeapon] = new Collision(currentObject.getCoord());
 						}
 						else if(!(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Collision))
 						{

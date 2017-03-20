@@ -54,7 +54,11 @@ public class Ogre extends Character {
 	@Override
 	public Point[] attack()
 	{
-		Point[] areaAttacked = this.getCoord().getAdjacentPos();
+		Point[] areaAttacked = null;
+		if(this.sleepTime <= 0)
+		{
+			areaAttacked = this.getCoord().getAdjacentPos();
+		}
 		return areaAttacked;
 	}
 	

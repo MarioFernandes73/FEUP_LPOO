@@ -1,4 +1,4 @@
-		private IntegerJTextField textFieldOgreQuantity;
+		
 	
 	private JButton btnNewGame = new JButton("New Game");
 	private JButton btnExit = new JButton("Exit");
@@ -11,7 +11,7 @@
 	private JLabel guardPersonality = new JLabel("Guard Personality");
 
 	//private JTextArea textAreaGameState = new JTextArea();
-	private JComboBox comboBoxGuardPersonality = new JComboBox();
+
 
 private void setup()
 	{
@@ -28,26 +28,14 @@ private void setup()
 				lblGameState.setBounds(50, 630, 200, 20);
 				frmDungeonKeep.getContentPane().add(lblGameState);
 				
-				//Text field
-				textFieldOgreQuantity = new IntegerJTextField();
-				textFieldOgreQuantity.setHorizontalAlignment(SwingConstants.CENTER);
-				textFieldOgreQuantity.setFont(new Font("Calibri", Font.PLAIN, 14));
-				textFieldOgreQuantity.setText("3");
-				textFieldOgreQuantity.setBounds(180, 50, 30, 20);
-				frmDungeonKeep.getContentPane().add(textFieldOgreQuantity);
-				textFieldOgreQuantity.setColumns(10);
+
 				
 				//Text Area
 			//	textAreaGameState.setFont(new Font("Consolas", Font.BOLD, 20));
 			//	textAreaGameState.setEditable(false);
 			//	textAreaGameState.setBounds(50, 120, 700, 500);
 			//	frmDungeonKeep.getContentPane().add(textAreaGameState);
-				
-				//Combo box
-				comboBoxGuardPersonality.setFont(new Font("Calibri", Font.PLAIN, 14));
-				comboBoxGuardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
-				comboBoxGuardPersonality.setBounds(180, 85, 100, 20);
-				frmDungeonKeep.getContentPane().add(comboBoxGuardPersonality);
+
 				
 				//Buttons
 				btnExit.addActionListener(new ActionListener() {

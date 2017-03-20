@@ -1,56 +1,73 @@
 package dkeep.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JSplitPane;
 
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private Menu panelMenu;
-	private Game panelGame;
-
+	private JPanel panelMenu;
+	private PanelGame panelGame;
+	private JButtonCustom buttonNewGame;
+	private JButtonCustom buttonCreateGame;
+	private JButtonCustom buttonSaveGame;
+	private JButtonCustom buttonLoadGame;	
+	private JButtonCustom buttonOptions;
+	private JButtonCustom buttonQuit;
+	
+	private JSplitPaneCustom pane;
+	
+	private BufferedImage newGame;
+	
 	/**
 	 * Create the frame.
 	 */
 	public GUI(String title) {
+		
 		this.setTitle(title);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 1080, 720);
-		panelMenu = new Menu();
-		panelMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelMenu.setLayout(new BorderLayout(0, 0));
-		
-		//loads the menu components
-		loadMenuActions();
-
-		
-		
-		this.setContentPane(panelMenu);
-	}
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	
-	private void loadMenuActions()
-	{
-		panelMenu.getButtonNewGame().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				disablePanelComponents(panelMenu);
-				panelMenu.setVisible(false);
-			}
-		});
-	}
-	
-	private void disablePanelComponents(JPanel panel)
-	{
-		Component[] components = panelMenu.getComponents();
-		for(int i = 0; i < components.length; i++)
+		this.panelMenu = new JPanel(new GridLayout(2,3));
+		try
 		{
-			components[i].setEnabled(false);
+		this.newGame = ImageIO.read(getClass().getResource("resources/menu/newGame.jpg"));				
 		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+			
+		this.createButtons();
+		
+		this.panelGame = new PanelGame();
+
+		pane = new JSplitPaneCustom(JSplitPane.HORIZONTAL_SPLIT, panelMenu, panelGame);
+		pane.setVisible(true);
+		this.add(pane);
+		
 	}
+	
+	private void createButtons()
+	{
+		this.buttonNewGame = new JButtonCustom(newGame);
+		this.buttonCreateGame = new JButtonCustom(newGame);
+		this.buttonSaveGame = new JButtonCustom(newGame);
+		this.buttonLoadGame = new JButtonCustom(newGame);
+		this.buttonOptions = new JButtonCustom(newGame);
+		this.buttonQuit = new JButtonCustom(newGame);
+		
+		panelMenu.add(buttonNewGame);
+		panelMenu.add(buttonCreateGame);
+		panelMenu.add(buttonSaveGame);
+		panelMenu.add(buttonLoadGame);
+		panelMenu.add(buttonOptions);
+		panelMenu.add(buttonQuit);
+	}
+	
 	
 }

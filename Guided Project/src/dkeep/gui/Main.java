@@ -12,8 +12,9 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI("Dungeon Keep");
-					window.setVisible(true);
+					GUI frame = new GUI("Dungeon Keep");
+					frame.setBounds(0,0,1080,720);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
