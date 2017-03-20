@@ -32,16 +32,12 @@ public class PanelGame extends JPanel {
 	}
 
 	private void createComponents()
-	{		
-
-		
-		
+	{
 		gameRunningPanel = new GameRunning(new Game(new GameState(1)));
 		gameRunningPanel.setBounds(0,0,500,500);
 		
 		gameRunningPanel.setVisible(true);
 		this.add(gameRunningPanel);
-		
 	}
 	
 }

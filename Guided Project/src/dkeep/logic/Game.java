@@ -169,10 +169,13 @@ public class Game {
 			Character currentNpc = npcs.get(i);
 			Point[] tilesAttacked = currentNpc.attack();				//area of attack of the npc (standard)
 			Point[] tilesAttackedWeapon = currentNpc.weaponAttack();	//area of attack of the weapon of the npc
-			for(int j = 0; j < tilesAttacked.length; j++)
+			if(tilesAttacked != null)
 			{
-				if(tilesAttacked[j].equals(hero.getCoord()))
-					heroHit = true;
+				for(int j = 0; j < tilesAttacked.length; j++)
+				{
+					if(tilesAttacked[j].equals(hero.getCoord()))
+						heroHit = true;
+				}
 			}
 			if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && gameState.attackingEnemiesWeapons)
 			{

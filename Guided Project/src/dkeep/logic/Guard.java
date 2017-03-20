@@ -119,8 +119,7 @@ public class Guard extends Character {
 			Random directionGenerator = new Random();
 			if(movingDirection == 1)//chance of turning back
 			{
-				int directionRandomIdentifier = directionGenerator.nextInt(Math.abs(sleepTime)+1);	//
-				System.out.println(directionRandomIdentifier);
+				int directionRandomIdentifier = directionGenerator.nextInt(Math.abs(sleepTime)+1);
 				if(directionRandomIdentifier > 1)	// 100% to keep going to the front on the first try, 75% at the second, 50% at the third...
 				{
 					movingDirection = -1;
