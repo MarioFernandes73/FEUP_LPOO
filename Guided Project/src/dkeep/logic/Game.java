@@ -71,7 +71,7 @@ public class Game {
 						break;
 					case 10:
 						npcs.add((Ogre) object);
-						for(int k = 0; k<gameState.ogreQuantity; k++)
+						for(int k = 1; k<gameState.ogreQuantity; k++)
 						{
 							npcs.add(new Ogre(object.getCoord()));
 						}
