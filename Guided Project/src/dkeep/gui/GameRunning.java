@@ -35,17 +35,13 @@ public class GameRunning extends JPanel {
 		this.setLayout(new GridLayout(width, height));
 		populateGrid();
 		
-		
 		this.wall = ImageIO.read(getClass().getResource("resources/game/wall.jpg"));
 		
 		} 
 		catch (IOException e)
 		{
 			e.printStackTrace();
-		}	
-		
-		
-		
+		}		
 	}
 	
 /*	public void paintComponent(Graphics g)

@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import dkeep.logic.Game;
+import dkeep.logic.GameState;
+
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel panelMenu;
@@ -44,12 +47,11 @@ public class GUI extends JFrame {
 			
 		this.createButtons();
 		
-		this.panelGame = new PanelGame();
+		this.panelGame = new PanelGame(new Game(new GameState(1)));
 
-		pane = new JSplitPaneCustom(JSplitPane.HORIZONTAL_SPLIT, panelMenu, panelGame);
+		pane = new JSplitPaneCustom(JSplitPane.VERTICAL_SPLIT, panelMenu, panelGame);
 		pane.setVisible(true);
 		this.add(pane);
-		
 	}
 	
 	private void createButtons()

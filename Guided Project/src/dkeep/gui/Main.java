@@ -13,7 +13,7 @@ public class Main {
 			public void run() {
 				try {
 					GUI frame = new GUI("Dungeon Keep");
-					frame.setBounds(0,0,1080,720);
+					frame.setBounds(0,0,1920,1080);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
