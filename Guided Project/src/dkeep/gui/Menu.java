@@ -1,10 +1,7 @@
 package dkeep.gui;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -48,14 +45,6 @@ public class Menu extends JPanel {
 			e.printStackTrace();
 		}
 	}
-
-	/*@Override
-	public void paintComponent(Graphics g)
-	{
-		Graphics2D graphics = (Graphics2D) g;
-		
-		//graphics.drawImage(this.background, 0, 0, null);
-	}*/
 	
 	private void createComponents()
 	{

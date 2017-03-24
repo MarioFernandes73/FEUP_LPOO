@@ -7,11 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import dkeep.logic.Game;
@@ -81,11 +82,25 @@ public class PanelGame extends JPanel implements KeyListener{
 
 	public void setGame(Game game)
 	{
+		this.addKeyListener(this);
 		this.game = game;
 		map = game.getMap();
 		running = true;
+		this.setFocusable(true);
+		this.requestFocus();
 		repaint();
+		
+		
+		this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseReleased(e);
+                PanelGame.this.grabFocus();
+            }
+        });
+		
 	}
+	
 	
 	@Override
 	public void paintComponent(Graphics g)
@@ -103,7 +118,6 @@ public class PanelGame extends JPanel implements KeyListener{
 				for (int j = 0; j<map[i].length; j++)
 				{
 					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),null,j*32,i*32);
-					System.out.println(game.getDungeon().getDungeonInstant()[i][j].toString());
 				}
 			}
 			

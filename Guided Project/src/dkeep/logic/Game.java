@@ -1,10 +1,6 @@
 package dkeep.logic;
 
 import java.util.ArrayList;
-import java.util.Random;
-
-import dkeep.logic.Character.State;
-import dkeep.logic.Guard.Personality;
 
 public class Game {
 

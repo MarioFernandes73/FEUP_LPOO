@@ -9,7 +9,9 @@ import java.awt.event.FocusListener;
 
 public class IntegerJTextField extends JTextField implements FocusListener {
 
-	 public IntegerJTextField(){
+	private static final long serialVersionUID = 1L;
+
+	public IntegerJTextField(){
 		 addKeyListener(new KeyAdapter() {
 	            public void keyTyped(KeyEvent e) {
 	                char ch = e.getKeyChar();
