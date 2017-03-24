@@ -24,60 +24,14 @@ public class PanelGame extends JPanel implements KeyListener{
 	private Game game;
 	private GameObject[][] map;
 	private boolean running = false;
-	private BufferedImage background;
-	private BufferedImage empty;
-	private BufferedImage wall;
-	private BufferedImage heroAlive;
-	private BufferedImage heroArmed;
-	private BufferedImage heroArmedKey;
-	private BufferedImage heroDead;
-	private BufferedImage guardRookie;
-	private BufferedImage guardDrunken;
-	private BufferedImage guardSleep;
-	private BufferedImage guardSuspicious;
-	private BufferedImage normalDoorClosed;
-	private BufferedImage normalDoorOpened;
-	private BufferedImage exitDoorOpened;
-	private BufferedImage exitDoorClosed;
-	private BufferedImage lever;
-	private BufferedImage key;
-	private BufferedImage ogre;
-	private BufferedImage ogreStunned;
-	private BufferedImage club;
-	private BufferedImage clubKey;
-	
+	private Assets gameImages;
+
 	/**
 	 * Create the panel.
 	 */
-	public PanelGame() {
-	
-		try {
-			background = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
-			empty = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
-			wall = ImageIO.read(getClass().getResource("resources/game/wall.jpg"));
-			heroAlive = ImageIO.read(getClass().getResource("resources/game/heroAlive.jpg"));
-			/*heroArmed = ImageIO.read(getClass().getResource("resources/game/heroArmed.jpg"));
-			heroArmedKey = ImageIO.read(getClass().getResource("resources/game/heroArmedKey.jpg"));
-			heroDead = ImageIO.read(getClass().getResource("resources/game/heroDead.jpg"));
-			guardRookie = ImageIO.read(getClass().getResource("resources/game/guardRookie.jpg"));
-			guardDrunken = ImageIO.read(getClass().getResource("resources/game/guardDrunken.jpg"));
-			guardSleep = ImageIO.read(getClass().getResource("resources/game/guardSleep.jpg"));
-			guardSuspicious = ImageIO.read(getClass().getResource("resources/game/guardSuspicious.jpg"));*/
-			normalDoorClosed = ImageIO.read(getClass().getResource("resources/game/normalDoorClosed.jpg"));
-			normalDoorOpened = ImageIO.read(getClass().getResource("resources/game/normalDoorOpened.jpg"));
-			exitDoorOpened = ImageIO.read(getClass().getResource("resources/game/exitDoorOpened.jpg"));
-			exitDoorClosed = ImageIO.read(getClass().getResource("resources/game/exitDoorClosed.jpg"));
-			/*lever = ImageIO.read(getClass().getResource("resources/game/lever.jpg"));
-			key = ImageIO.read(getClass().getResource("resources/game/key.jpg"));
-			ogre = ImageIO.read(getClass().getResource("resources/game/ogre.jpg"));
-			ogreStunned = ImageIO.read(getClass().getResource("resources/game/ogreStunned.jpg"));
-			club = ImageIO.read(getClass().getResource("resources/game/club.jpg"));
-			clubKey = ImageIO.read(getClass().getResource("resources/game/clubKey.jpg"));*/
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	public PanelGame(Assets images) {
+		this.gameImages = images;
+
 	}
 
 	public void setGame(Game game)
@@ -100,16 +54,15 @@ public class PanelGame extends JPanel implements KeyListener{
         });
 		
 	}
-	
-	
+
 	@Override
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		Graphics2D graphics = (Graphics2D) g;
-		
-		
-		
+
+
+
 		if(running)
 		{
 			game.printDungeonString();
@@ -120,37 +73,59 @@ public class PanelGame extends JPanel implements KeyListener{
 					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),null,j*32,i*32);
 				}
 			}
-			
+
 		}
 		else
 		{
 			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-			graphics.drawImage(background, 0, 0, (int)screen.getWidth(), (int)screen.getHeight(), null);
+			graphics.drawImage(gameImages.background, 0, 0, (int)screen.getWidth(), (int)screen.getHeight(), null);
 		}
 	}
-	
+
 	public BufferedImage auxSwitch(String tile)
 	{
 		switch(tile)
 		{
 		case " ":
-		return empty;
+			return gameImages.empty;
+		case "X":
+			return gameImages.wall;
 		case "H":
-		return heroAlive;
+			return gameImages.normalHero;
+		case "G":
+			return gameImages.guard;
 		case "S":
+			return gameImages.openDoor;
 		case "I":
-			return exitDoorClosed;
+			return gameImages.closedDoor;
+		case "k":
+			return gameImages.key;
+		case "$":
+			return gameImages.obstructedKey;
+		case "O":
+			return gameImages.ogre;
+		case "*":
+			return gameImages.club;
+		case "g":
+			return gameImages.guardStunned;
+		case "A":
+			return gameImages.heroArmed;
+		case "K":
+			return gameImages.heroCarryingKey;
+		case "8":
+			return gameImages.ogreStunned;
+			
 		}
-		
-		
-		
-		return wall;
+
+
+
+		return gameImages.wall;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -184,8 +159,8 @@ public class PanelGame extends JPanel implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
+
 }
