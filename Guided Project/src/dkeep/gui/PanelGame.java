@@ -70,7 +70,7 @@ public class PanelGame extends JPanel implements KeyListener{
 			{
 				for (int j = 0; j<map[i].length; j++)
 				{
-					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),null,j*32,i*32);
+					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),j*32,i*32,(j+1)*32, (i+1)*32,null);
 				}
 			}
 
