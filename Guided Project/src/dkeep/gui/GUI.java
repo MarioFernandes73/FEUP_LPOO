@@ -11,6 +11,8 @@ import javax.swing.JSplitPane;
 
 import dkeep.logic.Game;
 import dkeep.logic.GameState;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -47,21 +49,31 @@ public class GUI extends JFrame {
 			
 		this.createButtons();
 		
-		this.panelGame = new PanelGame(new Game(new GameState(1)));
+		this.panelGame = new PanelGame();
 
 		pane = new JSplitPaneCustom(JSplitPane.VERTICAL_SPLIT, panelMenu, panelGame);
 		pane.setVisible(true);
-		this.add(pane);
+		getContentPane().add(pane);
 	}
 	
 	private void createButtons()
 	{
 		this.buttonNewGame = new JButtonCustom(newGame);
+		buttonNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI.this.panelGame.setGame(new Game(new GameState(1)));
+			}
+		});
 		this.buttonCreateGame = new JButtonCustom(newGame);
 		this.buttonSaveGame = new JButtonCustom(newGame);
 		this.buttonLoadGame = new JButtonCustom(newGame);
 		this.buttonOptions = new JButtonCustom(newGame);
 		this.buttonQuit = new JButtonCustom(newGame);
+		buttonQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		
 		panelMenu.add(buttonNewGame);
 		panelMenu.add(buttonCreateGame);

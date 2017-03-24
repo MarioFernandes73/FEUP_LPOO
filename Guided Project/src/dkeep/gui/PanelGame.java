@@ -1,22 +1,29 @@
 package dkeep.gui;
 
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import dkeep.logic.Game;
 import dkeep.logic.GameObject;
 
-public class PanelGame extends JPanel {
+public class PanelGame extends JPanel implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	private Game game;
 	private GameObject[][] map;
+	private boolean running = false;
+	private BufferedImage background;
 	private BufferedImage empty;
 	private BufferedImage wall;
 	private BufferedImage heroAlive;
@@ -41,26 +48,25 @@ public class PanelGame extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelGame(Game game) {
-		this.game = game;
-		map = game.getMap();
-		
+	public PanelGame() {
+	
 		try {
+			background = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
 			empty = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
 			wall = ImageIO.read(getClass().getResource("resources/game/wall.jpg"));
-			/*heroAlive = ImageIO.read(getClass().getResource("resources/game/heroAlive.jpg"));
-			heroArmed = ImageIO.read(getClass().getResource("resources/game/heroArmed.jpg"));
+			heroAlive = ImageIO.read(getClass().getResource("resources/game/heroAlive.jpg"));
+			/*heroArmed = ImageIO.read(getClass().getResource("resources/game/heroArmed.jpg"));
 			heroArmedKey = ImageIO.read(getClass().getResource("resources/game/heroArmedKey.jpg"));
 			heroDead = ImageIO.read(getClass().getResource("resources/game/heroDead.jpg"));
 			guardRookie = ImageIO.read(getClass().getResource("resources/game/guardRookie.jpg"));
 			guardDrunken = ImageIO.read(getClass().getResource("resources/game/guardDrunken.jpg"));
 			guardSleep = ImageIO.read(getClass().getResource("resources/game/guardSleep.jpg"));
-			guardSuspicious = ImageIO.read(getClass().getResource("resources/game/guardSuspicious.jpg"));
+			guardSuspicious = ImageIO.read(getClass().getResource("resources/game/guardSuspicious.jpg"));*/
 			normalDoorClosed = ImageIO.read(getClass().getResource("resources/game/normalDoorClosed.jpg"));
 			normalDoorOpened = ImageIO.read(getClass().getResource("resources/game/normalDoorOpened.jpg"));
 			exitDoorOpened = ImageIO.read(getClass().getResource("resources/game/exitDoorOpened.jpg"));
 			exitDoorClosed = ImageIO.read(getClass().getResource("resources/game/exitDoorClosed.jpg"));
-			lever = ImageIO.read(getClass().getResource("resources/game/lever.jpg"));
+			/*lever = ImageIO.read(getClass().getResource("resources/game/lever.jpg"));
 			key = ImageIO.read(getClass().getResource("resources/game/key.jpg"));
 			ogre = ImageIO.read(getClass().getResource("resources/game/ogre.jpg"));
 			ogreStunned = ImageIO.read(getClass().getResource("resources/game/ogreStunned.jpg"));
@@ -73,18 +79,39 @@ public class PanelGame extends JPanel {
 		
 	}
 
+	public void setGame(Game game)
+	{
+		this.game = game;
+		map = game.getMap();
+		running = true;
+		repaint();
+	}
+	
 	@Override
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		Graphics2D graphics = (Graphics2D) g;
 		
-		for(int i = 0; i<map.length; i++)
+		
+		
+		if(running)
 		{
-			for (int j = 0; j<map[i].length; j++)
+			game.printDungeonString();
+			for(int i = 0; i<map.length; i++)
 			{
-				graphics.drawImage(auxSwitch(map[j][i].toString()),null,i*32,j*32);		
+				for (int j = 0; j<map[i].length; j++)
+				{
+					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),null,j*32,i*32);
+					System.out.println(game.getDungeon().getDungeonInstant()[i][j].toString());
+				}
 			}
+			
+		}
+		else
+		{
+			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+			graphics.drawImage(background, 0, 0, (int)screen.getWidth(), (int)screen.getHeight(), null);
 		}
 	}
 	
@@ -94,11 +121,56 @@ public class PanelGame extends JPanel {
 		{
 		case " ":
 		return empty;
+		case "H":
+		return heroAlive;
+		case "S":
+		case "I":
+			return exitDoorClosed;
 		}
 		
 		
 		
 		return wall;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(running)
+		{
+			int code = e.getKeyCode();
+			switch(code)
+			{
+			case KeyEvent.VK_W:
+			case KeyEvent.VK_UP:
+				game.playerTurn("w");
+				break;
+			case KeyEvent.VK_A:
+			case KeyEvent.VK_LEFT:
+				game.playerTurn("a");
+				break;
+			case KeyEvent.VK_D:
+			case KeyEvent.VK_RIGHT:
+				game.playerTurn("d");
+				break;
+			case KeyEvent.VK_S:
+			case KeyEvent.VK_DOWN:
+				game.playerTurn("s");
+				break;
+			}
+			repaint();
+		}	
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

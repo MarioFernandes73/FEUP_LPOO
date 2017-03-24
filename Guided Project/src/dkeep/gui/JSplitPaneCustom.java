@@ -13,7 +13,4 @@ public class JSplitPaneCustom extends JSplitPane {
 	    	this.setDividerSize(0);  
 	    	this.setResizeWeight(.3);
 	    }
-
-
-
 }

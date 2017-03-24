@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Dungeon {
 	
 	private GameObject dungeon[][];
+	private GameObject dungeonInstant[][];
 	
 	
 	public Dungeon(GameObject dungeon[][])
@@ -22,7 +23,7 @@ public class Dungeon {
 	public String printDungeonString(ArrayList<GameObject> allObjects)
 	{
 		
-		GameObject[][] dungeonInstant = new GameObject[dungeon.length][dungeon[0].length];
+		dungeonInstant = new GameObject[dungeon.length][dungeon[0].length];
 		
 		for(int i = 0; i<dungeon.length; i++)
 		{
@@ -87,6 +88,11 @@ public class Dungeon {
 			dungeonString += "\n";
 		}
 		return dungeonString;
+	}
+	
+	public GameObject[][] getDungeonInstant()
+	{
+		return this.dungeonInstant;
 	}
 	
 	public GameObject getTile(Point p)
