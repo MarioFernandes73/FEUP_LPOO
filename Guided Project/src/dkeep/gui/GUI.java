@@ -27,7 +27,7 @@ public class GUI extends JFrame {
 	
 	private JSplitPaneCustom pane;
 	
-	private BufferedImage newGame;
+	private Assets gameImages; //Contains all used images
 	
 	/**
 	 * Create the frame.
@@ -36,20 +36,12 @@ public class GUI extends JFrame {
 		
 		this.setTitle(title);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-	
+		this.gameImages = new Assets();
 		this.panelMenu = new JPanel(new GridLayout(2,3));
-		try
-		{
-		this.newGame = ImageIO.read(getClass().getResource("resources/menu/newGame.jpg"));				
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 			
 		this.createButtons();
 		
-		this.panelGame = new PanelGame();
+		this.panelGame = new PanelGame(gameImages);
 
 		pane = new JSplitPaneCustom(JSplitPane.VERTICAL_SPLIT, panelMenu, panelGame);
 		pane.setVisible(true);
@@ -58,17 +50,17 @@ public class GUI extends JFrame {
 	
 	private void createButtons()
 	{
-		this.buttonNewGame = new JButtonCustom(newGame);
+		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
 		buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.panelGame.setGame(new Game(new GameState(1)));
 			}
 		});
-		this.buttonCreateGame = new JButtonCustom(newGame);
-		this.buttonSaveGame = new JButtonCustom(newGame);
-		this.buttonLoadGame = new JButtonCustom(newGame);
-		this.buttonOptions = new JButtonCustom(newGame);
-		this.buttonQuit = new JButtonCustom(newGame);
+		this.buttonCreateGame = new JButtonCustom(gameImages.newGame);
+		this.buttonSaveGame = new JButtonCustom(gameImages.newGame);
+		this.buttonLoadGame = new JButtonCustom(gameImages.newGame);
+		this.buttonOptions = new JButtonCustom(gameImages.newGame);
+		this.buttonQuit = new JButtonCustom(gameImages.newGame);
 		buttonQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
