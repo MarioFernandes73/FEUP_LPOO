@@ -7,10 +7,10 @@ public class JSplitPaneCustom extends JSplitPane {
 	
 	private static final long serialVersionUID = 1L;
 
-	    public JSplitPaneCustom(int split, JComponent comp1, JComponent comp2) 
+	    public JSplitPaneCustom(int split, JComponent comp1, JComponent comp2, double resizeWeight) 
 	    {
 	    	super(split, comp1,comp2);
 	    	this.setDividerSize(0);  
-	    	this.setResizeWeight(.3);
+	    	this.setResizeWeight(resizeWeight);
 	    }
 }

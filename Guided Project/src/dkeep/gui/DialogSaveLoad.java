@@ -1,6 +1,14 @@
 package dkeep.gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -10,16 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dkeep.logic.Game;
-import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.awt.event.ActionEvent;
 
-public class SaveLoad extends JDialog {
+public class DialogSaveLoad extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel labelFileName;
@@ -35,7 +35,7 @@ public class SaveLoad extends JDialog {
 	/**
 	 * Create the panel.
 	 */
-	public SaveLoad(Game game) {
+	public DialogSaveLoad(Game game) {
 		
 		this.game = game;
 		this.setSize(300, 300);
@@ -80,7 +80,7 @@ public class SaveLoad extends JDialog {
 		this.buttonLoadGame = new JButton("Load");
 		buttonLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String fileName = SaveLoad.this.textFileName.getText();
+				String fileName = DialogSaveLoad.this.textFileName.getText();
 				if(!(fileName.equals("")))
 				{
 					FileInputStream file;
@@ -91,20 +91,20 @@ public class SaveLoad extends JDialog {
 			        in.close();
 			        file.close();
 					} catch (FileNotFoundException e1) {
-						SaveLoad.this.labelState.setText("Game save state has not been found");
-						SaveLoad.this.labelState.setVisible(true);
+						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
+						DialogSaveLoad.this.labelState.setVisible(true);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} catch (ClassNotFoundException e1) {
 						e1.printStackTrace();
 					}
 					
-					SaveLoad.this.dispose();
+					DialogSaveLoad.this.dispose();
 				}
 				else
 				{
-					SaveLoad.this.labelState.setText("Please specify a name for your file");
-					SaveLoad.this.labelState.setVisible(true);
+					DialogSaveLoad.this.labelState.setText("Please specify a name for your file");
+					DialogSaveLoad.this.labelState.setVisible(true);
 				}
 			}
 		});
@@ -114,13 +114,13 @@ public class SaveLoad extends JDialog {
 		this.buttonSaveGame = new JButton("Save");
 		buttonSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String fileName = SaveLoad.this.textFileName.getText();
+				String fileName = DialogSaveLoad.this.textFileName.getText();
 				if(!(fileName.equals("")))
 				{
 					try {
 						FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\"+fileName+".ser");
 				        ObjectOutputStream out = new ObjectOutputStream(file);
-				        out.writeObject(SaveLoad.this.game);
+				        out.writeObject(DialogSaveLoad.this.game);
 				        out.close();
 				        file.close();
 					} catch (FileNotFoundException e1) {
@@ -129,27 +129,27 @@ public class SaveLoad extends JDialog {
 						e1.printStackTrace();
 					}
 					
-					SaveLoad.this.dispose();
+					DialogSaveLoad.this.dispose();
 				}
 				else
 				{
-					SaveLoad.this.labelState.setText("Please specify a name for your file");
-					SaveLoad.this.labelState.setVisible(true);
+					DialogSaveLoad.this.labelState.setText("Please specify a name for your file");
+					DialogSaveLoad.this.labelState.setVisible(true);
 				}
 				
 			}
 		});
 		this.buttonSaveGame.setBounds(150, 160, 100, 50);
 		this.buttonSaveGame.setVisible(true);
+		if(this.game == null)
+		{
+			this.buttonSaveGame.setEnabled(false);
+		}
 	}
 	
 	public void saveGame(Game game)
 	{
 		this.game = game;
-	}
-	
-	public Game loadGame()
-	{
-		return this.game;
+		this.buttonSaveGame.setEnabled(true);
 	}
 }

@@ -4,17 +4,18 @@ package dkeep.gui;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import dkeep.logic.Game;
 import dkeep.logic.GameObject;
+import dkeep.logic.GameState;
 
 public class PanelGame extends JPanel implements KeyListener{
 
@@ -23,19 +24,27 @@ public class PanelGame extends JPanel implements KeyListener{
 	private GameObject[][] map;
 	private boolean running = false;
 	private Assets gameImages;
+	private JLabel labelGameState;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelGame(Assets images) {
+	public PanelGame(Assets images, JLabel labelGameState) {
 		this.gameImages = images;
-
+		this.labelGameState = labelGameState;
 	}
 
 	public void setGame(Game game)
 	{
-		this.addKeyListener(this);
 		this.game = game;
+		if(game == null)
+		{
+			running = false;
+			repaint();
+			return;
+		}
+		this.labelGameState.setText("<html>Get to the lever!<br>Avoid the guard!</html>");
+		this.addKeyListener(this);
 		map = game.getMap();
 		running = true;
 		this.setFocusable(true);
@@ -53,6 +62,12 @@ public class PanelGame extends JPanel implements KeyListener{
 		
 	}
 
+	public void moveHero(String movement)
+	{
+		this.game.playerTurn(movement);
+		repaint();
+	}
+	
 	public Game getGame()
 	{
 		return this.game;
@@ -80,7 +95,7 @@ public class PanelGame extends JPanel implements KeyListener{
 		}
 		else
 		{
-			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+			Dimension screen = this.getSize();
 			graphics.drawImage(gameImages.background, 0, 0, (int)screen.getWidth(), (int)screen.getHeight(), null);
 		}
 	}
@@ -155,6 +170,29 @@ public class PanelGame extends JPanel implements KeyListener{
 				game.playerTurn("s");
 				break;
 			}
+			if(game.getGameState().running == false)
+			{
+				if((!game.getHero().isDead()) && game.getGameState().currentLevel == 1)
+				{
+					this.game = new Game(new GameState(2));
+				}
+				else if(game.getHero().isDead())
+				{
+					//YOU LOSE!
+					this.running = false;
+					this.game = null;
+					this.gameImages.background = this.gameImages.youLose;
+				}
+				else if((!game.getHero().isDead()) && game.getGameState().currentLevel == 2)
+				{
+					//YOU WIN!
+					this.running = false;
+					this.game = null;
+					this.gameImages.background = this.gameImages.youWin;
+				}
+			}
+
+			
 			repaint();
 		}	
 	}

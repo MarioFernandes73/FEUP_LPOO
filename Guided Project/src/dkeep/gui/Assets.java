@@ -6,6 +6,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Assets {
+	
+	// GAME STATES
+	public BufferedImage background;
+	public BufferedImage youWin;
+	public BufferedImage youLose;
+	
 	// BUTTONS IMAGE
 	public BufferedImage newGame;
 	public BufferedImage createGame;
@@ -14,7 +20,6 @@ public class Assets {
 	public BufferedImage exit;
 	
 	// GAME ELEMENTS IMAGE
-	public BufferedImage background;
 	public BufferedImage empty;
 	public BufferedImage wall;
 	public BufferedImage normalHero;
@@ -44,6 +49,12 @@ public class Assets {
 	
 	public Assets() {
 		try {
+			
+		// GAME STATES
+		background = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
+		youWin = ImageIO.read(getClass().getResource("resources/game/youWin.png"));
+		youLose = ImageIO.read(getClass().getResource("resources/game/youLose.png"));
+		
 		// BUTTONS
 		newGame = ImageIO.read(getClass().getResource("resources/menu/newGame.png"));
 		createGame = ImageIO.read(getClass().getResource("resources/menu/createGame.png"));
@@ -52,7 +63,6 @@ public class Assets {
 		exit = ImageIO.read(getClass().getResource("resources/menu/exit.png"));
 		
 		// GAME ELEMENTS
-		background = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
 		empty = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
 		wall = ImageIO.read(getClass().getResource("resources/game/wall.png"));
 		normalHero = ImageIO.read(getClass().getResource("resources/game/normalHero.png"));
