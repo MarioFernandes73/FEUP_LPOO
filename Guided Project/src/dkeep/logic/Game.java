@@ -3,18 +3,58 @@ package dkeep.logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * @brief represents the game itself, all the elements are controlled by this class 
+ */
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * stores information about what features will be in the game, such as weapons, ability to attack, guard personality, etc.
+	 */
 	private GameState gameState;
+	
+	/**
+	 * represents the board
+	 */
 	private Dungeon dungeon;
+	
+	/**
+	 * represents the character the user will controll
+	 */
 	private Hero hero;
+	
+	/**
+	 * represents a game element used to limit the map
+	 */
 	private Wall genericWallTile;
+	
+	/**
+	 * represents a game element wich is empty, to where other characters can move
+	 */
 	private Empty genericEmptyTile;
+	
+	/**
+	 * a list with all the doors currently present in the game
+	 */
 	private ArrayList<Door> doors = new ArrayList<Door>();
+	
+	/**
+	 * a list with all the npcs currently present in the game
+	 */
 	private ArrayList<Character> npcs = new ArrayList<Character>();
+	
+	/**
+	 * a list with all the elements currently present in the game
+	 */
 	private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();
 	
+	/**
+	 * Game constructor
+	 * 
+	 * @param gameState includes all the information regarding the game features
+	 */
 	public Game(GameState gameState)
 	{
 		genericEmptyTile = new Empty();
@@ -24,6 +64,15 @@ public class Game implements Serializable {
 
 	}
 	
+	/**
+	 * Creates a matrix composed by all game elements represented by objects
+	 * 
+	 * @param dungeonIdentifier the current game level
+	 * 
+	 * @param dungeonModel a matrix with all the game elements, except they are represented as numbers and not as objects
+	 * 
+	 * @return returns a matrix with all the game elements, now represented as objects
+	 */
 	public GameObject[][] createDungeon(int dungeonIdentifier,int[][] dungeonModel)
 	{
 		GameObject[][] defaultDungeon = new GameObject[dungeonModel.length][dungeonModel[0].length];
@@ -103,22 +152,37 @@ public class Game implements Serializable {
 		return defaultDungeon;
 	}
 	
+	/**
+	 * @return returns the game dungeon
+	 */
 	public Dungeon getDungeon()
 	{
 		return dungeon;
 	}
 	
-	
+	/**
+	 * @return returns the game dungeon in a string format
+	 */
 	public String printDungeonString()
 	{
 		return dungeon.printDungeonString(allObjects);
 	}
 	
+	/**
+	 * @return returns the game hero character
+	 */
 	public Hero getHero()
 	{
 		return hero;
 	}
 	
+	/**
+	 * Moves the hero and changes all other elements accordingly
+	 * 
+	 * @param heroMovement string that represents the hero's moving direction for the current turn
+	 * 
+	 * @return returns true if the hero is alive AND the current level hasn't yet been finished, returns false otherwise
+	 */
 	public boolean playerTurn(String heroMovement)
 	{
 		//hero turn
@@ -143,6 +207,9 @@ public class Game implements Serializable {
 		return gameState.running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
 	
+	/**
+	 * This function is responsible for letting the hero stun the ogres
+	 */
 	public void heroAttack()
 	{
 		Point[] tilesAttacked = hero.attack();
@@ -159,6 +226,9 @@ public class Game implements Serializable {
 		}
 	}
 	
+	/**
+	 * Lets all the other characters attack(kill) the hero
+	 */
 	public void npcsAttack()
 	{
 		boolean heroHit = false;
@@ -195,6 +265,9 @@ public class Game implements Serializable {
 
 	}
 	
+	/**
+	 * Moves all npcs currently in game
+	 */
 	public void npcsMovement()
 	{
 		for (int i = 0; i < npcs.size(); i++)
@@ -210,9 +283,17 @@ public class Game implements Serializable {
 		}
 	}
 	
-	//returns true if the level is running or false if the level is over
-	//based on the the state of the hero and the tile he has just moved to determines what happens in the dungeon
-	//based on the tile he has just moved to, determines the action of the hero.
+	/**
+	 * Determines what happens in the dungeon based on the character currently being analyzed and the tile he will move to
+	 * 
+	 * @param character the game character we're currently analyzing
+	 * 
+	 * @param nextTile the tile to where the character will move
+	 * 
+	 * @param characterNextCoord the coordinates to where the character will move
+	 * 
+	 * @return returns true if the current level hasn't yet been finished, returns false if it has been finished
+	 */
 	public boolean InteractionStateMachine(Character character, GameObject nextTile, Point characterNextCoord)
 	{
 		
@@ -248,6 +329,9 @@ public class Game implements Serializable {
 		return true;
 	}	
 	
+	/**
+	 * Unlocks(opens) all current game doors
+	 */
 	public void changeDoors()
 	{
 		ArrayList<Door> newDoors = new ArrayList<Door>();

@@ -1,26 +1,54 @@
 package dkeep.logic;
 
+/**
+ * 
+ * represents a position coordinates
+ *
+ */
 public class Point {
 
+	/**
+	 * x coordinate of the position
+	 */
 	private int x;
+	
+	/**
+	 * y coordinate of the position
+	 */
 	private int y;
 	
+	/**
+	 * Point constructor
+	 * @param x x coordinate
+	 * @param y x coordinate
+	 */
 	public Point(int x, int y)
 	{
 		this.x=x;
 		this.y=y;
 	}
 	
+	/**
+	 * 
+	 * @return returns x coordinate
+	 */
 	public int getX()
 	{
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @return returns y coordinate
+	 */
 	public int getY()
 	{
 		return y;
 	}
 	
+	/**
+	 * 2 Points are equal if they have the same x and y coordinates
+	 */
 	public boolean equals(Object obj)
 	{
 		if(obj instanceof Point)
@@ -32,6 +60,10 @@ public class Point {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @return returns a list with the coordinates of the points on top,bottom,left,right and the this point
+	 */
 	public Point[] getAdjacentPos()
 	{
 		Point[] adjacentPos = new Point[5];

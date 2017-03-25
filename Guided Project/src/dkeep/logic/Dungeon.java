@@ -2,24 +2,49 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * Represents the game objects container
+ * You can call it the game board if you like so
+ *
+ */
 public class Dungeon {
 
+	/**
+	 * Represents a dungeon without characters, only walls, empty spaces, doors and levers(only the skeleton)
+	 */
 	private GameObject dungeon[][];
+	
+	/**
+	 * Represents a populated dungeon(with all characters)
+	 * Look at it as the complete/final version of the dungeon
+	 */
 	private GameObject dungeonInstant[][];
 	
-	
+	/**
+	 * Dungeon constructor
+	 * @param dungeon dungeon with no characters(only the skeleton)
+	 */
 	public Dungeon(GameObject dungeon[][])
 	{
 		this.dungeon = dungeon;
 	}
 	
-	
+	/**
+	 * Puts a given game object in a given position of the dungeon
+	 * @param p object position coordinates
+	 * @param object object to be set
+	 */
 	public void setTile(Point p, GameObject object)
 	{
 		dungeon[p.getY()][p.getX()] = object;
 	}
 	
+	/**
+	 * Turns the complete dungeon into a string representaion(with the according objects representaion symbol)
+	 * @param allObjects list with objects currently present in the game
+	 * @return dungeon's string representation
+	 */
 	public String printDungeonString(ArrayList<GameObject> allObjects)
 	{
 		
@@ -90,16 +115,29 @@ public class Dungeon {
 		return dungeonString;
 	}
 	
+	/**
+	 * 
+	 * @return returns the complete dungeon
+	 */
 	public GameObject[][] getDungeonInstant()
 	{
 		return this.dungeonInstant;
 	}
 	
+	/**
+	 * Returns the object located at a given position
+	 * @param p position whose object we want to get
+	 * @return object located at that position
+	 */
 	public GameObject getTile(Point p)
 	{
 		return dungeon[p.getY()][p.getX()];
 	}
 	
+	/**
+	 * 
+	 * @return returns the skeleton version of the dungeon
+	 */
 	public GameObject[][] getMap()
 	{
 		return this.dungeon;

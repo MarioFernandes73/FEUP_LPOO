@@ -3,10 +3,21 @@ package dkeep.logic;
 import dkeep.logic.Door.State;
 import dkeep.logic.Guard.Personality;
 
+/**
+ * 
+ * abstract class with helping functions
+ *
+ */
 public abstract class Auxiliary {
 
 	
-
+	/**
+	 * Used to populate objects in class Game, gives special attention to guard objects)
+	 * @param coord coordinate of the object to populate
+	 * @param identifier identifier of the object to populate
+	 * @param personality personality of the object to populate(in case the object is a guard)
+	 * @return returns a populated object
+	 */
 	public static GameObject getNewEntity(Point coord, int identifier, Personality personality)
 	{
 		switch(identifier)
@@ -22,6 +33,12 @@ public abstract class Auxiliary {
 		}
 	}
 	
+	/**
+	 * Used to populate objects in class Game
+	 * @param coord coordinate of the object to populate
+	 * @param identifier identifier of the object to populate
+	 * @return returns a populated object
+	 */
 	public static GameObject getNewEntity(Point coord, int identifier)
 	{
 		switch(identifier)
@@ -62,6 +79,13 @@ public abstract class Auxiliary {
 		return null;
 	}
 	
+	/**
+	 * Given a movement direction, returns the opposite
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 */
 	public static String reverseMovement(String movement)
 	{
 		String finalMovement = null;
