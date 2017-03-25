@@ -20,8 +20,7 @@ public class GUI extends JFrame {
 	private PanelGame panelGame;
 	private JButtonCustom buttonNewGame;
 	private JButtonCustom buttonCreateGame;
-	private JButtonCustom buttonSaveGame;
-	private JButtonCustom buttonLoadGame;	
+	private JButtonCustom buttonSaveLoadGame;
 	private JButtonCustom buttonOptions;
 	private JButtonCustom buttonQuit;
 	
@@ -66,8 +65,7 @@ public class GUI extends JFrame {
 		});
 
 		this.buttonCreateGame = new JButtonCustom(gameImages.newGame);
-		this.buttonSaveGame = new JButtonCustom(gameImages.newGame);
-		this.buttonLoadGame = new JButtonCustom(gameImages.newGame);
+		this.buttonSaveLoadGame = new JButtonCustom(gameImages.newGame);
 		this.buttonOptions = new JButtonCustom(gameImages.newGame);
 		buttonOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -77,18 +75,14 @@ public class GUI extends JFrame {
 		this.buttonQuit = new JButtonCustom(gameImages.newGame);
 
 		this.buttonCreateGame = new JButtonCustom(gameImages.newGame);
-		this.buttonSaveGame = new JButtonCustom(gameImages.newGame);
-		buttonSaveGame.addActionListener(new ActionListener() {
+		this.buttonSaveLoadGame = new JButtonCustom(gameImages.newGame);
+		buttonSaveLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() !=  null)
 					GUI.this.panelSave.saveGame(GUI.this.panelGame.getGame());
 				GUI.this.panelSave.setVisible(true);
 			}
 		});
-		
-		this.buttonLoadGame = new JButtonCustom(gameImages.newGame);
-		this.buttonOptions = new JButtonCustom(gameImages.newGame);
-		this.buttonQuit = new JButtonCustom(gameImages.newGame);
 
 		buttonQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,8 +92,7 @@ public class GUI extends JFrame {
 		
 		panelMenu.add(buttonNewGame);
 		panelMenu.add(buttonCreateGame);
-		panelMenu.add(buttonSaveGame);
-		panelMenu.add(buttonLoadGame);
+		panelMenu.add(buttonSaveLoadGame);
 		panelMenu.add(buttonOptions);
 		panelMenu.add(buttonQuit);
 	}
