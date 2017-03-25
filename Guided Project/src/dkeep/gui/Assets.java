@@ -8,7 +8,10 @@ import javax.imageio.ImageIO;
 public class Assets {
 	// BUTTONS IMAGE
 	public BufferedImage newGame;
-	
+	public BufferedImage createGame;
+	public BufferedImage saveLoad;
+	public BufferedImage options;
+	public BufferedImage exit;
 	
 	// GAME ELEMENTS IMAGE
 	public BufferedImage background;
@@ -42,7 +45,12 @@ public class Assets {
 	public Assets() {
 		try {
 		// BUTTONS
-		newGame = ImageIO.read(getClass().getResource("resources/menu/newGame.jpg"));
+		newGame = ImageIO.read(getClass().getResource("resources/menu/newGame.png"));
+		createGame = ImageIO.read(getClass().getResource("resources/menu/createGame.png"));
+		saveLoad = ImageIO.read(getClass().getResource("resources/menu/saveLoad.png"));
+		options = ImageIO.read(getClass().getResource("resources/menu/options.png"));
+		exit = ImageIO.read(getClass().getResource("resources/menu/exit.png"));
+		
 		// GAME ELEMENTS
 		background = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));
 		empty = ImageIO.read(getClass().getResource("resources/game/empty.jpg"));

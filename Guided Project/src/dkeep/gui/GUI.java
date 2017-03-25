@@ -64,10 +64,10 @@ public class GUI extends JFrame {
 			}
 		});
 
-		this.buttonCreateGame = new JButtonCustom(gameImages.newGame);
+		this.buttonCreateGame = new JButtonCustom(gameImages.createGame);
 		
 		
-		this.buttonSaveLoadGame = new JButtonCustom(gameImages.newGame);
+		this.buttonSaveLoadGame = new JButtonCustom(gameImages.saveLoad);
 		this.buttonSaveLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() !=  null)
@@ -76,14 +76,14 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		this.buttonOptions = new JButtonCustom(gameImages.newGame);
+		this.buttonOptions = new JButtonCustom(gameImages.options);
 		this.buttonOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.panelConfig.setVisible(true);
 			}
 		});
 		
-		this.buttonQuit = new JButtonCustom(gameImages.newGame);
+		this.buttonQuit = new JButtonCustom(gameImages.exit);
 		this.buttonQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

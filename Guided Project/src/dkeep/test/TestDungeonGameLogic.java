@@ -9,7 +9,6 @@ import org.junit.Test;
 import dkeep.logic.*;
 import dkeep.logic.Character;
 import dkeep.logic.Character.State;
-import dkeep.logic.Guard.Personality;
 
 public class TestDungeonGameLogic {
 	
