@@ -32,25 +32,6 @@ public class PanelGame extends JPanel implements KeyListener{
 	public PanelGame(Assets images, JLabel labelGameState) {
 		this.gameImages = images;
 		this.labelGameState = labelGameState;
-	}
-
-	public void setGame(Game game)
-	{
-		this.game = game;
-		if(game == null)
-		{
-			running = false;
-			repaint();
-			return;
-		}
-		this.labelGameState.setText("<html>Get to the lever!<br>Avoid the guard!</html>");
-		this.addKeyListener(this);
-		map = game.getMap();
-		running = true;
-		this.setFocusable(true);
-		this.requestFocus();
-		repaint();
-		
 		
 		this.addMouseListener(new MouseAdapter() {
             @Override
@@ -59,7 +40,28 @@ public class PanelGame extends JPanel implements KeyListener{
                 PanelGame.this.grabFocus();
             }
         });
+		this.addKeyListener(this);
+		this.requestFocus();
+	}
+
+	public void setGame(Game game)
+	{
+		this.game = null;
+		this.game = game;
+		if(game == null)
+		{
+			running = false;
+			repaint();
+			return;
+		}
+		this.labelGameState.setText("<html>Get to the lever!<br>Avoid the guard!</html>");
 		
+		map = game.getMap();
+		running = true;
+		this.setFocusable(true);
+		
+		repaint();
+
 	}
 
 	public void moveHero(String movement)
@@ -159,6 +161,7 @@ public class PanelGame extends JPanel implements KeyListener{
 				break;
 			case KeyEvent.VK_A:
 			case KeyEvent.VK_LEFT:
+				System.out.println("OLA");
 				game.playerTurn("a");
 				break;
 			case KeyEvent.VK_D:

@@ -133,7 +133,6 @@ public class GUI extends JFrame {
 		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.setGame(null);
 				GUI.this.panelGame.setGame(new Game(new GameState(1)));
 				GUI.this.buttonCreateGame.setEnabled(false);
 				GUI.this.enableMoveButtons(true);
