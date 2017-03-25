@@ -41,7 +41,8 @@ public class PanelGame extends JPanel implements KeyListener{
             }
         });
 		this.addKeyListener(this);
-		this.requestFocus();
+		
+		this.setFocusable(true);
 	}
 
 	public void setGame(Game game)
@@ -58,7 +59,7 @@ public class PanelGame extends JPanel implements KeyListener{
 		
 		map = game.getMap();
 		running = true;
-		this.setFocusable(true);
+		this.requestFocus();
 		
 		repaint();
 
@@ -161,7 +162,6 @@ public class PanelGame extends JPanel implements KeyListener{
 				break;
 			case KeyEvent.VK_A:
 			case KeyEvent.VK_LEFT:
-				System.out.println("OLA");
 				game.playerTurn("a");
 				break;
 			case KeyEvent.VK_D:
