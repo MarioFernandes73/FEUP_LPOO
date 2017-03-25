@@ -10,11 +10,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dkeep.logic.Game;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 
@@ -34,8 +35,9 @@ public class SaveLoad extends JDialog {
 	/**
 	 * Create the panel.
 	 */
-	public SaveLoad() {
+	public SaveLoad(Game game) {
 		
+		this.game = game;
 		this.setSize(300, 300);
 		this.setResizable(false);
 		
@@ -76,6 +78,36 @@ public class SaveLoad extends JDialog {
 		
 		//Buttons
 		this.buttonLoadGame = new JButton("Load");
+		buttonLoadGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fileName = SaveLoad.this.textFileName.getText();
+				if(!(fileName.equals("")))
+				{
+					FileInputStream file;
+					try {
+					file = new FileInputStream(".\\src\\dkeep\\saves\\"+fileName+".ser");
+			        ObjectInputStream in = new ObjectInputStream(file);
+			        game = (Game) in.readObject();
+			        in.close();
+			        file.close();
+					} catch (FileNotFoundException e1) {
+						SaveLoad.this.labelState.setText("Game save state has not been found");
+						SaveLoad.this.labelState.setVisible(true);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+						e1.printStackTrace();
+					}
+					
+					SaveLoad.this.dispose();
+				}
+				else
+				{
+					SaveLoad.this.labelState.setText("Please specify a name for your file");
+					SaveLoad.this.labelState.setVisible(true);
+				}
+			}
+		});
 		this.buttonLoadGame.setBounds(40,160,100,50);
 		this.buttonLoadGame.setVisible(true);
 		
@@ -86,13 +118,11 @@ public class SaveLoad extends JDialog {
 				if(!(fileName.equals("")))
 				{
 					try {
-
 						FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\"+fileName+".ser");
-				         ObjectOutputStream out = new ObjectOutputStream(file);
-				         out.writeObject(SaveLoad.this.game);
-				         out.close();
-				         file.close();
-						
+				        ObjectOutputStream out = new ObjectOutputStream(file);
+				        out.writeObject(SaveLoad.this.game);
+				        out.close();
+				        file.close();
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					} catch (IOException e1) {
@@ -117,9 +147,9 @@ public class SaveLoad extends JDialog {
 	{
 		this.game = game;
 	}
-
-	private Game loadGame()
+	
+	public Game loadGame()
 	{
-		return game;
+		return this.game;
 	}
 }

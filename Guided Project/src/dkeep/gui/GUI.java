@@ -43,12 +43,12 @@ public class GUI extends JFrame {
 		this.gameImages = new Assets();
 
 		this.panelMenu = new JPanel(new GridLayout(2,3));
-		this.panelSave = new SaveLoad();
+		
 			
 		this.createButtons();
 
 		this.panelGame = new PanelGame(gameImages);
-
+		this.panelSave = new SaveLoad(panelGame.getGame());
 
 		pane = new JSplitPaneCustom(JSplitPane.VERTICAL_SPLIT, panelMenu, panelGame);
 		pane.setVisible(true);
