@@ -2,19 +2,64 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**
+ * 
+ * represents a guard, extends Character
+ * The guard representation symbol is 'G', when stunned(drunken personality) is 'g'
+ * A guard is both passable and movable
+ */
 public class Guard extends Character {
-
+	/**
+	 * 
+	 * Expresses the guard personaly
+	 * ROOKIE will take a default movement path
+	 * DRUNKEN will randomly be stunned with possibilty of inverting the default movement path
+	 * SUSPICIOUS will randomly take 1 step back while taking the default movemnt path
+	 *
+	 */
 	public enum Personality {ROOKIE, DRUNKEN, SUSPICIOUS};
 
+	/**
+	 * Measured in rounds/plays
+	 * Drunken guard: measures the time left until the stun effect ends
+	 * Suspicious guard: measures when how many time has gone by since the last turn around(takes negative value)
+	 */
 	private int sleepTime; //it's only manipulated in the DRUNKEN guard (time is measured in plays)
-	private Personality personality; 
+
+	/**
+	 * guard personality
+	 */
+	private Personality personality;
+
+	/**
+	 * guard movement path
+	 */
 	private String[] movementList;
+
+	/**
+	 * index of movement list
+	 * tells what the next move will be
+	 */
 	private int nextMovement;
+
+	/**
+	 * set to 1 if movement is accordingly to the movement list
+	 * set to -1 if movement is in opposite order of the movement list
+	 */
 	private int movingDirection;//1 means it will move in the standard direction, -1 it will move in the opposite direction
+
+	/**
+	 * default movement list
+	 */
 	static String[] defaultMovementList = {"a","s","s","s","s","a","a","a","a","a","a","s","d","d","d","d","d","d","d","w","w","w","w","w"};
-	
+
+	/**
+	 * Guard constructor, calls Character constructor
+	 * @param coord guard position coordinates
+	 * @param personality guard personality
+	 */
 	public Guard(Point coord, Personality personality) 
-{
+	{
 		super(coord, 'G',true,true);
 		this.personality = personality;
 		movementList = defaultMovementList;
@@ -23,11 +68,15 @@ public class Guard extends Character {
 		movingDirection = 1;
 	}
 
+	/**
+	 * generates the next guard movement
+	 * @return string with movement representation
+	 */
 	@Override
 	public String createMovement()
 	{
 		String movement = null;
-		
+
 		switch(personality)
 		{
 		case ROOKIE:
@@ -139,12 +188,16 @@ public class Guard extends Character {
 			}
 			break;
 		default:
-			
+
 			break;
 		}		
 		return movement;		
 	}
-	
+
+	/**
+	 * Causes the guard to attack
+	 * @return a list with all position coordinates affected by the attack
+	 */
 	@Override
 	public Point[] attack()
 	{
