@@ -58,33 +58,33 @@ public class GUI extends JFrame {
 	private void createButtons()
 	{
 		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
-		buttonNewGame.addActionListener(new ActionListener() {
+		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.panelGame.setGame(new Game(new GameState(1)));
 			}
 		});
 
 		this.buttonCreateGame = new JButtonCustom(gameImages.newGame);
+		
+		
 		this.buttonSaveLoadGame = new JButtonCustom(gameImages.newGame);
-		this.buttonOptions = new JButtonCustom(gameImages.newGame);
-		buttonOptions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelConfig.setVisible(true);
-			}
-		});
-		this.buttonQuit = new JButtonCustom(gameImages.newGame);
-
-		this.buttonCreateGame = new JButtonCustom(gameImages.newGame);
-		this.buttonSaveLoadGame = new JButtonCustom(gameImages.newGame);
-		buttonSaveLoadGame.addActionListener(new ActionListener() {
+		this.buttonSaveLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() !=  null)
 					GUI.this.panelSave.saveGame(GUI.this.panelGame.getGame());
 				GUI.this.panelSave.setVisible(true);
 			}
 		});
-
-		buttonQuit.addActionListener(new ActionListener() {
+		
+		this.buttonOptions = new JButtonCustom(gameImages.newGame);
+		this.buttonOptions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI.this.panelConfig.setVisible(true);
+			}
+		});
+		
+		this.buttonQuit = new JButtonCustom(gameImages.newGame);
+		this.buttonQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
