@@ -1,12 +1,7 @@
 package dkeep.gui;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +15,7 @@ import java.awt.event.ActionEvent;
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel panelMenu;
+	private SaveLoad panelSave;
 	private JDialog panelConfig;
 	private PanelGame panelGame;
 	private JButtonCustom buttonNewGame;
@@ -47,11 +43,9 @@ public class GUI extends JFrame {
 		this.gameImages = new Assets();
 
 		this.panelMenu = new JPanel(new GridLayout(2,3));
+		this.panelSave = new SaveLoad();
 			
 		this.createButtons();
-		
-
-		//this.panelGame = new PanelGame();
 
 		this.panelGame = new PanelGame(gameImages);
 
@@ -84,6 +78,14 @@ public class GUI extends JFrame {
 
 		this.buttonCreateGame = new JButtonCustom(gameImages.newGame);
 		this.buttonSaveGame = new JButtonCustom(gameImages.newGame);
+		buttonSaveGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(GUI.this.panelGame.getGame() !=  null)
+					GUI.this.panelSave.saveGame(GUI.this.panelGame.getGame());
+				GUI.this.panelSave.setVisible(true);
+			}
+		});
+		
 		this.buttonLoadGame = new JButtonCustom(gameImages.newGame);
 		this.buttonOptions = new JButtonCustom(gameImages.newGame);
 		this.buttonQuit = new JButtonCustom(gameImages.newGame);

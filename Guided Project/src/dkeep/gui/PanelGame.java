@@ -10,9 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import dkeep.logic.Game;
@@ -55,6 +53,11 @@ public class PanelGame extends JPanel implements KeyListener{
 		
 	}
 
+	public Game getGame()
+	{
+		return this.game;
+	}
+	
 	@Override
 	public void paintComponent(Graphics g)
 	{
@@ -70,7 +73,7 @@ public class PanelGame extends JPanel implements KeyListener{
 			{
 				for (int j = 0; j<map[i].length; j++)
 				{
-					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),j*32,i*32,(j+1)*32, (i+1)*32,null);
+					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),null,j*32,i*32);
 				}
 			}
 
