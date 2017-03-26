@@ -130,9 +130,18 @@ public class GUI extends JFrame {
 		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GUI.this.dialogSaveLoad.getLoaded())
+				int loadState = GUI.this.dialogSaveLoad.getLoaded();
+				if(loadState == 1)
 				{					
 					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
+				}
+				else if(loadState == 2)
+				{
+					GameState state = new GameState(GUI.this.dialogSaveLoad.getCustomKeep(),1);
+					state.movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
+					state.attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
+					state.ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
+					GUI.this.panelGame.setGame(new Game(state));
 				}
 				else
 				{
@@ -161,7 +170,7 @@ public class GUI extends JFrame {
 				if(GUI.this.panelGame.getGame() !=  null)
 					GUI.this.dialogSaveLoad.saveGame(GUI.this.panelGame.getGame());
 				GUI.this.dialogSaveLoad.setVisible(true);
-				GUI.this.dialogSaveLoad.setLoaded(false);
+				GUI.this.dialogSaveLoad.setLoaded(0);
 			}
 		});
 		
@@ -182,7 +191,7 @@ public class GUI extends JFrame {
 					GUI.this.panelGame.setGame(null);
 					GUI.this.buttonCreateGame.setEnabled(true);
 					GUI.this.enableMoveButtons(false);
-					GUI.this.dialogSaveLoad.setLoaded(false);
+					GUI.this.dialogSaveLoad.setLoaded(0);
 				}
 			}
 		});

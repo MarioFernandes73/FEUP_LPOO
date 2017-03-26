@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -170,7 +174,23 @@ public class PaneCreateGame extends JDialog {
 			}
 		});
 		
-		
+		buttonSaveMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					try {
+						FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\customKeep.ser");
+				        ObjectOutputStream out = new ObjectOutputStream(file);
+				        out.writeObject(PaneCreateGame.this.map);
+				        out.close();
+				        file.close();
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				
+			}
+		});
+
 		
 		this.buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

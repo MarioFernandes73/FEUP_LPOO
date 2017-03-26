@@ -27,11 +27,13 @@ public class DialogSaveLoad extends JDialog {
 	private JTextField textFileName;
 	private JButton buttonSaveGame;
 	private JButton buttonLoadGame;
+	private JButton buttonLoadKeep;
 	
 	private JPanel components;
 	
 	private Game game;
-	private boolean loaded = false;
+	private int[][] keep;
+	private int loaded = 0;
 	
 	/**
 	 * Create the panel.
@@ -39,7 +41,7 @@ public class DialogSaveLoad extends JDialog {
 	public DialogSaveLoad(Game game) {
 		
 		this.game = game;
-		this.setSize(300, 300);
+		this.setSize(300, 400);
 		this.setResizable(false);
 		
 		this.components = new JPanel();
@@ -51,6 +53,7 @@ public class DialogSaveLoad extends JDialog {
 		this.components.add(buttonLoadGame);
 		this.components.add(buttonSaveGame);
 		this.components.add(labelState);
+		this.components.add(buttonLoadKeep);
 		
 		
 		getContentPane().add(components);
@@ -66,7 +69,7 @@ public class DialogSaveLoad extends JDialog {
 		this.labelFileName.setVisible(true);
 		
 		this.labelState = new JLabel();
-		this.labelState.setBounds(50,210,210,25);
+		this.labelState.setBounds(50,260,210,25);
 		this.labelState.setVisible(false);
 		
 		//TextField
@@ -91,7 +94,7 @@ public class DialogSaveLoad extends JDialog {
 			        game = (Game) in.readObject();
 			        in.close();
 			        file.close();
-			        loaded = true;
+			        loaded = 1;
 					} catch (FileNotFoundException e1) {
 						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
 						DialogSaveLoad.this.labelState.setVisible(true);
@@ -110,8 +113,38 @@ public class DialogSaveLoad extends JDialog {
 				}
 			}
 		});
-		this.buttonLoadGame.setBounds(40,160,100,50);
+		this.buttonLoadGame.setBounds(40,210,100,50);
 		this.buttonLoadGame.setVisible(true);
+		
+		
+		
+		this.buttonLoadKeep = new JButton("Load custom keep");
+		buttonLoadKeep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					FileInputStream file;
+					try {
+					file = new FileInputStream(".\\src\\dkeep\\saves\\customKeep.ser");
+			        ObjectInputStream in = new ObjectInputStream(file);
+			        keep = (int[][]) in.readObject();
+			        in.close();
+			        file.close();
+			        loaded = 2;
+					} catch (FileNotFoundException e1) {
+						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
+						DialogSaveLoad.this.labelState.setVisible(true);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+						e1.printStackTrace();
+					}
+					
+					DialogSaveLoad.this.dispose();
+				}
+		});
+		this.buttonLoadKeep.setBounds(40,150,210,50);
+		this.buttonLoadKeep.setVisible(true);
+		
+		
 		
 		this.buttonSaveGame = new JButton("Save");
 		buttonSaveGame.addActionListener(new ActionListener() {
@@ -141,7 +174,7 @@ public class DialogSaveLoad extends JDialog {
 				
 			}
 		});
-		this.buttonSaveGame.setBounds(150, 160, 100, 50);
+		this.buttonSaveGame.setBounds(150, 210, 100, 50);
 		this.buttonSaveGame.setVisible(true);
 		if(this.game == null)
 		{
@@ -160,14 +193,18 @@ public class DialogSaveLoad extends JDialog {
 		return this.game;
 	}
 	
-	public boolean getLoaded()
+	public int getLoaded()
 	{
 		return this.loaded;
 	}
 	
-	public void setLoaded(boolean state)
+	public void setLoaded(int state)
 	{
 		this.loaded = state;
+	}
+	public int[][] getCustomKeep()
+	{
+		return this.keep;
 	}
 
 }
