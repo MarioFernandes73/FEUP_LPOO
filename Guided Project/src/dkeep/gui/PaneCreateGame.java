@@ -1,6 +1,5 @@
 package dkeep.gui;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,12 +37,15 @@ public class PaneCreateGame extends JDialog {
 	private JPanel panelBoard;
 	private JPanel panelElements;
 	
+	private JLabel labelGameState;
 	
-	public PaneCreateGame(Assets gameImages, int width, int height) {
+	
+	public PaneCreateGame(Assets gameImages,JLabel labelGameState, int width, int height) {
     	this.setLocation(500, 0);
 		this.setSize(600, 400);
 		this.setResizable(false);
 		
+		this.labelGameState = labelGameState;
 		this.gameImages = gameImages;
     	this.width = width;
     	this.height = height;
@@ -75,8 +77,15 @@ public class PaneCreateGame extends JDialog {
 				JButtonCustom currentButton = new JButtonCustom(gameImages.empty);
 				currentButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						map[k][l] = currentIdentifier;
-						auxSwitch(currentButton,currentIdentifier);
+						if(validatePosition(k,l))
+						{
+							map[k][l] = currentIdentifier;
+							auxSwitch(currentButton,currentIdentifier);
+						}
+						else
+						{
+							PaneCreateGame.this.labelGameState.setText("Invalid tile position");
+						}
 					}
 				});
 				
@@ -177,11 +186,20 @@ public class PaneCreateGame extends JDialog {
 		buttonSaveMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					try {
-						FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\customKeep.ser");
-				        ObjectOutputStream out = new ObjectOutputStream(file);
-				        out.writeObject(PaneCreateGame.this.map);
-				        out.close();
-				        file.close();
+						if(validateMap())
+						{
+							FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\customKeep.ser");
+					        ObjectOutputStream out = new ObjectOutputStream(file);
+					        out.writeObject(PaneCreateGame.this.map);
+					        out.close();
+					        file.close();
+					        PaneCreateGame.this.labelGameState.setText("Custom keep made!");
+						}
+						else
+						{
+							PaneCreateGame.this.labelGameState.setText("Invalid custom keep");
+						}
+
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					} catch (IOException e1) {
@@ -192,6 +210,8 @@ public class PaneCreateGame extends JDialog {
 		});
 
 		
+		
+		
 		this.buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaneCreateGame.this.dispose();
@@ -199,4 +219,53 @@ public class PaneCreateGame extends JDialog {
 		});
 		
 	}
+	
+	private boolean validateMap()
+	{
+		int heroCounter = 0, ogreCounter = 0, keyCounter = 0, doorCounter = 0;
+		for(int i = 0; i<this.map.length; i++)
+		{
+			for ( int j = 0; j<this.map[i].length; j++)
+			{
+				if(i == 0 || j == 0 || i== map.length-1 || j==map[0].length-1)
+				{
+					if(map[i][j] != 1 && map[i][j] != 6)
+						return false;
+				}
+					switch (map[i][j])
+					{
+					case 2:
+						heroCounter++;
+						break;
+					case 6:
+						doorCounter++;
+						break;
+					case 9:
+						keyCounter++;
+						break;
+					case 10:
+						ogreCounter++;
+						break;
+					}
+			}
+		}
+		
+		if(heroCounter == 1 && ogreCounter > 0 && keyCounter >0 && doorCounter > 0)
+			return true;
+		
+		return false;
+	}
+	
+	public boolean validatePosition(int k, int l)
+	{
+		switch(this.currentIdentifier)
+		{
+		case 6:
+			if(k != 0 && l != 0 && k != map.length-1 && l!=map[0].length-1)
+				return false;
+			break;
+		}
+		return true;
+	}
+	
 }

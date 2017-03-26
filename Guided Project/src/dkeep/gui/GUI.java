@@ -43,6 +43,8 @@ public class GUI extends JFrame {
 	private JSplitPane pane;
 	private JDialog createPane;
 	
+	private int loadState = 0;
+	
 	private Assets gameImages; //Contains all used images
 	
 	/**
@@ -130,7 +132,7 @@ public class GUI extends JFrame {
 		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int loadState = GUI.this.dialogSaveLoad.getLoaded();
+				GUI.this.loadState = GUI.this.dialogSaveLoad.getLoaded();
 				if(loadState == 1)
 				{					
 					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
@@ -141,6 +143,7 @@ public class GUI extends JFrame {
 					state.movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
 					state.attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
 					state.ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
+					state.currentLevel = 2;
 					GUI.this.panelGame.setGame(new Game(state));
 				}
 				else
@@ -170,7 +173,7 @@ public class GUI extends JFrame {
 				if(GUI.this.panelGame.getGame() !=  null)
 					GUI.this.dialogSaveLoad.saveGame(GUI.this.panelGame.getGame());
 				GUI.this.dialogSaveLoad.setVisible(true);
-				GUI.this.dialogSaveLoad.setLoaded(0);
+				GUI.this.loadState = 0;
 			}
 		});
 		
@@ -191,7 +194,7 @@ public class GUI extends JFrame {
 					GUI.this.panelGame.setGame(null);
 					GUI.this.buttonCreateGame.setEnabled(true);
 					GUI.this.enableMoveButtons(false);
-					GUI.this.dialogSaveLoad.setLoaded(0);
+					GUI.this.loadState = 0;
 				}
 			}
 		});
@@ -238,7 +241,7 @@ public class GUI extends JFrame {
 		buttonCreate.setVisible(true);
 		buttonCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI.this.createPane = new PaneCreateGame(gameImages, Integer.parseInt(textWidth.getText()),Integer.parseInt(textHeight.getText()));
+				GUI.this.createPane = new PaneCreateGame(gameImages,GUI.this.labelGameState, Integer.parseInt(textWidth.getText()),Integer.parseInt(textHeight.getText()));
 				GUI.this.dialogCreateGame.dispose();
 			}
 		});
