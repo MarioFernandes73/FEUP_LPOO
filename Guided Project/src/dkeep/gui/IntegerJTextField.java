@@ -11,11 +11,16 @@ public class IntegerJTextField extends JTextField implements FocusListener {
 
 	private static final long serialVersionUID = 1L;
 
-	public IntegerJTextField(){
+	private int lowerBound;
+	private int upperBound;
+	
+	public IntegerJTextField(int lowerBound, int upperBound){
+		this.lowerBound = lowerBound;
+		this.upperBound = upperBound;
 		 addKeyListener(new KeyAdapter() {
 	            public void keyTyped(KeyEvent e) {
 	                char ch = e.getKeyChar();
-	                if (ch<'1' || ch>'9') {
+	                if (ch < '1' || ch > '9') {
 	                    e.consume();
 	                }
 	            }
@@ -32,13 +37,13 @@ public class IntegerJTextField extends JTextField implements FocusListener {
 	@Override
 	public void focusLost(FocusEvent e) {
 		int number = Integer.parseInt(this.getText());
-		if(number > 5)
+		if(number > upperBound)
 		{
-			this.setText("5");
+			this.setText(Integer.toString(upperBound));
 		}
-		else if(number < 1)
+		else if(number < lowerBound)
 		{
-			this.setText("1");
+			this.setText(Integer.toString(lowerBound));
 		}
 		
 	}

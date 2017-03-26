@@ -169,4 +169,5 @@ public class DialogSaveLoad extends JDialog {
 	{
 		this.loaded = state;
 	}
+
 }

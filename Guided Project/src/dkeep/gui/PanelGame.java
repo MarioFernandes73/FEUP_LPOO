@@ -68,8 +68,36 @@ public class PanelGame extends JPanel implements KeyListener{
 	public void moveHero(String movement)
 	{
 		this.game.playerTurn(movement);
+		if(game.getGameState().running == false)
+		{
+			if((!game.getHero().isDead()) && game.getGameState().currentLevel == 1)
+			{
+				int ogreQuantity = this.game.getGameState().ogreQuantity;
+				boolean enemiesMove = this.game.getGameState().movingEnemies;
+				boolean enemiesAttack = this.game.getGameState().attackingEnemies;
+				this.game = new Game(new GameState(2,ogreQuantity,0));
+				this.game.getGameState().movingEnemies = enemiesMove;
+				this.game.getGameState().attackingEnemies = enemiesAttack;
+			}
+			else if(game.getHero().isDead())
+			{
+				//YOU LOSE!
+				this.running = false;
+				this.game = null;
+				this.gameImages.background = this.gameImages.youLose;
+			}
+			else if((!game.getHero().isDead()) && game.getGameState().currentLevel == 2)
+			{
+				//YOU WIN!
+				this.running = false;
+				this.game = null;
+				this.gameImages.background = this.gameImages.youWin;
+			}
+		}
+
+		
 		repaint();
-	}
+	}	
 	
 	public Game getGame()
 	{
@@ -158,46 +186,23 @@ public class PanelGame extends JPanel implements KeyListener{
 			{
 			case KeyEvent.VK_W:
 			case KeyEvent.VK_UP:
-				game.playerTurn("w");
+				this.moveHero("w");
 				break;
 			case KeyEvent.VK_A:
 			case KeyEvent.VK_LEFT:
-				game.playerTurn("a");
+				this.moveHero("a");
 				break;
 			case KeyEvent.VK_D:
 			case KeyEvent.VK_RIGHT:
-				game.playerTurn("d");
+				this.moveHero("d");
 				break;
 			case KeyEvent.VK_S:
 			case KeyEvent.VK_DOWN:
-				game.playerTurn("s");
+				this.moveHero("s");
 				break;
 			}
-			if(game.getGameState().running == false)
-			{
-				if((!game.getHero().isDead()) && game.getGameState().currentLevel == 1)
-				{
-					this.game = new Game(new GameState(2));
-				}
-				else if(game.getHero().isDead())
-				{
-					//YOU LOSE!
-					this.running = false;
-					this.game = null;
-					this.gameImages.background = this.gameImages.youLose;
-				}
-				else if((!game.getHero().isDead()) && game.getGameState().currentLevel == 2)
-				{
-					//YOU WIN!
-					this.running = false;
-					this.game = null;
-					this.gameImages.background = this.gameImages.youWin;
-				}
-			}
-
 			
-			repaint();
-		}	
+	}
 	}
 
 	@Override

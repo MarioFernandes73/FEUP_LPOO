@@ -45,7 +45,7 @@ public class Config extends JDialog {
 	public void createComponents()
 	{
 		//Text field
-		this.inputOgreQuantity = new IntegerJTextField();
+		this.inputOgreQuantity = new IntegerJTextField(1,5);
 		this.inputOgreQuantity.setHorizontalAlignment(SwingConstants.CENTER);
 		this.inputOgreQuantity.setFont(new Font("Calibri", Font.PLAIN, 14));
 		this.inputOgreQuantity.setText("3");
