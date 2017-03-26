@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import dkeep.logic.Game;
 import dkeep.logic.GameObject;
 import dkeep.logic.GameState;
+import javafx.scene.paint.Color;
 
 public class PanelGame extends JPanel implements KeyListener{
 
@@ -59,8 +60,7 @@ public class PanelGame extends JPanel implements KeyListener{
 		
 		map = game.getMap();
 		running = true;
-		this.requestFocus();
-		
+		this.requestFocus();		
 		repaint();
 
 	}
@@ -110,8 +110,6 @@ public class PanelGame extends JPanel implements KeyListener{
 		super.paintComponent(g);
 		Graphics2D graphics = (Graphics2D) g;
 
-
-
 		if(running)
 		{
 			game.printDungeonString();
@@ -119,6 +117,7 @@ public class PanelGame extends JPanel implements KeyListener{
 			{
 				for (int j = 0; j<map[i].length; j++)
 				{
+					
 					graphics.drawImage(auxSwitch(game.getDungeon().getDungeonInstant()[i][j].toString()),null,j*32,i*32);
 				}
 			}

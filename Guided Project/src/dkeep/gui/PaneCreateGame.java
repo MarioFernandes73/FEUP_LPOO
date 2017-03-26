@@ -3,9 +3,11 @@ package dkeep.gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
@@ -65,7 +67,7 @@ public class PaneCreateGame extends JDialog {
   	}
 
 	private void createPanelBoard()
-	{
+	{		
 		this.panelBoard = new JPanel(new GridLayout(height,width));
 		for(int i = 0; i < map.length; i++)
 		{

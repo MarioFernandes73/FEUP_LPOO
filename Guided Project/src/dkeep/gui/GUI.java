@@ -157,6 +157,8 @@ public class GUI extends JFrame {
 				}
 				GUI.this.buttonCreateGame.setEnabled(false);
 				GUI.this.enableMoveButtons(true);
+				
+				resizeFrame(GUI.this.panelGame.getGame().getDungeon().getMap()[0].length,GUI.this.panelGame.getGame().getDungeon().getMap().length);
 			}
 		});
 
@@ -195,6 +197,7 @@ public class GUI extends JFrame {
 					GUI.this.buttonCreateGame.setEnabled(true);
 					GUI.this.enableMoveButtons(false);
 					GUI.this.loadState = 0;
+					GUI.this.setResizable(true);
 				}
 			}
 		});
@@ -253,4 +256,9 @@ public class GUI extends JFrame {
 		this.dialogCreateGame.add(buttonCreate);
 	}
 	
+	public void resizeFrame(int gameWidth, int gameHeight)
+	{
+		this.setSize((int)(gameWidth*32+(gameWidth*32)*0.4),(int)( gameHeight*32+(gameHeight*32)*0.5));
+		this.setResizable(false);
+	}
 }
