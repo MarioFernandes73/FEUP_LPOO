@@ -209,7 +209,7 @@ public class GUI extends JFrame {
 		labelWidth.setBounds(50,50,50,25);
 		labelWidth.setVisible(true);
 		
-		JLabel labelHeight = new JLabel("Width");
+		JLabel labelHeight = new JLabel("Height");
 		labelHeight.setBounds(50,100,50,25);
 		labelHeight.setVisible(true);
 		
@@ -229,7 +229,7 @@ public class GUI extends JFrame {
 		buttonCreate.setVisible(true);
 		buttonCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI.this.createPane = new PaneCreateGame(gameImages, labelGameState,Integer.parseInt(textWidth.getText()),Integer.parseInt(textHeight.getText()));
+				GUI.this.createPane = new PaneCreateGame(gameImages, Integer.parseInt(textWidth.getText()),Integer.parseInt(textHeight.getText()));
 				GUI.this.dialogCreateGame.dispose();
 			}
 		});

@@ -26,24 +26,25 @@ public class PaneCreateGame extends JDialog {
 	
 	private JSplitPane pane;
 	private Assets gameImages;
-	private JLabel labelGameState;
 	private int width;
 	private int height;
+	private int[][] map;
+	private int currentIdentifier;
 	
 	private JPanel panelBoard;
 	private JPanel panelElements;
 	
-	public PaneCreateGame(Assets gameImages, JLabel labelGameState, int width, int height) {
+	
+	public PaneCreateGame(Assets gameImages, int width, int height) {
     	this.setLocation(500, 0);
 		this.setSize(600, 400);
 		this.setResizable(false);
 		
 		this.gameImages = gameImages;
-    	this.labelGameState = labelGameState;
     	this.width = width;
     	this.height = height;
-
-
+    	this.map = new int[height][width];
+    	this.currentIdentifier = 0;
     	
     	createPanelBoard();
     	createPanelElements();
@@ -59,11 +60,52 @@ public class PaneCreateGame extends JDialog {
 
 	private void createPanelBoard()
 	{
-		this.panelBoard = new JPanel();
-		panelBoard.setBackground(Color.BLACK);
+		this.panelBoard = new JPanel(new GridLayout(height,width));
+		for(int i = 0; i < map.length; i++)
+		{
+			for (int j = 0; j< map[i].length; j++)
+			{
+				map[i][j] = 0;
+				int k = i;
+				int l = j;
+				JButtonCustom currentButton = new JButtonCustom(gameImages.empty);
+				currentButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						map[k][l] = currentIdentifier;
+						auxSwitch(currentButton,currentIdentifier);
+					}
+				});
+				
+				this.panelBoard.add(currentButton);
+			}
+		}
 		panelBoard.setVisible(true);
 	}
 	
+	protected void auxSwitch(JButtonCustom currentButton, int currentIdentifier) {
+		switch(currentIdentifier)
+		{
+		case 1:
+			currentButton.setImage(gameImages.wall);
+			break;
+		case 2:
+			currentButton.setImage(gameImages.heroArmed);
+			break;
+		case 6:
+			currentButton.setImage(gameImages.closedDoor);
+			break;
+		case 9:
+			currentButton.setImage(gameImages.key);
+			break;
+		case 10:
+			currentButton.setImage(gameImages.ogre);
+			break;
+		default:
+			currentButton.setImage(gameImages.empty);
+		}
+		
+	}
+
 	private void createPanelElements()
 	{
 		this.panelElements = new JPanel(new GridLayout(4,2));
@@ -92,6 +134,44 @@ public class PaneCreateGame extends JDialog {
 	
 	private void createButtonActions()
 	{
+		this.buttonEmpty.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.currentIdentifier = 0;
+			}
+		});
+		
+		this.buttonWall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.currentIdentifier = 1;
+			}
+		});
+		
+		this.buttonHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.currentIdentifier = 2;
+			}
+		});
+		
+		this.buttonOgre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.currentIdentifier = 10;
+			}
+		});
+		
+		this.buttonKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.currentIdentifier = 9;
+			}
+		});
+		
+		this.buttonDoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.currentIdentifier = 6;
+			}
+		});
+		
+		
+		
 		this.buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaneCreateGame.this.dispose();

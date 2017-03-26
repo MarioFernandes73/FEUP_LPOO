@@ -28,4 +28,10 @@ public class JButtonCustom extends JButton {
 		
 	}
 	
+	public void setImage(BufferedImage image)
+	{
+		this.image = image;
+		repaint();
+	}
+	
 }
