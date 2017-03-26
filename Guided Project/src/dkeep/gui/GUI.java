@@ -134,6 +134,8 @@ public class GUI extends JFrame {
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.loadState = GUI.this.dialogSaveLoad.getLoaded();
+				if(GUI.this.panelGame.getGame() != null && GUI.this.panelGame.getGame().getGameState().running == false)
+					loadState = 0;
 				if(loadState == 1)
 				{					
 					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
@@ -198,7 +200,9 @@ public class GUI extends JFrame {
 					GUI.this.buttonCreateGame.setEnabled(true);
 					GUI.this.enableMoveButtons(false);
 					GUI.this.loadState = 0;
+					GUI.this.dialogSaveLoad.setLoaded(0);
 					GUI.this.setResizable(true);
+					GUI.this.gameImages.background = gameImages.empty;
 				}
 			}
 		});

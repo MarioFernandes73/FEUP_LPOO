@@ -58,7 +58,7 @@ public class PanelGame extends JPanel implements KeyListener{
 
 		
 		map = game.getMap();
-		running = true;
+		running = game.getGameState().running;
 		this.requestFocus();		
 		repaint();
 
@@ -76,9 +76,7 @@ public class PanelGame extends JPanel implements KeyListener{
 				boolean enemiesAttack = this.game.getGameState().attackingEnemies;
 				this.game = new Game(new GameState(2,ogreQuantity,0));
 				this.game.getGameState().movingEnemies = enemiesMove;
-				this.game.getGameState().attackingEnemies = enemiesAttack;
-				
-				
+				this.game.getGameState().attackingEnemies = enemiesAttack;				
 			}
 			else if(game.getHero().isDead())
 			{
