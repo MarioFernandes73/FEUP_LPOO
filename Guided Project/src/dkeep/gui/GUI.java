@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 
 import dkeep.logic.Game;
 import dkeep.logic.GameState;
+import dkeep.logic.Guard.Personality;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -25,7 +27,7 @@ public class GUI extends JFrame {
 	private PanelCreateGame panelCreateGame;
 	
 	private DialogSaveLoad dialogSaveLoad;
-	private JDialog dialogConfig;
+	private Config dialogConfig;
 	private JDialog dialogCreateGame;
 	private JLabel labelGameState;
 	
@@ -54,7 +56,6 @@ public class GUI extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.dialogConfig = new Config();
-		this.dialogConfig.setLayout(new GridLayout(4,1));
 	//	this.dialogCreateGame = new DialogCreateGame();
 		this.gameImages = new Assets();
 
@@ -134,12 +135,17 @@ public class GUI extends JFrame {
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.dialogSaveLoad.getLoaded())
-				{
+				{					
 					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
 				}
 				else
 				{
-					GUI.this.panelGame.setGame(new Game(new GameState(1)));
+					int ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
+					int guardPersonality = GUI.this.dialogConfig.getGuardPersonality();
+					GUI.this.panelGame.setGame(new Game(new GameState(1,ogreQuantity, guardPersonality)));
+					GUI.this.panelGame.getGame().getGameState().movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
+					GUI.this.panelGame.getGame().getGameState().attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
+					
 				}
 				GUI.this.buttonCreateGame.setEnabled(false);
 				GUI.this.enableMoveButtons(true);
