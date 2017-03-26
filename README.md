@@ -8,9 +8,9 @@ The following pictures are from the guided project's tests.
 
 
 
-![alt tag](Guided Project/tests/EclEmmaResults.png)
+![EclEmma Results](Guided%20Project/tests/EclEmmaResults.png)
 
-![alt tag](Guided Project/tests/PitResults.png)
+![Pit Results](Guided%20Project/tests/PITresults.png)
 
 
 Credits:
