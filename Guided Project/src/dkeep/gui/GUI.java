@@ -41,6 +41,7 @@ public class GUI extends JFrame {
 	
 	private JSplitPaneCustom gamePane;
 	private JSplitPane pane;
+	@SuppressWarnings("unused")
 	private JDialog createPane;
 	
 	private int loadState = 0;

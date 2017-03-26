@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import dkeep.logic.Game;
 import dkeep.logic.GameObject;
 import dkeep.logic.GameState;
-import javafx.scene.paint.Color;
 
 public class PanelGame extends JPanel implements KeyListener{
 
@@ -56,7 +55,7 @@ public class PanelGame extends JPanel implements KeyListener{
 			repaint();
 			return;
 		}
-		this.labelGameState.setText("<html>Get to the lever!<br>Avoid the guard!</html>");
+
 		
 		map = game.getMap();
 		running = true;
@@ -78,6 +77,8 @@ public class PanelGame extends JPanel implements KeyListener{
 				this.game = new Game(new GameState(2,ogreQuantity,0));
 				this.game.getGameState().movingEnemies = enemiesMove;
 				this.game.getGameState().attackingEnemies = enemiesAttack;
+				
+				
 			}
 			else if(game.getHero().isDead())
 			{
@@ -110,8 +111,14 @@ public class PanelGame extends JPanel implements KeyListener{
 		super.paintComponent(g);
 		Graphics2D graphics = (Graphics2D) g;
 
+
 		if(running)
 		{
+			if(this.game.getGameState().currentLevel == 1)
+				this.labelGameState.setText("<html>In this level you need to<br>get the lever and then<br> move to the exit door.<br>Avoid the guard!</html>");
+			else
+				this.labelGameState.setText("<html>In this level you need to<br>get the key and then<br> run to the an exit.<br>Avoid the crazy ogres!</html>");
+			
 			game.printDungeonString();
 			for(int i = 0; i<map.length; i++)
 			{
