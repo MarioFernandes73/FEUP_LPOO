@@ -1,11 +1,18 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 /**
  * 
  * represents a position coordinates
  *
  */
-public class Point {
+public class Point  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * x coordinate of the position

@@ -1,13 +1,19 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 /**
  * 
  * represents a hero, extends Character
  * The hero representation symbol is 'H', if it has attacking abilities is 'A', if it has got the key in level 2 is 'K'
  * A hero is both passable and movable
  */
-public class Hero extends Character{
+public class Hero extends Character implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Set to true if the hero has caught the key, set to false otherwise
 	 */

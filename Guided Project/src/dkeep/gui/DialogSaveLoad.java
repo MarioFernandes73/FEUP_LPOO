@@ -31,6 +31,7 @@ public class DialogSaveLoad extends JDialog {
 	private JPanel components;
 	
 	private Game game;
+	private boolean loaded = false;
 	
 	/**
 	 * Create the panel.
@@ -90,6 +91,7 @@ public class DialogSaveLoad extends JDialog {
 			        game = (Game) in.readObject();
 			        in.close();
 			        file.close();
+			        loaded = true;
 					} catch (FileNotFoundException e1) {
 						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
 						DialogSaveLoad.this.labelState.setVisible(true);
@@ -151,5 +153,20 @@ public class DialogSaveLoad extends JDialog {
 	{
 		this.game = game;
 		this.buttonSaveGame.setEnabled(true);
+	}
+	
+	public Game loadGame()
+	{
+		return this.game;
+	}
+	
+	public boolean getLoaded()
+	{
+		return this.loaded;
+	}
+	
+	public void setLoaded(boolean state)
+	{
+		this.loaded = state;
 	}
 }

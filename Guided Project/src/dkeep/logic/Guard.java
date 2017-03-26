@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -8,7 +9,12 @@ import java.util.Random;
  * The guard representation symbol is 'G', when stunned(drunken personality) is 'g'
  * A guard is both passable and movable
  */
-public class Guard extends Character {
+public class Guard extends Character implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 
 	 * Expresses the guard personaly

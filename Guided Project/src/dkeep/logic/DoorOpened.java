@@ -1,12 +1,19 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 /**
  * 
  * Represents an open door, extends Door
  * The closed door representation symbol is 'S'
  * An open door is not movable, yet it's passable
  */
-public class DoorOpened extends Door {
+public class DoorOpened extends Door implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * DoorOpened constructor, calls Door constructor

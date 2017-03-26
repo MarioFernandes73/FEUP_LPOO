@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -9,8 +10,13 @@ import java.util.Random;
  * An ogre is both passable and movable
  *
  */
-public class Ogre extends Character {
+public class Ogre extends Character implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Represents the ogre weapon
 	 */

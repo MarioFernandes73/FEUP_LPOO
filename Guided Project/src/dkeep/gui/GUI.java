@@ -133,7 +133,14 @@ public class GUI extends JFrame {
 		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.setGame(new Game(new GameState(1)));
+				if(GUI.this.dialogSaveLoad.getLoaded())
+				{
+					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
+				}
+				else
+				{
+					GUI.this.panelGame.setGame(new Game(new GameState(1)));
+				}
 				GUI.this.buttonCreateGame.setEnabled(false);
 				GUI.this.enableMoveButtons(true);
 			}
@@ -148,6 +155,7 @@ public class GUI extends JFrame {
 				if(GUI.this.panelGame.getGame() !=  null)
 					GUI.this.dialogSaveLoad.saveGame(GUI.this.panelGame.getGame());
 				GUI.this.dialogSaveLoad.setVisible(true);
+				GUI.this.dialogSaveLoad.setLoaded(false);
 			}
 		});
 		
@@ -179,5 +187,9 @@ public class GUI extends JFrame {
 		panelMenu.add(buttonQuit);
 	}
 	
+	public JPanel getGamePanel()
+	{
+		return this.panelGame;
+	}
 	
 }

@@ -205,6 +205,8 @@ public class PanelGame extends JPanel implements KeyListener{
 		// TODO Auto-generated method stub
 
 	}
+	
+
 
 
 }

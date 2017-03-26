@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 /**
  * 
  * Represents an overlap between a key and an ogre, or between a key and a club
@@ -7,7 +9,12 @@ package dkeep.logic;
  * A collision is passable, but not movable
  * Extends GameObject
  */
-public class Collision extends GameObject{
+public class Collision extends GameObject implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * collision constructor, calls the GameObject constructor

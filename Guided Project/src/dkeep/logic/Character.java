@@ -1,11 +1,18 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 /**
  * 
  * Represents a game character, derives from GameObject
  *
  */
-public class Character extends GameObject {
+public class Character extends GameObject implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 

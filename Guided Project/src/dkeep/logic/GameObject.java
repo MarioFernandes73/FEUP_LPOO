@@ -1,11 +1,18 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 /**
  * 
  * Represents an object present in the game
  *
  */
-public class GameObject {
+public class GameObject implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Symbol that represents the object when displayed on screen

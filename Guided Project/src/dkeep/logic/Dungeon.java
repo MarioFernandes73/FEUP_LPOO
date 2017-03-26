@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,12 @@ import java.util.ArrayList;
  * You can call it the game board if you like so
  *
  */
-public class Dungeon {
+public class Dungeon implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Represents a dungeon without characters, only walls, empty spaces, doors and levers(only the skeleton)

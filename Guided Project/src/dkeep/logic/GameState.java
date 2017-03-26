@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 import dkeep.logic.Guard.Personality;
 
 /**
@@ -8,7 +10,12 @@ import dkeep.logic.Guard.Personality;
  * such as moving enemies, weapon allwance, guard personality, ogre quantity, etc.
  *
  */
-public class GameState {
+public class GameState implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Indicates if there will be moving enemies in game
 	 */

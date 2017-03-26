@@ -1,12 +1,19 @@
 package dkeep.logic;
 
+import java.io.Serializable;
+
 /**
  * 
  * Represents a door, extends GameObject
  *
  */
-public class Door extends GameObject{
+public class Door extends GameObject implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 
 	 * Used to express a door's state in game.
