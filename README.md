@@ -1,3 +1,5 @@
+[![BCH compliance](https://bettercodehub.com/edge/badge/MarioFernandes73/LPOO1617_T4G7?token=e4d0c96c98d75d5f06ded85cac1c04f218ac5ac6)](https://bettercodehub.com/)
+
 # FEUP_LPOO
 Repository for the course "Laboratório de Programação Orientada por Objectos" (EIC0111) of the second semester of the second year of MIEIC in FEUP.
 
