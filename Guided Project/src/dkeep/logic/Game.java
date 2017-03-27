@@ -89,29 +89,16 @@ public class Game implements Serializable {
 		GameObject[][] defaultDungeon = new GameObject[dungeonModel.length][dungeonModel[0].length];
 		
 		//cycle that creates the skeleton of the dungeon (nothing but walls and empty tiles)
-		for(int i = 0; i < dungeonModel.length; i++)
-		{
-			for(int j = 0; j < dungeonModel[i].length; j++)
-			{
+		for(int i = 0; i < dungeonModel.length; i++){
+			for(int j = 0; j < dungeonModel[i].length; j++){
 				int identifier = dungeonModel[i][j];
-				if(!specialIdentifier(identifier, defaultDungeon,i,j))
-				{
+				if(!specialIdentifier(identifier, defaultDungeon,i,j)){
 					GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
 					populateDungeon(identifier, object);
-
 						if(!object.canMove())
-						{
 							defaultDungeon[i][j] = object;
-						}
 						else
-						{
-							defaultDungeon[i][j] = genericEmptyTile;
-						}
-					}
-
-				}
-			}
-		
+							defaultDungeon[i][j] = genericEmptyTile;}}}
 		return defaultDungeon;
 		
 	}

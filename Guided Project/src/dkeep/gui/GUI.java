@@ -217,29 +217,21 @@ public class GUI extends JFrame {
 	}
 	
 	private void newGameFunc() {
-		if(loadState == 1)
-		{					
+		if(loadState == 1)		
 			GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
-		}
-		else if(loadState == 2)
-		{
+		else if(loadState == 2){
 			GameState state = new GameState(GUI.this.dialogSaveLoad.getCustomKeep(),1);
 			state.movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
 			state.attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
 			state.ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
 			state.currentLevel = 2;
-			GUI.this.panelGame.setGame(new Game(state));
-		}
-		else
-		{
+			GUI.this.panelGame.setGame(new Game(state));}
+		else{
 			int ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
 			int guardPersonality = GUI.this.dialogConfig.getGuardPersonality();
 			GUI.this.panelGame.setGame(new Game(new GameState(1,ogreQuantity, guardPersonality)));
 			GUI.this.panelGame.getGame().getGameState().movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
-			GUI.this.panelGame.getGame().getGameState().attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
-			
-		}
-		
+			GUI.this.panelGame.getGame().getGameState().attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();	}	
 	}
 
 	public JPanel getGamePanel()
