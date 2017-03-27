@@ -205,8 +205,15 @@ public class Guard extends Character implements Serializable {
 			}
 			movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
 		}
+		//chance of turning back
+		turningChance();
+		
+		return movement;
+	}
+	
+	private void turningChance() {
 		Random directionGenerator = new Random();
-		if(movingDirection == 1)//chance of turning back
+		if(movingDirection == 1)
 		{
 			int directionRandomIdentifier = directionGenerator.nextInt(Math.abs(sleepTime)+1);
 			if(directionRandomIdentifier > 1)	// 100% to keep going to the front on the first try, 75% at the second, 50% at the third...
@@ -226,9 +233,8 @@ public class Guard extends Character implements Serializable {
 				sleepTime = 0;
 			}
 		}
-		return movement;
 	}
-	
+
 	/**
 	 * Causes the guard to attack
 	 * @return a list with all position coordinates affected by the attack

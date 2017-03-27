@@ -47,7 +47,7 @@ public class Dungeon implements Serializable{
 	}
 	
 	/**
-	 * Turns the complete dungeon into a string representaion(with the according objects representaion symbol)
+	 * Turns the complete dungeon into a string representation(with the according objects representaion symbol)
 	 * @param allObjects list with objects currently present in the game
 	 * @return dungeon's string representation
 	 */
@@ -66,6 +66,20 @@ public class Dungeon implements Serializable{
 		
 		String dungeonString = "";
 		
+		populateDungeon(allObjects);
+		
+		for (int i = 0; i < dungeonInstant.length; i++)
+		{
+			for (int j = 0; j < dungeonInstant[i].length; j++)
+			{
+				dungeonString += dungeonInstant[i][j].toString() + " ";
+			}
+			dungeonString += "\n";
+		}
+		return dungeonString;
+	}
+	
+	private void populateDungeon(ArrayList<GameObject> allObjects) {
 		for(int i = 0; i<allObjects.size(); i++)
 		{
 			GameObject currentObject = allObjects.get(i);
@@ -110,17 +124,8 @@ public class Dungeon implements Serializable{
 			}
 		}
 		
-		for (int i = 0; i < dungeonInstant.length; i++)
-		{
-			for (int j = 0; j < dungeonInstant[i].length; j++)
-			{
-				dungeonString += dungeonInstant[i][j].toString() + " ";
-			}
-			dungeonString += "\n";
-		}
-		return dungeonString;
 	}
-	
+
 	/**
 	 * 
 	 * @return returns the complete dungeon

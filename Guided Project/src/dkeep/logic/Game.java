@@ -75,6 +75,17 @@ public class Game implements Serializable {
 	 */
 	public GameObject[][] createDungeon(int dungeonIdentifier,int[][] dungeonModel)
 	{
+		GameObject[][] defaultDungeon;
+		
+		defaultDungeon = makeDungeonScheme(dungeonModel);
+		allObjects.addAll(npcs);
+		setWeapons();
+		
+		return defaultDungeon;
+	}
+	
+	private GameObject[][] makeDungeonScheme(int[][] dungeonModel) {
+		
 		GameObject[][] defaultDungeon = new GameObject[dungeonModel.length][dungeonModel[0].length];
 		
 		//cycle that creates the skeleton of the dungeon (nothing but walls and empty tiles)
@@ -114,12 +125,11 @@ public class Game implements Serializable {
 
 				}
 			}
-		allObjects.addAll(npcs);
-		setWeapons();
 		
 		return defaultDungeon;
+		
 	}
-	
+
 	private void populateDungeon(int identifier, GameObject object)
 	{
 		switch(identifier)
