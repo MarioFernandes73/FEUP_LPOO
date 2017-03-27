@@ -151,28 +151,32 @@ public class PanelGame extends JPanel implements KeyListener{
 			return gameImages.openDoor;
 		case "I":
 			return gameImages.closedDoor;
-		case "k":
-			return gameImages.key;
-		case "$":
-			return gameImages.obstructedKey;
-		case "O":
-			return gameImages.ogre;
-		case "*":
-			return gameImages.club;
-		case "g":
-			return gameImages.guardStunned;
-		case "A":
-			return gameImages.heroArmed;
-		case "K":
-			return gameImages.heroCarryingKey;
-		case "8":
-			return gameImages.ogreStunned;
-			
+		default:
+			return auxSwitch2(tile);		
 		}
+	}
 
-
-
-		return gameImages.wall;
+	private BufferedImage auxSwitch2(String tile) {
+	switch(tile)
+	{
+	case "k":
+		return gameImages.key;
+	case "$":
+		return gameImages.obstructedKey;
+	case "O":
+		return gameImages.ogre;
+	case "*":
+		return gameImages.club;
+	case "g":
+		return gameImages.guardStunned;
+	case "A":
+		return gameImages.heroArmed;
+	case "K":
+		return gameImages.heroCarryingKey;
+	case "8":
+		return gameImages.ogreStunned;
+	}
+	return gameImages.wall;
 	}
 
 	@Override

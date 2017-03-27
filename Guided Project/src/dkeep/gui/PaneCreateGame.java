@@ -236,11 +236,8 @@ public class PaneCreateGame extends JDialog {
 		{
 			for ( int j = 0; j<this.map[i].length; j++)
 			{
-				if(i == 0 || j == 0 || i== map.length-1 || j==map[0].length-1)
-				{
-					if(map[i][j] != 1 && map[i][j] != 6)
-						return false;
-				}
+				if(!validateWalls(i,j))
+					return false;
 					switch (map[i][j])
 					{
 					case 2:
@@ -259,12 +256,25 @@ public class PaneCreateGame extends JDialog {
 			}
 		}
 		
+		return finalValidate(heroCounter, doorCounter, keyCounter, ogreCounter);
+	}
+	
+	private boolean validateWalls(int i, int j) {
+		if(i == 0 || j == 0 || i== map.length-1 || j==map[0].length-1)
+		{
+			if(map[i][j] != 1 && map[i][j] != 6)
+				return false;
+		}
+		return true;
+	}
+
+	private boolean finalValidate(int heroCounter, int doorCounter, int keyCounter, int ogreCounter) {
 		if(heroCounter == 1 && ogreCounter > 0 && keyCounter >0 && doorCounter > 0)
 			return true;
 		
 		return false;
 	}
-	
+
 	public boolean validatePosition(int k, int l)
 	{
 		switch(this.currentIdentifier)
