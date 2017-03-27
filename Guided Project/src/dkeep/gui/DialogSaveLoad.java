@@ -160,31 +160,38 @@ public class DialogSaveLoad extends JDialog {
 		this.buttonLoadKeep = new JButton("Load custom keep");
 		buttonLoadKeep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					FileInputStream file;
-					try {
-					file = new FileInputStream(".\\src\\dkeep\\saves\\customKeep.ser");
-			        ObjectInputStream in = new ObjectInputStream(file);
-			        keep = (int[][]) in.readObject();
-			        in.close();
-			        file.close();
-			        loaded = 2;
-					} catch (FileNotFoundException e1) {
-						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
-						DialogSaveLoad.this.labelState.setVisible(true);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					} catch (ClassNotFoundException e1) {
-						e1.printStackTrace();
-					}
+				loadKeep();
 					
 					DialogSaveLoad.this.dispose();
 				}
+
+
 		});
 		this.buttonLoadKeep.setBounds(40,150,210,50);
 		this.buttonLoadKeep.setVisible(true);
 		
 	}
-
+	
+	
+	private void loadKeep() {
+		try {
+		FileInputStream file;
+		file = new FileInputStream(".\\src\\dkeep\\saves\\customKeep.ser");
+        ObjectInputStream in = new ObjectInputStream(file);
+        keep = (int[][]) in.readObject();
+        in.close();
+        file.close();
+        loaded = 2;
+		} catch (FileNotFoundException e1) {
+			DialogSaveLoad.this.labelState.setText("Game save state has not been found");
+			DialogSaveLoad.this.labelState.setVisible(true);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+	}
 
 	private void createLoadGameButton() {
 		this.buttonLoadGame = new JButton("Load");
