@@ -94,31 +94,19 @@ public class GUI extends JFrame {
 	{
 		this.buttonMoveUp = new JButton("UP");
 		this.buttonMoveUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("w");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("w");}});
 		
 		this.buttonMoveLeft = new JButton("LEFT");
 		this.buttonMoveLeft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("a");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("a");}});
 		
 		this.buttonMoveRight = new JButton("RIGHT");
 		this.buttonMoveRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("d");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("d");}});
 		
 		this.buttonMoveDown = new JButton("DOWN");
 		this.buttonMoveDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("s");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("s");}});
 		
 		enableMoveButtons(false);
 		

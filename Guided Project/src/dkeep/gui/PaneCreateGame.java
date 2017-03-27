@@ -179,6 +179,13 @@ public class PaneCreateGame extends JDialog {
 			}
 		});
 		
+		createButtonElements2();
+		
+		
+		
+	}
+
+	private void createButtonElements2() {
 		this.buttonOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaneCreateGame.this.currentIdentifier = 10;
