@@ -67,56 +67,37 @@ public class PaneCreateGame extends JDialog {
 	private void createPanelBoard()
 	{		
 		this.panelBoard = new JPanel(new GridLayout(height,width));
-		for(int i = 0; i < map.length; i++)
-		{
-			for (int j = 0; j< map[i].length; j++)
-			{
+		for(int i = 0; i < map.length; i++){
+			for (int j = 0; j< map[i].length; j++){
 				map[i][j] = 0;
 				int k = i;
 				int l = j;
 				JButtonCustom currentButton = new JButtonCustom(gameImages.empty);
 				currentButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(validatePosition(k,l))
-						{
+						if(validatePosition(k,l)){
 							map[k][l] = currentIdentifier;
-							auxSwitch(currentButton,currentIdentifier);
-						}
+							auxSwitch(currentButton,currentIdentifier);}
 						else
-						{
-							PaneCreateGame.this.labelGameState.setText("Invalid tile position");
-						}
-					}
-				});
-				
-				this.panelBoard.add(currentButton);
-			}
-		}
+							PaneCreateGame.this.labelGameState.setText("Invalid tile position");}});
+				this.panelBoard.add(currentButton);}}
 		panelBoard.setVisible(true);
 	}
 	
 	protected void auxSwitch(JButtonCustom currentButton, int currentIdentifier) {
-		switch(currentIdentifier)
-		{
-		case 1:
-			currentButton.setImage(gameImages.wall);
+		switch(currentIdentifier){
+		case 1:currentButton.setImage(gameImages.wall);
 			break;
-		case 2:
-			currentButton.setImage(gameImages.heroArmed);
+		case 2:currentButton.setImage(gameImages.heroArmed);
 			break;
-		case 6:
-			currentButton.setImage(gameImages.closedDoor);
+		case 6:currentButton.setImage(gameImages.closedDoor);
 			break;
-		case 9:
-			currentButton.setImage(gameImages.key);
+		case 9:currentButton.setImage(gameImages.key);
 			break;
-		case 10:
-			currentButton.setImage(gameImages.ogre);
+		case 10:currentButton.setImage(gameImages.ogre);
 			break;
-		default:
-			currentButton.setImage(gameImages.empty);
-		}
-		
+		default:currentButton.setImage(gameImages.empty);
+		}	
 	}
 
 	private void createPanelElements()
@@ -147,6 +128,20 @@ public class PaneCreateGame extends JDialog {
 	
 	private void createButtonActions()
 	{
+		createButtonElements();
+		
+		
+		createButtonSaveMap();
+		
+		this.buttonExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.dispose();
+			}
+		});
+		
+	}
+	
+	private void createButtonElements() {
 		this.buttonEmpty.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaneCreateGame.this.currentIdentifier = 0;
@@ -165,6 +160,13 @@ public class PaneCreateGame extends JDialog {
 			}
 		});
 		
+		createButtonElements2();
+		
+		
+		
+	}
+
+	private void createButtonElements2() {
 		this.buttonOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaneCreateGame.this.currentIdentifier = 10;
@@ -183,79 +185,69 @@ public class PaneCreateGame extends JDialog {
 			}
 		});
 		
+	}
+
+	private void createButtonSaveMap() {
 		buttonSaveMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					try {
-						if(validateMap())
-						{
-							FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\customKeep.ser");
-					        ObjectOutputStream out = new ObjectOutputStream(file);
-					        out.writeObject(PaneCreateGame.this.map);
-					        out.close();
-					        file.close();
-					        PaneCreateGame.this.labelGameState.setText("Custom keep made!");
-						}
-						else
-						{
-							PaneCreateGame.this.labelGameState.setText("Invalid custom keep");
-						}
-
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				
-			}
-		});
-
-		
-		
-		
-		this.buttonExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PaneCreateGame.this.dispose();
-			}
-		});
-		
+				if(validateMap())
+					saveMap();
+				else
+					PaneCreateGame.this.labelGameState.setText("Invalid custom keep");
+				}});	
 	}
+		
+		private void saveMap() {
+			try {
+			FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\customKeep.ser");
+	        ObjectOutputStream out = new ObjectOutputStream(file);
+	        out.writeObject(PaneCreateGame.this.map);
+	        out.close();
+	        file.close();
+	        PaneCreateGame.this.labelGameState.setText("Custom keep made!");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
 	
+		
 	private boolean validateMap()
 	{
 		int heroCounter = 0, ogreCounter = 0, keyCounter = 0, doorCounter = 0;
-		for(int i = 0; i<this.map.length; i++)
+		for(int i = 0; i<this.map.length; i++){
+			for ( int j = 0; j<this.map[i].length; j++){
+				if(!validateWalls(i,j))
+					return false;
+					switch (map[i][j]){
+					case 2:heroCounter++;
+						break;
+					case 6:doorCounter++;
+						break;
+					case 9:keyCounter++;
+						break;
+					case 10:ogreCounter++;}}}
+		return finalValidate(heroCounter, doorCounter, keyCounter, ogreCounter);
+	}
+	
+	private boolean validateWalls(int i, int j) {
+		if(i == 0 || j == 0 || i== map.length-1 || j==map[0].length-1)
 		{
-			for ( int j = 0; j<this.map[i].length; j++)
-			{
-				if(i == 0 || j == 0 || i== map.length-1 || j==map[0].length-1)
-				{
-					if(map[i][j] != 1 && map[i][j] != 6)
-						return false;
-				}
-					switch (map[i][j])
-					{
-					case 2:
-						heroCounter++;
-						break;
-					case 6:
-						doorCounter++;
-						break;
-					case 9:
-						keyCounter++;
-						break;
-					case 10:
-						ogreCounter++;
-						break;
-					}
-			}
+			if(map[i][j] != 1 && map[i][j] != 6)
+				return false;
 		}
-		
+		return true;
+	}
+
+	private boolean finalValidate(int heroCounter, int doorCounter, int keyCounter, int ogreCounter) {
 		if(heroCounter == 1 && ogreCounter > 0 && keyCounter >0 && doorCounter > 0)
 			return true;
 		
 		return false;
 	}
-	
+
 	public boolean validatePosition(int k, int l)
 	{
 		switch(this.currentIdentifier)

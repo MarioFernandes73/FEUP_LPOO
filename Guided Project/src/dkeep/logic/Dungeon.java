@@ -47,7 +47,7 @@ public class Dungeon implements Serializable{
 	}
 	
 	/**
-	 * Turns the complete dungeon into a string representaion(with the according objects representaion symbol)
+	 * Turns the complete dungeon into a string representation(with the according objects representaion symbol)
 	 * @param allObjects list with objects currently present in the game
 	 * @return dungeon's string representation
 	 */
@@ -66,49 +66,7 @@ public class Dungeon implements Serializable{
 		
 		String dungeonString = "";
 		
-		for(int i = 0; i<allObjects.size(); i++)
-		{
-			GameObject currentObject = allObjects.get(i);
-			if(currentObject.getCoord() != null)
-			{
-				int yCoord = currentObject.getCoord().getY();
-				int xCoord = currentObject.getCoord().getX();
-				
-				
-				if(currentObject instanceof Ogre)
-				{
-					int yCoordOgre = ((Ogre) currentObject).getCoord().getY();
-					int xCoordOgre = ((Ogre) currentObject).getCoord().getX();
-					if(dungeonInstant[yCoordOgre][xCoordOgre] instanceof Key)
-					{
-						dungeonInstant[yCoordOgre][xCoordOgre] = new Collision(currentObject.getCoord());
-					}
-					else if(!(dungeonInstant[yCoordOgre][xCoordOgre] instanceof Collision))
-					{
-						dungeonInstant[yCoord][xCoord] = currentObject;
-					}
-					if(((Ogre) currentObject).getWeapon() != null && ((Ogre) currentObject).getWeapon().getCoord() != null)
-					{
-						int yCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getY();
-						int xCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getX();
-						if(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Key)
-						{
-							dungeonInstant[yCoordWeapon][xCoordWeapon] = new Collision(currentObject.getCoord());
-						}
-						else if(!(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Collision))
-						{
-							dungeonInstant[yCoordWeapon][xCoordWeapon] = ((Ogre) currentObject).getWeapon();
-						}
-					}
-				}
-				else
-				{
-					dungeonInstant[yCoord][xCoord] = currentObject;
-				}
-				
-				
-			}
-		}
+		populateDungeon(allObjects);
 		
 		for (int i = 0; i < dungeonInstant.length; i++)
 		{
@@ -121,6 +79,63 @@ public class Dungeon implements Serializable{
 		return dungeonString;
 	}
 	
+	private void populateDungeon(ArrayList<GameObject> allObjects) {
+		for(int i = 0; i<allObjects.size(); i++)
+		{
+			GameObject currentObject = allObjects.get(i);
+			if(currentObject.getCoord() != null)
+			{
+				int yCoord = currentObject.getCoord().getY();
+				int xCoord = currentObject.getCoord().getX();
+				
+				
+				if(currentObject instanceof Ogre)
+				{
+					ogrePrint(currentObject, yCoord, xCoord);
+					
+				}
+				else
+				{
+					dungeonInstant[yCoord][xCoord] = currentObject;
+				}
+				
+				
+			}
+		}
+		
+	}
+
+	private void ogrePrint(GameObject currentObject, int yCoord, int xCoord) {
+		int yCoordOgre = ((Ogre) currentObject).getCoord().getY();
+		int xCoordOgre = ((Ogre) currentObject).getCoord().getX();
+		if(dungeonInstant[yCoordOgre][xCoordOgre] instanceof Key)
+		{
+			dungeonInstant[yCoordOgre][xCoordOgre] = new Collision(currentObject.getCoord());
+		}
+		else if(!(dungeonInstant[yCoordOgre][xCoordOgre] instanceof Collision))
+		{
+			dungeonInstant[yCoord][xCoord] = currentObject;
+		}
+		if(((Ogre) currentObject).getWeapon() != null && ((Ogre) currentObject).getWeapon().getCoord() != null)
+		{
+			makeCollision(currentObject);
+		}
+		
+	}
+
+	private void makeCollision(GameObject currentObject) {
+		int yCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getY();
+		int xCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getX();
+		if(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Key)
+		{
+			dungeonInstant[yCoordWeapon][xCoordWeapon] = new Collision(currentObject.getCoord());
+		}
+		else if(!(dungeonInstant[yCoordWeapon][xCoordWeapon] instanceof Collision))
+		{
+			dungeonInstant[yCoordWeapon][xCoordWeapon] = ((Ogre) currentObject).getWeapon();
+		}
+	}
+
 	/**
 	 * 
 	 * @return returns the complete dungeon

@@ -75,69 +75,75 @@ public class Game implements Serializable {
 	 */
 	public GameObject[][] createDungeon(int dungeonIdentifier,int[][] dungeonModel)
 	{
+		GameObject[][] defaultDungeon;
+		
+		defaultDungeon = makeDungeonScheme(dungeonModel);
+		allObjects.addAll(npcs);
+		setWeapons();
+		
+		return defaultDungeon;
+	}
+	
+	private GameObject[][] makeDungeonScheme(int[][] dungeonModel) {
+		
 		GameObject[][] defaultDungeon = new GameObject[dungeonModel.length][dungeonModel[0].length];
 		
 		//cycle that creates the skeleton of the dungeon (nothing but walls and empty tiles)
-		for(int i = 0; i < dungeonModel.length; i++)
-		{
-			for(int j = 0; j < dungeonModel[i].length; j++)
-			{
+		for(int i = 0; i < dungeonModel.length; i++){
+			for(int j = 0; j < dungeonModel[i].length; j++){
 				int identifier = dungeonModel[i][j];
-				if(identifier == 0)		
-				{
-					defaultDungeon[i][j] = genericEmptyTile;
-				}
-				else if(identifier == 1)
-				{
-					defaultDungeon[i][j] = genericWallTile;
-				}
-				else if(identifier == 3)
-				{
-					GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, gameState.guardPersonality);
-					npcs.add((Guard) objectGuard);
-					defaultDungeon[i][j] = genericEmptyTile;
-				}	
-				else
-				{
+				if(!specialIdentifier(identifier, defaultDungeon,i,j)){
 					GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
-					switch(identifier)
-					{
-					case 2:
-						hero = (Hero) object;
-						if(this.gameState.currentLevel == 2)
-						{
-							hero.setSymbol('A');
-						}
-						allObjects.add(hero);
-						break;
-					case 4:
-					case 5:
-					case 6:
-					case 7:
-						doors.add((Door) object);
-						break;
-					case 10:
-						npcs.add((Ogre) object);
-						for(int k = 1; k<gameState.ogreQuantity; k++)
-						{
-							npcs.add(new Ogre(object.getCoord()));
-						}
-						break;
-					}
-
+					populateDungeon(identifier, object);
 						if(!object.canMove())
-						{
 							defaultDungeon[i][j] = object;
-						}
 						else
-						{
-							defaultDungeon[i][j] = genericEmptyTile;
-						}
-					}
+							defaultDungeon[i][j] = genericEmptyTile;}}}
+		return defaultDungeon;
+		
+	}
 
-				}
-			}
-		allObjects.addAll(npcs);
+	private boolean specialIdentifier(int identifier, GameObject[][] defaultDungeon, int i, int j) {
+		if(identifier == 0)		
+		{
+			defaultDungeon[i][j] = genericEmptyTile;
+		}
+		else if(identifier == 1)
+		{
+			defaultDungeon[i][j] = genericWallTile;
+		}
+		else if(identifier == 3)
+		{
+			GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, gameState.guardPersonality);
+			npcs.add((Guard) objectGuard);
+			defaultDungeon[i][j] = genericEmptyTile;
+		}
+		else
+			return false;
+		
+		return true;
+	}
+
+	private void populateDungeon(int identifier, GameObject object)
+	{
+		switch(identifier){
+		case 2:hero = (Hero) object;
+			if(this.gameState.currentLevel == 2)
+				hero.setSymbol('A');
+			allObjects.add(hero);
+			break;
+		case 4:
+		case 5:
+		case 6:
+		case 7:doors.add((Door) object);
+			break;
+		case 10:npcs.add((Ogre) object);
+			for(int k = 1; k<gameState.ogreQuantity; k++)
+				npcs.add(new Ogre(object.getCoord()));}
+	}
+	
+	private void setWeapons()
+	{
 		if(gameState.attackingEnemiesWeapons)
 		{
 			for (int i = 0; i < npcs.size(); i++)
@@ -149,8 +155,8 @@ public class Game implements Serializable {
 				}
 			}
 		}
-		return defaultDungeon;
 	}
+	
 	
 	/**
 	 * @return returns the game dungeon
@@ -190,19 +196,12 @@ public class Game implements Serializable {
 		GameObject nextTile = dungeon.getTile(heroNextCoord);				//next tile identifier
 		boolean runningHero = InteractionStateMachine(hero, nextTile, heroNextCoord);		//hero interact
 		if(gameState.attackingHero)
-		{
 			heroAttack();
-		}
-		
 		//npc turn
 		if(gameState.movingEnemies)
-		{
 			npcsMovement();			//npcs move
-		}
 		if(gameState.attackingEnemies)
-		{
 			npcsAttack();			//npcs attack	
-		}
 		gameState.running = (!(hero.isDead()) && runningHero);	//changes running to the appropriate state according to this turn
 		return gameState.running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
@@ -232,39 +231,36 @@ public class Game implements Serializable {
 	public void npcsAttack()
 	{
 		boolean heroHit = false;
-		for(int i = 0; i < npcs.size(); i++)
-		{
+		for(int i = 0; i < npcs.size(); i++){
 			Character currentNpc = npcs.get(i);
 			Point[] tilesAttacked = currentNpc.attack();				//area of attack of the npc (standard)
 			Point[] tilesAttackedWeapon = currentNpc.weaponAttack();	//area of attack of the weapon of the npc
-			if(tilesAttacked != null)
-			{
-				for(int j = 0; j < tilesAttacked.length; j++)
-				{
+			if(tilesAttacked != null){
+				for(int j = 0; j < tilesAttacked.length; j++){
 					if(tilesAttacked[j].equals(hero.getCoord()))
-						heroHit = true;
-				}
-			}
-			if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && gameState.attackingEnemiesWeapons)
-			{
-				currentNpc.getWeapon().move(tilesAttackedWeapon[0]);
-				for(int j = 0; j < tilesAttackedWeapon.length; j++)
-				{
-					//check if weapon has killed hero
-					if(tilesAttackedWeapon[j].equals(hero.getCoord()))
-						heroHit = true;
-				}
-			}
+						heroHit = true;}}
+			heroHit = npcsWeaponsAttack(currentNpc, tilesAttackedWeapon, heroHit);
 			
-			if(heroHit)
-			{
+			if(heroHit){
 				hero.died();
-				return;
-			}
-		}
-
+				return;}}
 	}
 	
+	private boolean npcsWeaponsAttack(Character currentNpc, Point[] tilesAttackedWeapon, boolean heroHit2) {
+		boolean heroHit = heroHit2;
+		if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && gameState.attackingEnemiesWeapons)
+		{
+			currentNpc.getWeapon().move(tilesAttackedWeapon[0]);
+			for(int j = 0; j < tilesAttackedWeapon.length; j++)
+			{
+				//check if weapon has killed hero
+				if(tilesAttackedWeapon[j].equals(hero.getCoord()))
+					heroHit = true;
+			}
+		}
+		return heroHit;
+	}
+
 	/**
 	 * Moves all npcs currently in game
 	 */
@@ -301,34 +297,45 @@ public class Game implements Serializable {
 		{
 			character.move(characterNextCoord);
 			
-			if(nextTile instanceof Door && ((Door)nextTile).isEndingDoor() && character instanceof Hero)
-			{
-				return false;	//hero has finished the level
-			}
-
-			else if(nextTile instanceof Lever && character instanceof Hero)
-			{
-				changeDoors();
-			}
-			else if(nextTile instanceof Key && character instanceof Hero)
-			{
-				((Hero)character).carryKey();
-				dungeon.setTile(nextTile.getCoord(), genericEmptyTile);
-			}
+			if(!interactionPassable(nextTile,character))
+				return false;
 		}
 		else
 		{
-			if(nextTile instanceof DoorClosed && character instanceof Hero)
-			{
-				if(hero.getKey())
-				{
-					changeDoors();
-				}
-			}
+			interactionNotPassable(nextTile, character);
 		}
 		return true;
 	}	
 	
+	private boolean interactionPassable(GameObject nextTile, Character character) {
+		if(nextTile instanceof Door && ((Door)nextTile).isEndingDoor() && character instanceof Hero)
+		{
+			return false;	//hero has finished the level
+		}
+
+		else if(nextTile instanceof Lever && character instanceof Hero)
+		{
+			changeDoors();
+		}
+		else if(nextTile instanceof Key && character instanceof Hero)
+		{
+			((Hero)character).carryKey();
+			dungeon.setTile(nextTile.getCoord(), genericEmptyTile);
+		}
+		return true;
+	}
+
+	private void interactionNotPassable(GameObject nextTile, Character character) {
+		if(nextTile instanceof DoorClosed && character instanceof Hero)
+		{
+			if(hero.getKey())
+			{
+				changeDoors();
+			}
+		}
+		
+	}
+
 	/**
 	 * Unlocks(opens) all current game doors
 	 */

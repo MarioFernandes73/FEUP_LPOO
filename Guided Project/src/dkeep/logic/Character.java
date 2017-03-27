@@ -92,34 +92,20 @@ public class Character extends GameObject implements Serializable {
 	public Point movement(String movement)
 	{
 		int nextX = 0, nextY = 0;
-		switch(movement)
-		{
-			case "w":
-			{
-				nextY = this.getCoord().getY() - 1;
+		switch(movement){
+			case "w":nextY = this.getCoord().getY() - 1;
 				nextX = this.getCoord().getX();	
 				break;
-			}
-			case "a":
-			{
-				nextY = this.getCoord().getY();
+			case "a":nextY = this.getCoord().getY();
 				nextX = this.getCoord().getX() -1;
 				break;
-			}
-			case "s":
-			{
-				nextY = this.getCoord().getY() + 1;
+			case "s":nextY = this.getCoord().getY() + 1;
 				nextX = this.getCoord().getX();
 				break;
-			}
-			case "d":
-			{
-				nextY = this.getCoord().getY();
+			case "d":nextY = this.getCoord().getY();
 				nextX = this.getCoord().getX() + 1;
 				break;
-			}
 		}
-	
 		return new Point(nextX,nextY);
 	}
 	

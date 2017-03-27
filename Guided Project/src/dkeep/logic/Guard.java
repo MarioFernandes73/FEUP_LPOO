@@ -86,118 +86,136 @@ public class Guard extends Character implements Serializable {
 		switch(personality)
 		{
 		case ROOKIE:
-			movement = defaultMovementList[nextMovement];
-			nextMovement++;
-			if(nextMovement >= movementList.length)
-			{
-				nextMovement=0;
-			}
+			movement = rookieMovement();
 			break;
 		case DRUNKEN:
-			if(sleepTime <= 0)
-			{
-				if(movingDirection == 1)
-				{
-					movement = defaultMovementList[nextMovement];
-					nextMovement++;
-					if(nextMovement >= movementList.length)
-					{
-						nextMovement=0;
-					}
-				}
-				else if(movingDirection == -1)
-				{
-					nextMovement--;
-					if(nextMovement < 0)
-					{
-						nextMovement = movementList.length-1;
-					}
-					movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
-				}
-				//chance to sleep
-				Random sleepGenerator = new Random();
-				int randomSleepIdentifier = sleepGenerator.nextInt(10)+1;	// range 1-10
-				if(randomSleepIdentifier == 6 || randomSleepIdentifier == 7)	//20% chance sleep 1 turn
-				{
-					sleepTime = 1;
-				}
-				else if(randomSleepIdentifier == 8 || randomSleepIdentifier == 9)	// 20% chance to sleep 2 turns
-				{
-					sleepTime = 2;
-				}
-				else if(randomSleepIdentifier == 10)	// 10% to sleep 3 turns
-				{
-					sleepTime = 3;
-				}
-				if(sleepTime > 0)		//guard will be asleep for the next turn
-				{
-					randomSleepIdentifier = sleepGenerator.nextInt(2)+1;	//range 1-2
-					if(randomSleepIdentifier == 1)		// 50% chance to move back
-					{
-						this.movingDirection = 1;
-					}
-					else if(randomSleepIdentifier == 2)		// 50% chance to move forward
-					{
-						this.movingDirection = -1;
-					}
-					this.setSymbol('g');
-				}
-			}
-			else
-			{
-				sleepTime--;
-				if(sleepTime == 0)
-				{
-					this.setSymbol('G');
-				}
-			}
+			movement = drunkenMovement();
 			break;
 		case SUSPICIOUS:
-			if(movingDirection == 1)
-			{
-				movement = defaultMovementList[nextMovement];
-				nextMovement++;
-				if(nextMovement >= movementList.length)
-				{
-					nextMovement=0;
-				}
-			}
-			else if(movingDirection == -1)
-			{
-				nextMovement--;
-				if(nextMovement < 0)
-				{
-					nextMovement = movementList.length-1;
-				}
-				movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
-			}
-			Random directionGenerator = new Random();
-			if(movingDirection == 1)//chance of turning back
-			{
-				int directionRandomIdentifier = directionGenerator.nextInt(Math.abs(sleepTime)+1);
-				if(directionRandomIdentifier > 1)	// 100% to keep going to the front on the first try, 75% at the second, 50% at the third...
-				{
-					movingDirection = -1;
-				}
-				else
-				{
-					sleepTime--;
-				}
-			}
-			else if(movingDirection == -1)
-			{
-				if(directionGenerator.nextInt(10)+1 > 1) // 90% to turn to the front;
-				{
-					movingDirection = 1;
-					sleepTime = 0;
-				}
-			}
+			movement = suspiciousMovement();
 			break;
 		default:
 
 			break;
 		}		
 		return movement;		
+	}
+
+	
+	
+	public String rookieMovement()
+	{
+		String movement = defaultMovementList[nextMovement];
+		nextMovement++;
+		if(nextMovement >= movementList.length)
+		{
+			nextMovement=0;
+		}
+		return movement;
+	}
+	
+	public String drunkenMovement()
+	{
+		String movement = null;
+		if(sleepTime <= 0)
+		{
+			movement = drunkenMovementAux();
+			//chance to sleep
+			sleepchance();
+			
+		}
+		else
+		{
+			sleepTime--;
+			if(sleepTime == 0)
+			{
+				this.setSymbol('G');
+			}
+		}
+		return movement;
+	}
+	
+	private String drunkenMovementAux() {
+		String movement = null;
+		if(movingDirection == 1)
+		{
+			movement = defaultMovementList[nextMovement];
+			nextMovement++;
+			if(nextMovement >= movementList.length)
+			{
+				nextMovement=0;
+			}
+		}
+		else if(movingDirection == -1)
+		{
+			nextMovement--;
+			if(nextMovement < 0)
+			{
+				nextMovement = movementList.length-1;
+			}
+			movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
+		}
+		return movement;
+		
+	}
+
+	private void sleepchance() {
+		Random sleepGenerator = new Random();
+		int randomSleepIdentifier = sleepGenerator.nextInt(10)+1;	// range 1-10
+			sleepSetter(randomSleepIdentifier);
+		if(sleepTime > 0)		//guard will be asleep for the next turn
+		{
+			randomSleepIdentifier = sleepGenerator.nextInt(2)+1;	//range 1-2
+			if(randomSleepIdentifier == 1)		// 50% chance to move back
+				this.movingDirection = 1;
+			else if(randomSleepIdentifier == 2)		// 50% chance to move forward
+				this.movingDirection = -1;
+			this.setSymbol('g');
+		}
+	}
+
+	private void sleepSetter(int randomSleepIdentifier) {
+		if(randomSleepIdentifier == 6 || randomSleepIdentifier == 7)	//20% chance sleep 1 turn
+			sleepTime = 1;
+		else if(randomSleepIdentifier == 8 || randomSleepIdentifier == 9)	// 20% chance to sleep 2 turns
+			sleepTime = 2;
+		else if(randomSleepIdentifier == 10)	// 10% to sleep 3 turns
+			sleepTime = 3;
+	}
+
+	public String suspiciousMovement()
+	{
+		String movement = null;
+		if(movingDirection == 1){
+			movement = defaultMovementList[nextMovement];
+			nextMovement++;
+			if(nextMovement >= movementList.length)
+				nextMovement=0;
+		}
+		else if(movingDirection == -1){
+			nextMovement--;
+			if(nextMovement < 0)
+				nextMovement = movementList.length-1;
+			movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
+		}
+		//chance of turning back
+		turningChance();
+		return movement;
+	}
+	
+	private void turningChance() {
+		Random directionGenerator = new Random();
+		if(movingDirection == 1){
+			int directionRandomIdentifier = directionGenerator.nextInt(Math.abs(sleepTime)+1);
+			if(directionRandomIdentifier > 1)	// 100% to keep going to the front on the first try, 75% at the second, 50% at the third...
+				movingDirection = -1;
+			else
+				sleepTime--;
+		}
+		else if(movingDirection == -1){
+			if(directionGenerator.nextInt(10)+1 > 1){ // 90% to turn to the front;
+				movingDirection = 1;
+				sleepTime = 0;}}
 	}
 
 	/**

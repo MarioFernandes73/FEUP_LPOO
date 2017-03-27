@@ -94,31 +94,19 @@ public class GUI extends JFrame {
 	{
 		this.buttonMoveUp = new JButton("UP");
 		this.buttonMoveUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("w");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("w");}});
 		
 		this.buttonMoveLeft = new JButton("LEFT");
 		this.buttonMoveLeft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("a");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("a");}});
 		
 		this.buttonMoveRight = new JButton("RIGHT");
 		this.buttonMoveRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("d");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("d");}});
 		
 		this.buttonMoveDown = new JButton("DOWN");
 		this.buttonMoveDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.panelGame.moveHero("s");
-			}
-		});
+			public void actionPerformed(ActionEvent e) {GUI.this.panelGame.moveHero("s");}});
 		
 		enableMoveButtons(false);
 		
@@ -131,48 +119,54 @@ public class GUI extends JFrame {
 	private void createButtons()
 	{
 		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
-		this.buttonNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.loadState = GUI.this.dialogSaveLoad.getLoaded();
-				if(GUI.this.panelGame.getGame() != null && GUI.this.panelGame.getGame().getGameState().running == false)
-					loadState = 0;
-				if(loadState == 1)
-				{					
-					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
-				}
-				else if(loadState == 2)
-				{
-					GameState state = new GameState(GUI.this.dialogSaveLoad.getCustomKeep(),1);
-					state.movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
-					state.attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
-					state.ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
-					state.currentLevel = 2;
-					GUI.this.panelGame.setGame(new Game(state));
-				}
-				else
-				{
-					int ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
-					int guardPersonality = GUI.this.dialogConfig.getGuardPersonality();
-					GUI.this.panelGame.setGame(new Game(new GameState(1,ogreQuantity, guardPersonality)));
-					GUI.this.panelGame.getGame().getGameState().movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
-					GUI.this.panelGame.getGame().getGameState().attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
-					
-				}
-				GUI.this.buttonCreateGame.setEnabled(false);
-				GUI.this.enableMoveButtons(true);
-				
-				resizeFrame(GUI.this.panelGame.getGame().getDungeon().getMap()[0].length,GUI.this.panelGame.getGame().getDungeon().getMap().length);
-			}
-		});
+
 
 		this.buttonCreateGame = new JButtonCustom(gameImages.createGame);
+
+		
+		this.buttonSaveLoadGame = new JButtonCustom(gameImages.saveLoad);
+
+		this.buttonOptions = new JButtonCustom(gameImages.options);
+
+		
+		this.buttonQuit = new JButtonCustom(gameImages.exit);
+
+		
+		createButtonActions();
+		
+		panelMenu.add(buttonNewGame);
+		panelMenu.add(buttonCreateGame);
+		panelMenu.add(buttonSaveLoadGame);
+		panelMenu.add(buttonOptions);
+		panelMenu.add(buttonQuit);
+	}
+	
+	private void createButtonActions()
+	{
+		createButtonNewGameAction();
+		createButtonQuitAction();
+		createButtonSaveLoadGameAction();
+		
 		this.buttonCreateGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.dialogCreateGame.setVisible(true);
 			}
 		});
 		
-		this.buttonSaveLoadGame = new JButtonCustom(gameImages.saveLoad);
+		
+		
+		
+		this.buttonOptions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI.this.dialogConfig.setVisible(true);
+			}
+		});
+		
+		
+	}
+	
+	
+	private void createButtonSaveLoadGameAction() {
 		this.buttonSaveLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() !=  null)
@@ -182,14 +176,9 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		this.buttonOptions = new JButtonCustom(gameImages.options);
-		this.buttonOptions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.dialogConfig.setVisible(true);
-			}
-		});
-		
-		this.buttonQuit = new JButtonCustom(gameImages.exit);
+	}
+
+	private void createButtonQuitAction() {
 		this.buttonQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() ==  null)
@@ -207,13 +196,44 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		panelMenu.add(buttonNewGame);
-		panelMenu.add(buttonCreateGame);
-		panelMenu.add(buttonSaveLoadGame);
-		panelMenu.add(buttonOptions);
-		panelMenu.add(buttonQuit);
+	}
+
+	private void createButtonNewGameAction() {
+		this.buttonNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI.this.loadState = GUI.this.dialogSaveLoad.getLoaded();
+				if(GUI.this.panelGame.getGame() != null && GUI.this.panelGame.getGame().getGameState().running == false)
+					loadState = 0;
+					newGameFunc();
+				GUI.this.buttonCreateGame.setEnabled(false);
+				GUI.this.enableMoveButtons(true);
+				
+				resizeFrame(GUI.this.panelGame.getGame().getDungeon().getMap()[0].length,GUI.this.panelGame.getGame().getDungeon().getMap().length);
+			}
+
+
+		});
+		
 	}
 	
+	private void newGameFunc() {
+		if(loadState == 1)		
+			GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
+		else if(loadState == 2){
+			GameState state = new GameState(GUI.this.dialogSaveLoad.getCustomKeep(),1);
+			state.movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
+			state.attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
+			state.ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
+			state.currentLevel = 2;
+			GUI.this.panelGame.setGame(new Game(state));}
+		else{
+			int ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
+			int guardPersonality = GUI.this.dialogConfig.getGuardPersonality();
+			GUI.this.panelGame.setGame(new Game(new GameState(1,ogreQuantity, guardPersonality)));
+			GUI.this.panelGame.getGame().getGameState().movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
+			GUI.this.panelGame.getGame().getGameState().attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();	}	
+	}
+
 	public JPanel getGamePanel()
 	{
 		return this.panelGame;
@@ -224,25 +244,51 @@ public class GUI extends JFrame {
 		this.dialogCreateGame.setSize(250, 250);
 		this.dialogCreateGame.setLayout(null);
 		this.dialogCreateGame.setResizable(false);
+
+		JLabel labelWidth = createLabelWidth();
+		JLabel labelHeight = createLabelHeight();
+		IntegerJTextField textWidth = createTextWidth();
+		IntegerJTextField textHeight = createTextHeight();
+		JButton buttonCreate = createButtonCreate(textWidth, textHeight);
 		
-		JLabel labelWidth = new JLabel("Width");
-		labelWidth.setBounds(50,50,50,25);
-		labelWidth.setVisible(true);
-		
+		this.dialogCreateGame.add(labelWidth);
+		this.dialogCreateGame.add(labelHeight);
+		this.dialogCreateGame.add(textWidth);
+		this.dialogCreateGame.add(textHeight);
+		this.dialogCreateGame.add(buttonCreate);
+	}
+
+	private JLabel createLabelHeight() {
 		JLabel labelHeight = new JLabel("Height");
 		labelHeight.setBounds(50,100,50,25);
 		labelHeight.setVisible(true);
-		
-		IntegerJTextField textWidth = new IntegerJTextField(5,15);
-		textWidth.setText("10");
-		textWidth.setBounds(150,50,50,25);
-		textWidth.setVisible(true);
-		
+		return labelHeight;
+	}
+
+	private JLabel createLabelWidth() {
+		JLabel labelWidth = new JLabel("Width");
+		labelWidth.setBounds(50,50,50,25);
+		labelWidth.setVisible(true);
+		return labelWidth;
+	}
+
+	private IntegerJTextField createTextHeight() {
 		IntegerJTextField textHeight = new IntegerJTextField(5,15);
 		textHeight.setText("10");
 		textHeight.setBounds(150,100,50,25);
 		textHeight.setVisible(true);
-		
+		return textHeight;
+	}
+
+	private IntegerJTextField createTextWidth() {
+		IntegerJTextField textWidth = new IntegerJTextField(5,15);
+		textWidth.setText("10");
+		textWidth.setBounds(150,50,50,25);
+		textWidth.setVisible(true);
+		return textWidth;
+	}
+
+	private JButton createButtonCreate(IntegerJTextField textWidth, IntegerJTextField textHeight) {
 		JButton buttonCreate = new JButton();
 		buttonCreate.setText("Create Keep");
 		buttonCreate.setBounds(50, 150, 150, 25);
@@ -253,14 +299,9 @@ public class GUI extends JFrame {
 				GUI.this.dialogCreateGame.dispose();
 			}
 		});
-		
-		this.dialogCreateGame.add(labelWidth);
-		this.dialogCreateGame.add(labelHeight);
-		this.dialogCreateGame.add(textWidth);
-		this.dialogCreateGame.add(textHeight);
-		this.dialogCreateGame.add(buttonCreate);
+		return buttonCreate;
 	}
-	
+
 	public void resizeFrame(int gameWidth, int gameHeight)
 	{
 		this.setSize((int)(gameWidth*32+(gameWidth*32)*0.4),(int)( gameHeight*32+(gameHeight*32)*0.5));

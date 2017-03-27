@@ -43,32 +43,22 @@ public class Config extends JDialog {
 	
 	public void createComponents()
 	{
-		//Text field
-		this.inputOgreQuantity = new IntegerJTextField(1,5);
-		this.inputOgreQuantity.setHorizontalAlignment(SwingConstants.CENTER);
-		this.inputOgreQuantity.setFont(new Font("Calibri", Font.PLAIN, 14));
-		this.inputOgreQuantity.setText("3");
-		this.inputOgreQuantity.setColumns(1);
-		this.inputOgreQuantity.setBounds(300,50,100,50);
-		this.inputOgreQuantity.setVisible(true);
 		
+		createTextField();
+		createComboBox();
+		createCheckBoxes();
+		createLabels();
+
 		
-		//Combo box
-		this.inputGuardPersonality = new JComboBox<String>();
-		this.inputGuardPersonality.setFont(new Font("Calibri", Font.PLAIN, 14));
-		this.inputGuardPersonality.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		this.inputGuardPersonality.setBounds(300,150,100,50);
-		this.inputGuardPersonality.setVisible(true);
+
 		
-		//Check boxes
-		this.inputEnemiesMoving = new JCheckBox();
-		this.inputEnemiesMoving.setVisible(true);
-		this.inputEnemiesMoving.setBounds(300,250,150,50);
+
 		
-		this.inputEnemiesAttacking = new JCheckBox();
-		this.inputEnemiesAttacking.setVisible(true);
-		this.inputEnemiesAttacking.setBounds(300,350,150,50);
+
 		
+	}
+
+	private void createLabels() {
 		//Labels
 		this.labelOgreQuantity = new JLabel();
 		this.labelOgreQuantity.setText("Ogre quantity");
@@ -89,6 +79,41 @@ public class Config extends JDialog {
 		this.labelEnemiesAttacking.setText("Enemies can attack");
 		this.labelEnemiesAttacking.setVisible(true);
 		this.labelEnemiesAttacking.setBounds(100,350,150,50);
+		
+	}
+
+	private void createCheckBoxes() {
+		//Text field
+		this.inputOgreQuantity = new IntegerJTextField(1,5);
+		this.inputOgreQuantity.setHorizontalAlignment(SwingConstants.CENTER);
+		this.inputOgreQuantity.setFont(new Font("Calibri", Font.PLAIN, 14));
+		this.inputOgreQuantity.setText("3");
+		this.inputOgreQuantity.setColumns(1);
+		this.inputOgreQuantity.setBounds(300,50,100,50);
+		this.inputOgreQuantity.setVisible(true);
+		
+		
+	}
+
+	private void createComboBox() {
+		//Combo box
+		this.inputGuardPersonality = new JComboBox<String>();
+		this.inputGuardPersonality.setFont(new Font("Calibri", Font.PLAIN, 14));
+		this.inputGuardPersonality.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		this.inputGuardPersonality.setBounds(300,150,100,50);
+		this.inputGuardPersonality.setVisible(true);
+		
+	}
+
+	private void createTextField() {
+		//Check boxes
+		this.inputEnemiesMoving = new JCheckBox();
+		this.inputEnemiesMoving.setVisible(true);
+		this.inputEnemiesMoving.setBounds(300,250,150,50);
+		
+		this.inputEnemiesAttacking = new JCheckBox();
+		this.inputEnemiesAttacking.setVisible(true);
+		this.inputEnemiesAttacking.setBounds(300,350,150,50);
 		
 	}
 

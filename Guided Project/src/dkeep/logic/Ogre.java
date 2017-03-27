@@ -45,9 +45,27 @@ public class Ogre extends Character implements Serializable {
 	{
 		if(sleepTime <= 0)
 		{
-		String randomMove = "";
+		String randomMove = movementSwitch();
+		
+		return randomMove;
+		}
+		else
+		{
+			sleepTime--;
+			if(sleepTime <= 0)
+			{
+				this.setSymbol('O');
+			}
+			return null;
+		}
+			
+	}
+	
+	private String movementSwitch() {
+		String randomMove = null;
 		Random generator = new Random();
 		int randomMoveIdentifier = generator.nextInt(4)+1;
+		
 		if(randomMoveIdentifier == 1)
 		{
 			randomMove = "w";
@@ -64,21 +82,9 @@ public class Ogre extends Character implements Serializable {
 		{
 			randomMove = "d";
 		}
-		
 		return randomMove;
-		}
-		else
-		{
-			sleepTime--;
-			if(sleepTime <= 0)
-			{
-				this.setSymbol('O');
-			}
-			return null;
-		}
-			
 	}
-	
+
 	/**
 	 * @return returns a list with position coordinates affected by the ogre attack
 	 */
