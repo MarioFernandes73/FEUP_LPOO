@@ -267,16 +267,7 @@ public class Game implements Serializable {
 						heroHit = true;
 				}
 			}
-			if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && gameState.attackingEnemiesWeapons)
-			{
-				currentNpc.getWeapon().move(tilesAttackedWeapon[0]);
-				for(int j = 0; j < tilesAttackedWeapon.length; j++)
-				{
-					//check if weapon has killed hero
-					if(tilesAttackedWeapon[j].equals(hero.getCoord()))
-						heroHit = true;
-				}
-			}
+			heroHit = npcsWeaponsAttack(currentNpc, tilesAttackedWeapon, heroHit);
 			
 			if(heroHit)
 			{
@@ -287,6 +278,21 @@ public class Game implements Serializable {
 
 	}
 	
+	private boolean npcsWeaponsAttack(Character currentNpc, Point[] tilesAttackedWeapon, boolean heroHit2) {
+		boolean heroHit = heroHit2;
+		if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && gameState.attackingEnemiesWeapons)
+		{
+			currentNpc.getWeapon().move(tilesAttackedWeapon[0]);
+			for(int j = 0; j < tilesAttackedWeapon.length; j++)
+			{
+				//check if weapon has killed hero
+				if(tilesAttackedWeapon[j].equals(hero.getCoord()))
+					heroHit = true;
+			}
+		}
+		return heroHit;
+	}
+
 	/**
 	 * Moves all npcs currently in game
 	 */
@@ -323,34 +329,45 @@ public class Game implements Serializable {
 		{
 			character.move(characterNextCoord);
 			
-			if(nextTile instanceof Door && ((Door)nextTile).isEndingDoor() && character instanceof Hero)
-			{
-				return false;	//hero has finished the level
-			}
-
-			else if(nextTile instanceof Lever && character instanceof Hero)
-			{
-				changeDoors();
-			}
-			else if(nextTile instanceof Key && character instanceof Hero)
-			{
-				((Hero)character).carryKey();
-				dungeon.setTile(nextTile.getCoord(), genericEmptyTile);
-			}
+			if(!interactionPassable(nextTile,character))
+				return false;
 		}
 		else
 		{
-			if(nextTile instanceof DoorClosed && character instanceof Hero)
-			{
-				if(hero.getKey())
-				{
-					changeDoors();
-				}
-			}
+			interactionNotPassable(nextTile, character);
 		}
 		return true;
 	}	
 	
+	private boolean interactionPassable(GameObject nextTile, Character character) {
+		if(nextTile instanceof Door && ((Door)nextTile).isEndingDoor() && character instanceof Hero)
+		{
+			return false;	//hero has finished the level
+		}
+
+		else if(nextTile instanceof Lever && character instanceof Hero)
+		{
+			changeDoors();
+		}
+		else if(nextTile instanceof Key && character instanceof Hero)
+		{
+			((Hero)character).carryKey();
+			dungeon.setTile(nextTile.getCoord(), genericEmptyTile);
+		}
+		return true;
+	}
+
+	private void interactionNotPassable(GameObject nextTile, Character character) {
+		if(nextTile instanceof DoorClosed && character instanceof Hero)
+		{
+			if(hero.getKey())
+			{
+				changeDoors();
+			}
+		}
+		
+	}
+
 	/**
 	 * Unlocks(opens) all current game doors
 	 */
