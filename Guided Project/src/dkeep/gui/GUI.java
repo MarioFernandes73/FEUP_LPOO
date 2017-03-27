@@ -131,6 +131,31 @@ public class GUI extends JFrame {
 	private void createButtons()
 	{
 		this.buttonNewGame = new JButtonCustom(gameImages.newGame);
+
+
+		this.buttonCreateGame = new JButtonCustom(gameImages.createGame);
+
+		
+		this.buttonSaveLoadGame = new JButtonCustom(gameImages.saveLoad);
+
+		this.buttonOptions = new JButtonCustom(gameImages.options);
+
+		
+		this.buttonQuit = new JButtonCustom(gameImages.exit);
+
+		
+		createButtonActions();
+		
+		panelMenu.add(buttonNewGame);
+		panelMenu.add(buttonCreateGame);
+		panelMenu.add(buttonSaveLoadGame);
+		panelMenu.add(buttonOptions);
+		panelMenu.add(buttonQuit);
+	}
+	
+	private void createButtonActions()
+	{
+		
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.loadState = GUI.this.dialogSaveLoad.getLoaded();
@@ -164,15 +189,13 @@ public class GUI extends JFrame {
 				resizeFrame(GUI.this.panelGame.getGame().getDungeon().getMap()[0].length,GUI.this.panelGame.getGame().getDungeon().getMap().length);
 			}
 		});
-
-		this.buttonCreateGame = new JButtonCustom(gameImages.createGame);
+		
 		this.buttonCreateGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.dialogCreateGame.setVisible(true);
 			}
 		});
 		
-		this.buttonSaveLoadGame = new JButtonCustom(gameImages.saveLoad);
 		this.buttonSaveLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() !=  null)
@@ -182,14 +205,13 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		this.buttonOptions = new JButtonCustom(gameImages.options);
+		
 		this.buttonOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI.this.dialogConfig.setVisible(true);
 			}
 		});
 		
-		this.buttonQuit = new JButtonCustom(gameImages.exit);
 		this.buttonQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() ==  null)
@@ -206,13 +228,8 @@ public class GUI extends JFrame {
 				}
 			}
 		});
-		
-		panelMenu.add(buttonNewGame);
-		panelMenu.add(buttonCreateGame);
-		panelMenu.add(buttonSaveLoadGame);
-		panelMenu.add(buttonOptions);
-		panelMenu.add(buttonQuit);
 	}
+	
 	
 	public JPanel getGamePanel()
 	{

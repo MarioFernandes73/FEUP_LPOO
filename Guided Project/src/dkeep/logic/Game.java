@@ -100,30 +100,7 @@ public class Game implements Serializable {
 				else
 				{
 					GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
-					switch(identifier)
-					{
-					case 2:
-						hero = (Hero) object;
-						if(this.gameState.currentLevel == 2)
-						{
-							hero.setSymbol('A');
-						}
-						allObjects.add(hero);
-						break;
-					case 4:
-					case 5:
-					case 6:
-					case 7:
-						doors.add((Door) object);
-						break;
-					case 10:
-						npcs.add((Ogre) object);
-						for(int k = 1; k<gameState.ogreQuantity; k++)
-						{
-							npcs.add(new Ogre(object.getCoord()));
-						}
-						break;
-					}
+					populateDungeon(identifier, object);
 
 						if(!object.canMove())
 						{
@@ -138,6 +115,41 @@ public class Game implements Serializable {
 				}
 			}
 		allObjects.addAll(npcs);
+		setWeapons();
+		
+		return defaultDungeon;
+	}
+	
+	private void populateDungeon(int identifier, GameObject object)
+	{
+		switch(identifier)
+		{
+		case 2:
+			hero = (Hero) object;
+			if(this.gameState.currentLevel == 2)
+			{
+				hero.setSymbol('A');
+			}
+			allObjects.add(hero);
+			break;
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+			doors.add((Door) object);
+			break;
+		case 10:
+			npcs.add((Ogre) object);
+			for(int k = 1; k<gameState.ogreQuantity; k++)
+			{
+				npcs.add(new Ogre(object.getCoord()));
+			}
+			break;
+		}
+	}
+	
+	private void setWeapons()
+	{
 		if(gameState.attackingEnemiesWeapons)
 		{
 			for (int i = 0; i < npcs.size(); i++)
@@ -149,8 +161,8 @@ public class Game implements Serializable {
 				}
 			}
 		}
-		return defaultDungeon;
 	}
+	
 	
 	/**
 	 * @return returns the game dungeon
