@@ -108,30 +108,18 @@ public class DialogSaveLoad extends JDialog {
 		buttonSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String fileName = DialogSaveLoad.this.textFileName.getText();
-				if(!(fileName.equals("")))
-				{
+				if(!(fileName.equals(""))){
 					saveGameFile(fileName);
-					
-					
-					DialogSaveLoad.this.dispose();
-				}
-				else
-				{
+					DialogSaveLoad.this.dispose();}
+				else{
 					DialogSaveLoad.this.labelState.setText("Please specify a name for your file");
-					DialogSaveLoad.this.labelState.setVisible(true);
-				}
-				
+					DialogSaveLoad.this.labelState.setVisible(true);}
 			}
-
-
 		});
 		this.buttonSaveGame.setBounds(150, 210, 100, 50);
 		this.buttonSaveGame.setVisible(true);
 		if(this.game == null)
-		{
 			this.buttonSaveGame.setEnabled(false);
-		}
-		
 	}
 
 	private void saveGameFile(String fileName) {

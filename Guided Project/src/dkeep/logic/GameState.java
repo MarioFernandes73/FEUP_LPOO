@@ -115,18 +115,13 @@ public class GameState implements Serializable{
 		if(currentLevel == 1)
 		{
 			this.dungeonModel = defaultDungeon1;
-			
 			switch(guardPersonalityIndex)
 			{
-			case 0:
-				this.guardPersonality = Personality.ROOKIE;
+			case 0:this.guardPersonality = Personality.ROOKIE;
 				break;
-			case 1:
-				this.guardPersonality = Personality.DRUNKEN;
+			case 1:this.guardPersonality = Personality.DRUNKEN;
 				break;
-			case 2:
-				this.guardPersonality = Personality.SUSPICIOUS;
-				break;
+			case 2:this.guardPersonality = Personality.SUSPICIOUS;
 			}		
 		}
 		else

@@ -74,21 +74,17 @@ public class PanelGame extends JPanel implements KeyListener{
 				boolean enemiesAttack = this.game.getGameState().attackingEnemies;
 				this.game = new Game(new GameState(2,ogreQuantity,0));
 				this.game.getGameState().movingEnemies = enemiesMove;
-				this.game.getGameState().attackingEnemies = enemiesAttack;				
-			}
+				this.game.getGameState().attackingEnemies = enemiesAttack;				}
 			else if(game.getHero().isDead()){
 				//YOU LOSE!
 				this.running = false;
 				this.game = null;
-				this.gameImages.background = this.gameImages.youLose;
-			}
+				this.gameImages.background = this.gameImages.youLose;}
 			else if((!game.getHero().isDead()) && game.getGameState().currentLevel == 2){
 				//YOU WIN!
 				this.running = false;
 				this.game = null;
-				this.gameImages.background = this.gameImages.youWin;
-			}
-		}
+				this.gameImages.background = this.gameImages.youWin;}}
 		repaint();
 	}	
 	
@@ -187,19 +183,15 @@ public class PanelGame extends JPanel implements KeyListener{
 			switch(code)
 			{
 			case KeyEvent.VK_W:
-			case KeyEvent.VK_UP:
 				this.moveHero("w");
 				break;
 			case KeyEvent.VK_A:
-			case KeyEvent.VK_LEFT:
 				this.moveHero("a");
 				break;
 			case KeyEvent.VK_D:
-			case KeyEvent.VK_RIGHT:
 				this.moveHero("d");
 				break;
 			case KeyEvent.VK_S:
-			case KeyEvent.VK_DOWN:
 				this.moveHero("s");
 				break;
 			}
