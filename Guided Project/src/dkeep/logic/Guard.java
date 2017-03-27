@@ -162,33 +162,25 @@ public class Guard extends Character implements Serializable {
 	private void sleepchance() {
 		Random sleepGenerator = new Random();
 		int randomSleepIdentifier = sleepGenerator.nextInt(10)+1;	// range 1-10
-		if(randomSleepIdentifier == 6 || randomSleepIdentifier == 7)	//20% chance sleep 1 turn
-		{
-			sleepTime = 1;
-		}
-		else if(randomSleepIdentifier == 8 || randomSleepIdentifier == 9)	// 20% chance to sleep 2 turns
-		{
-			sleepTime = 2;
-		}
-		else if(randomSleepIdentifier == 10)	// 10% to sleep 3 turns
-		{
-			sleepTime = 3;
-		}
+			sleepSetter(randomSleepIdentifier);
 		if(sleepTime > 0)		//guard will be asleep for the next turn
 		{
 			randomSleepIdentifier = sleepGenerator.nextInt(2)+1;	//range 1-2
 			if(randomSleepIdentifier == 1)		// 50% chance to move back
-			{
 				this.movingDirection = 1;
-			}
 			else if(randomSleepIdentifier == 2)		// 50% chance to move forward
-			{
 				this.movingDirection = -1;
-			}
 			this.setSymbol('g');
 		}
-	
-		
+	}
+
+	private void sleepSetter(int randomSleepIdentifier) {
+		if(randomSleepIdentifier == 6 || randomSleepIdentifier == 7)	//20% chance sleep 1 turn
+			sleepTime = 1;
+		else if(randomSleepIdentifier == 8 || randomSleepIdentifier == 9)	// 20% chance to sleep 2 turns
+			sleepTime = 2;
+		else if(randomSleepIdentifier == 10)	// 10% to sleep 3 turns
+			sleepTime = 3;
 	}
 
 	public String suspiciousMovement()
