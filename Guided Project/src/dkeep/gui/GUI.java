@@ -257,25 +257,51 @@ public class GUI extends JFrame {
 		this.dialogCreateGame.setSize(250, 250);
 		this.dialogCreateGame.setLayout(null);
 		this.dialogCreateGame.setResizable(false);
+
+		JLabel labelWidth = createLabelWidth();
+		JLabel labelHeight = createLabelHeight();
+		IntegerJTextField textWidth = createTextWidth();
+		IntegerJTextField textHeight = createTextHeight();
+		JButton buttonCreate = createButtonCreate(textWidth, textHeight);
 		
-		JLabel labelWidth = new JLabel("Width");
-		labelWidth.setBounds(50,50,50,25);
-		labelWidth.setVisible(true);
-		
+		this.dialogCreateGame.add(labelWidth);
+		this.dialogCreateGame.add(labelHeight);
+		this.dialogCreateGame.add(textWidth);
+		this.dialogCreateGame.add(textHeight);
+		this.dialogCreateGame.add(buttonCreate);
+	}
+
+	private JLabel createLabelHeight() {
 		JLabel labelHeight = new JLabel("Height");
 		labelHeight.setBounds(50,100,50,25);
 		labelHeight.setVisible(true);
-		
-		IntegerJTextField textWidth = new IntegerJTextField(5,15);
-		textWidth.setText("10");
-		textWidth.setBounds(150,50,50,25);
-		textWidth.setVisible(true);
-		
+		return labelHeight;
+	}
+
+	private JLabel createLabelWidth() {
+		JLabel labelWidth = new JLabel("Width");
+		labelWidth.setBounds(50,50,50,25);
+		labelWidth.setVisible(true);
+		return labelWidth;
+	}
+
+	private IntegerJTextField createTextHeight() {
 		IntegerJTextField textHeight = new IntegerJTextField(5,15);
 		textHeight.setText("10");
 		textHeight.setBounds(150,100,50,25);
 		textHeight.setVisible(true);
-		
+		return textHeight;
+	}
+
+	private IntegerJTextField createTextWidth() {
+		IntegerJTextField textWidth = new IntegerJTextField(5,15);
+		textWidth.setText("10");
+		textWidth.setBounds(150,50,50,25);
+		textWidth.setVisible(true);
+		return textWidth;
+	}
+
+	private JButton createButtonCreate(IntegerJTextField textWidth, IntegerJTextField textHeight) {
 		JButton buttonCreate = new JButton();
 		buttonCreate.setText("Create Keep");
 		buttonCreate.setBounds(50, 150, 150, 25);
@@ -286,14 +312,9 @@ public class GUI extends JFrame {
 				GUI.this.dialogCreateGame.dispose();
 			}
 		});
-		
-		this.dialogCreateGame.add(labelWidth);
-		this.dialogCreateGame.add(labelHeight);
-		this.dialogCreateGame.add(textWidth);
-		this.dialogCreateGame.add(textHeight);
-		this.dialogCreateGame.add(buttonCreate);
+		return buttonCreate;
 	}
-	
+
 	public void resizeFrame(int gameWidth, int gameHeight)
 	{
 		this.setSize((int)(gameWidth*32+(gameWidth*32)*0.4),(int)( gameHeight*32+(gameHeight*32)*0.5));

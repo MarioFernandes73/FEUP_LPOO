@@ -119,24 +119,7 @@ public class Guard extends Character implements Serializable {
 		String movement = null;
 		if(sleepTime <= 0)
 		{
-			if(movingDirection == 1)
-			{
-				movement = defaultMovementList[nextMovement];
-				nextMovement++;
-				if(nextMovement >= movementList.length)
-				{
-					nextMovement=0;
-				}
-			}
-			else if(movingDirection == -1)
-			{
-				nextMovement--;
-				if(nextMovement < 0)
-				{
-					nextMovement = movementList.length-1;
-				}
-				movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
-			}
+			movement = drunkenMovementAux();
 			//chance to sleep
 			sleepchance();
 			
@@ -152,6 +135,30 @@ public class Guard extends Character implements Serializable {
 		return movement;
 	}
 	
+	private String drunkenMovementAux() {
+		String movement = null;
+		if(movingDirection == 1)
+		{
+			movement = defaultMovementList[nextMovement];
+			nextMovement++;
+			if(nextMovement >= movementList.length)
+			{
+				nextMovement=0;
+			}
+		}
+		else if(movingDirection == -1)
+		{
+			nextMovement--;
+			if(nextMovement < 0)
+			{
+				nextMovement = movementList.length-1;
+			}
+			movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
+		}
+		return movement;
+		
+	}
+
 	private void sleepchance() {
 		Random sleepGenerator = new Random();
 		int randomSleepIdentifier = sleepGenerator.nextInt(10)+1;	// range 1-10
