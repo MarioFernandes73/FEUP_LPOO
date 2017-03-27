@@ -32,30 +32,36 @@ public class Main {
 			if(heroMovement.equals("w") || heroMovement.equals("a") || heroMovement.equals("s") || heroMovement.equals("d") )
 			{
 				running = game.playerTurn(heroMovement);
-				if(game.getHero().isDead())
-				{
+				if(!analyzeGameState(game, running, maximumLevels))
 					break;
-				}
-				
-				if(running == false)		// level has ended
-				{
-					boolean heroIsDead = game.getHero().isDead();
-					if((game.getGameState().currentLevel == maximumLevels) || heroIsDead)
-					{
-						break;		
-					}
-					else
-					{
-						running = true;
-						game = new Game(new GameState(2));						
-					}
-				}
 			}
 		}
 		sc.close();
 		System.out.println(game.printDungeonString());
 		System.out.println("GAME OVER!");
 		
+	}
+
+	private static boolean analyzeGameState(Game game, boolean running, int maximumLevels) {
+		if(game.getHero().isDead())
+		{
+			return false;
+		}
+		
+		if(running == false)		// level has ended
+		{
+			boolean heroIsDead = game.getHero().isDead();
+			if((game.getGameState().currentLevel == maximumLevels) || heroIsDead)
+			{
+				return false;	
+			}
+			else
+			{
+				running = true;
+				game = new Game(new GameState(2));						
+			}
+		}
+		return true;
 	}
 	
 	
