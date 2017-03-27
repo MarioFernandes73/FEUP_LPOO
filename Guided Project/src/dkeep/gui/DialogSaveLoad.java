@@ -110,17 +110,8 @@ public class DialogSaveLoad extends JDialog {
 				String fileName = DialogSaveLoad.this.textFileName.getText();
 				if(!(fileName.equals("")))
 				{
-					try {
-						FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\"+fileName+".ser");
-				        ObjectOutputStream out = new ObjectOutputStream(file);
-				        out.writeObject(DialogSaveLoad.this.game);
-				        out.close();
-				        file.close();
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					saveGameFile(fileName);
+					
 					
 					DialogSaveLoad.this.dispose();
 				}
@@ -131,6 +122,8 @@ public class DialogSaveLoad extends JDialog {
 				}
 				
 			}
+
+
 		});
 		this.buttonSaveGame.setBounds(150, 210, 100, 50);
 		this.buttonSaveGame.setVisible(true);
@@ -141,6 +134,21 @@ public class DialogSaveLoad extends JDialog {
 		
 	}
 
+	private void saveGameFile(String fileName) {
+		try {
+			FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\"+fileName+".ser");
+	        ObjectOutputStream out = new ObjectOutputStream(file);
+	        out.writeObject(DialogSaveLoad.this.game);
+	        out.close();
+	        file.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+	}
+	
 
 	private void createLoadButtons() {
 		createLoadGameButton();
@@ -185,22 +193,7 @@ public class DialogSaveLoad extends JDialog {
 				String fileName = DialogSaveLoad.this.textFileName.getText();
 				if(!(fileName.equals("")))
 				{
-					FileInputStream file;
-					try {
-					file = new FileInputStream(".\\src\\dkeep\\saves\\"+fileName+".ser");
-			        ObjectInputStream in = new ObjectInputStream(file);
-			        game = (Game) in.readObject();
-			        in.close();
-			        file.close();
-			        loaded = 1;
-					} catch (FileNotFoundException e1) {
-						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
-						DialogSaveLoad.this.labelState.setVisible(true);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					} catch (ClassNotFoundException e1) {
-						e1.printStackTrace();
-					}
+					loadGameFile(fileName);
 					
 					DialogSaveLoad.this.dispose();
 				}
@@ -210,12 +203,35 @@ public class DialogSaveLoad extends JDialog {
 					DialogSaveLoad.this.labelState.setVisible(true);
 				}
 			}
+
+
 		});
 		this.buttonLoadGame.setBounds(40,210,100,50);
 		this.buttonLoadGame.setVisible(true);
 	}
 
 
+	private void loadGameFile(String fileName) {
+		FileInputStream file;
+		try {
+		file = new FileInputStream(".\\src\\dkeep\\saves\\"+fileName+".ser");
+        ObjectInputStream in = new ObjectInputStream(file);
+        game = (Game) in.readObject();
+        in.close();
+        file.close();
+        loaded = 1;
+		} catch (FileNotFoundException e1) {
+			DialogSaveLoad.this.labelState.setText("Game save state has not been found");
+			DialogSaveLoad.this.labelState.setVisible(true);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+	}
+	
+	
 	public void saveGame(Game game)
 	{
 		this.game = game;
