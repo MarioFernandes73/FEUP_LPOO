@@ -43,47 +43,15 @@ public abstract class Auxiliary {
 	{
 		switch(identifier)
 		{
-		case 2:
-		{
-			return new Hero(coord);
+		case 2:return new Hero(coord);
+		case 4:return new DoorClosed(coord, State.InDoor);
+		case 5:return new DoorOpened(coord, State.InDoor);
+		case 6:return new DoorClosed(coord, State.OutDoor);
+		case 7:return new DoorOpened(coord, State.OutDoor);
+		case 8:return new Lever(coord);
+		case 9:return new Key(coord);
+		case 10:return new Ogre(coord);
 		}
-		case 4:
-		{
-			return new DoorClosed(coord, State.InDoor);
-		}
-		case 5:
-		{
-			return new DoorOpened(coord, State.InDoor);
-		}
-		default:
-			return auxGetNewEntity(coord,identifier);
-		}
-	}
-	
-	private static GameObject auxGetNewEntity(Point coord, int identifier) {
-	switch(identifier)
-	{
-	case 6:
-	{
-		return new DoorClosed(coord, State.OutDoor);
-	}
-	case 7:
-	{
-		return new DoorOpened(coord, State.OutDoor);
-	}
-	case 8:
-	{
-		return new Lever(coord);
-	}
-	case 9:
-	{
-		return new Key(coord);
-	}
-	case 10:
-	{
-		return new Ogre(coord);
-	}
-	}
 		return null;
 	}
 

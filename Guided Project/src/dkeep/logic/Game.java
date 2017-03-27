@@ -144,9 +144,7 @@ public class Game implements Serializable {
 		case 2:
 			hero = (Hero) object;
 			if(this.gameState.currentLevel == 2)
-			{
 				hero.setSymbol('A');
-			}
 			allObjects.add(hero);
 			break;
 		case 4:
@@ -158,9 +156,7 @@ public class Game implements Serializable {
 		case 10:
 			npcs.add((Ogre) object);
 			for(int k = 1; k<gameState.ogreQuantity; k++)
-			{
 				npcs.add(new Ogre(object.getCoord()));
-			}
 			break;
 		}
 	}

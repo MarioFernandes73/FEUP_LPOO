@@ -198,33 +198,30 @@ public class PaneCreateGame extends JDialog {
 	private void createButtonSaveMap() {
 		buttonSaveMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					try {
-						if(validateMap())
-						{
-							FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\customKeep.ser");
-					        ObjectOutputStream out = new ObjectOutputStream(file);
-					        out.writeObject(PaneCreateGame.this.map);
-					        out.close();
-					        file.close();
-					        PaneCreateGame.this.labelGameState.setText("Custom keep made!");
-						}
-						else
-						{
-							PaneCreateGame.this.labelGameState.setText("Invalid custom keep");
-						}
-
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				
-			}
-		});
-
-		
+				if(validateMap())
+					saveMap();
+				else
+					PaneCreateGame.this.labelGameState.setText("Invalid custom keep");
+				}});	
 	}
-
+		
+		private void saveMap() {
+			try {
+			FileOutputStream file = new FileOutputStream(".\\src\\dkeep\\saves\\customKeep.ser");
+	        ObjectOutputStream out = new ObjectOutputStream(file);
+	        out.writeObject(PaneCreateGame.this.map);
+	        out.close();
+	        file.close();
+	        PaneCreateGame.this.labelGameState.setText("Custom keep made!");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
+	
+		
 	private boolean validateMap()
 	{
 		int heroCounter = 0, ogreCounter = 0, keyCounter = 0, doorCounter = 0;
