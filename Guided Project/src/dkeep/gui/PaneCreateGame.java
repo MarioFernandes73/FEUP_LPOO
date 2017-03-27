@@ -147,6 +147,20 @@ public class PaneCreateGame extends JDialog {
 	
 	private void createButtonActions()
 	{
+		createButtonElements();
+		
+		
+		createButtonSaveMap();
+		
+		this.buttonExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaneCreateGame.this.dispose();
+			}
+		});
+		
+	}
+	
+	private void createButtonElements() {
 		this.buttonEmpty.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaneCreateGame.this.currentIdentifier = 0;
@@ -183,6 +197,9 @@ public class PaneCreateGame extends JDialog {
 			}
 		});
 		
+	}
+
+	private void createButtonSaveMap() {
 		buttonSaveMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					try {
@@ -210,16 +227,8 @@ public class PaneCreateGame extends JDialog {
 		});
 
 		
-		
-		
-		this.buttonExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PaneCreateGame.this.dispose();
-			}
-		});
-		
 	}
-	
+
 	private boolean validateMap()
 	{
 		int heroCounter = 0, ogreCounter = 0, keyCounter = 0, doorCounter = 0;

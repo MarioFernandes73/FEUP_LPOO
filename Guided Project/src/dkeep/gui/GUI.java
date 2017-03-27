@@ -155,40 +155,8 @@ public class GUI extends JFrame {
 	
 	private void createButtonActions()
 	{
+		createButtonNewGameAction();
 		
-		this.buttonNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.loadState = GUI.this.dialogSaveLoad.getLoaded();
-				if(GUI.this.panelGame.getGame() != null && GUI.this.panelGame.getGame().getGameState().running == false)
-					loadState = 0;
-				if(loadState == 1)
-				{					
-					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
-				}
-				else if(loadState == 2)
-				{
-					GameState state = new GameState(GUI.this.dialogSaveLoad.getCustomKeep(),1);
-					state.movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
-					state.attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
-					state.ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
-					state.currentLevel = 2;
-					GUI.this.panelGame.setGame(new Game(state));
-				}
-				else
-				{
-					int ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
-					int guardPersonality = GUI.this.dialogConfig.getGuardPersonality();
-					GUI.this.panelGame.setGame(new Game(new GameState(1,ogreQuantity, guardPersonality)));
-					GUI.this.panelGame.getGame().getGameState().movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
-					GUI.this.panelGame.getGame().getGameState().attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
-					
-				}
-				GUI.this.buttonCreateGame.setEnabled(false);
-				GUI.this.enableMoveButtons(true);
-				
-				resizeFrame(GUI.this.panelGame.getGame().getDungeon().getMap()[0].length,GUI.this.panelGame.getGame().getDungeon().getMap().length);
-			}
-		});
 		
 		this.buttonCreateGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -231,6 +199,43 @@ public class GUI extends JFrame {
 	}
 	
 	
+	private void createButtonNewGameAction() {
+		this.buttonNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI.this.loadState = GUI.this.dialogSaveLoad.getLoaded();
+				if(GUI.this.panelGame.getGame() != null && GUI.this.panelGame.getGame().getGameState().running == false)
+					loadState = 0;
+				if(loadState == 1)
+				{					
+					GUI.this.panelGame.setGame(GUI.this.dialogSaveLoad.loadGame());
+				}
+				else if(loadState == 2)
+				{
+					GameState state = new GameState(GUI.this.dialogSaveLoad.getCustomKeep(),1);
+					state.movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
+					state.attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
+					state.ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
+					state.currentLevel = 2;
+					GUI.this.panelGame.setGame(new Game(state));
+				}
+				else
+				{
+					int ogreQuantity = GUI.this.dialogConfig.getOgreQuantity();
+					int guardPersonality = GUI.this.dialogConfig.getGuardPersonality();
+					GUI.this.panelGame.setGame(new Game(new GameState(1,ogreQuantity, guardPersonality)));
+					GUI.this.panelGame.getGame().getGameState().movingEnemies = GUI.this.dialogConfig.getMovingEnemies();
+					GUI.this.panelGame.getGame().getGameState().attackingEnemies = GUI.this.dialogConfig.getAttackingEnemies();
+					
+				}
+				GUI.this.buttonCreateGame.setEnabled(false);
+				GUI.this.enableMoveButtons(true);
+				
+				resizeFrame(GUI.this.panelGame.getGame().getDungeon().getMap()[0].length,GUI.this.panelGame.getGame().getDungeon().getMap().length);
+			}
+		});
+		
+	}
+
 	public JPanel getGamePanel()
 	{
 		return this.panelGame;
