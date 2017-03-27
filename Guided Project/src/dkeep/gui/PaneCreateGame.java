@@ -85,27 +85,19 @@ public class PaneCreateGame extends JDialog {
 	}
 	
 	protected void auxSwitch(JButtonCustom currentButton, int currentIdentifier) {
-		switch(currentIdentifier)
-		{
-		case 1:
-			currentButton.setImage(gameImages.wall);
+		switch(currentIdentifier){
+		case 1:currentButton.setImage(gameImages.wall);
 			break;
-		case 2:
-			currentButton.setImage(gameImages.heroArmed);
+		case 2:currentButton.setImage(gameImages.heroArmed);
 			break;
-		case 6:
-			currentButton.setImage(gameImages.closedDoor);
+		case 6:currentButton.setImage(gameImages.closedDoor);
 			break;
-		case 9:
-			currentButton.setImage(gameImages.key);
+		case 9:currentButton.setImage(gameImages.key);
 			break;
-		case 10:
-			currentButton.setImage(gameImages.ogre);
+		case 10:currentButton.setImage(gameImages.ogre);
 			break;
-		default:
-			currentButton.setImage(gameImages.empty);
-		}
-		
+		default:currentButton.setImage(gameImages.empty);
+		}	
 	}
 
 	private void createPanelElements()

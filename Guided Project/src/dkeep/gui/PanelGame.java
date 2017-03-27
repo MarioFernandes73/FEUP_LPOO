@@ -114,44 +114,27 @@ public class PanelGame extends JPanel implements KeyListener{
 
 	public BufferedImage auxSwitch(String tile)
 	{
-		switch(tile)
-		{
-		case " ":
-			return gameImages.empty;
-		case "X":
-			return gameImages.wall;
-		case "H":
-			return gameImages.normalHero;
-		case "G":
-			return gameImages.guard;
-		case "S":
-			return gameImages.openDoor;
-		case "I":
-			return gameImages.closedDoor;
-		default:
-			return auxSwitch2(tile);		
+		switch(tile){
+		case " ":return gameImages.empty;
+		case "X":return gameImages.wall;
+		case "H":return gameImages.normalHero;
+		case "G":return gameImages.guard;
+		case "S":return gameImages.openDoor;
+		case "I":return gameImages.closedDoor;
+		default:return auxSwitch2(tile);		
 		}
 	}
 
 	private BufferedImage auxSwitch2(String tile) {
-	switch(tile)
-	{
-	case "k":
-		return gameImages.key;
-	case "$":
-		return gameImages.obstructedKey;
-	case "O":
-		return gameImages.ogre;
-	case "*":
-		return gameImages.club;
-	case "g":
-		return gameImages.guardStunned;
-	case "A":
-		return gameImages.heroArmed;
-	case "K":
-		return gameImages.heroCarryingKey;
-	case "8":
-		return gameImages.ogreStunned;
+	switch(tile){
+	case "k":return gameImages.key;
+	case "$":return gameImages.obstructedKey;
+	case "O":return gameImages.ogre;
+	case "*":return gameImages.club;
+	case "g":return gameImages.guardStunned;
+	case "A":return gameImages.heroArmed;
+	case "K":return gameImages.heroCarryingKey;
+	case "8":return gameImages.ogreStunned;
 	}
 	return gameImages.wall;
 	}

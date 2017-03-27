@@ -126,10 +126,8 @@ public class Game implements Serializable {
 
 	private void populateDungeon(int identifier, GameObject object)
 	{
-		switch(identifier)
-		{
-		case 2:
-			hero = (Hero) object;
+		switch(identifier){
+		case 2:hero = (Hero) object;
 			if(this.gameState.currentLevel == 2)
 				hero.setSymbol('A');
 			allObjects.add(hero);
@@ -137,15 +135,11 @@ public class Game implements Serializable {
 		case 4:
 		case 5:
 		case 6:
-		case 7:
-			doors.add((Door) object);
+		case 7:doors.add((Door) object);
 			break;
-		case 10:
-			npcs.add((Ogre) object);
+		case 10:npcs.add((Ogre) object);
 			for(int k = 1; k<gameState.ogreQuantity; k++)
-				npcs.add(new Ogre(object.getCoord()));
-			break;
-		}
+				npcs.add(new Ogre(object.getCoord()));}
 	}
 	
 	private void setWeapons()
