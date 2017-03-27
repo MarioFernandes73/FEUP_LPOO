@@ -213,7 +213,6 @@ public class DialogSaveLoad extends JDialog {
 		});
 		this.buttonLoadGame.setBounds(40,210,100,50);
 		this.buttonLoadGame.setVisible(true);
-		
 	}
 
 

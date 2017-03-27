@@ -156,7 +156,8 @@ public class GUI extends JFrame {
 	private void createButtonActions()
 	{
 		createButtonNewGameAction();
-		
+		createButtonQuitAction();
+		createButtonSaveLoadGameAction();
 		
 		this.buttonCreateGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -164,6 +165,20 @@ public class GUI extends JFrame {
 			}
 		});
 		
+		
+		
+		
+		this.buttonOptions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI.this.dialogConfig.setVisible(true);
+			}
+		});
+		
+		
+	}
+	
+	
+	private void createButtonSaveLoadGameAction() {
 		this.buttonSaveLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() !=  null)
@@ -173,13 +188,9 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		
-		this.buttonOptions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GUI.this.dialogConfig.setVisible(true);
-			}
-		});
-		
+	}
+
+	private void createButtonQuitAction() {
 		this.buttonQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(GUI.this.panelGame.getGame() ==  null)
@@ -196,9 +207,9 @@ public class GUI extends JFrame {
 				}
 			}
 		});
+		
 	}
-	
-	
+
 	private void createButtonNewGameAction() {
 		this.buttonNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
