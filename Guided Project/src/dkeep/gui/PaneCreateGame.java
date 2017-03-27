@@ -67,31 +67,20 @@ public class PaneCreateGame extends JDialog {
 	private void createPanelBoard()
 	{		
 		this.panelBoard = new JPanel(new GridLayout(height,width));
-		for(int i = 0; i < map.length; i++)
-		{
-			for (int j = 0; j< map[i].length; j++)
-			{
+		for(int i = 0; i < map.length; i++){
+			for (int j = 0; j< map[i].length; j++){
 				map[i][j] = 0;
 				int k = i;
 				int l = j;
 				JButtonCustom currentButton = new JButtonCustom(gameImages.empty);
 				currentButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(validatePosition(k,l))
-						{
+						if(validatePosition(k,l)){
 							map[k][l] = currentIdentifier;
-							auxSwitch(currentButton,currentIdentifier);
-						}
+							auxSwitch(currentButton,currentIdentifier);}
 						else
-						{
-							PaneCreateGame.this.labelGameState.setText("Invalid tile position");
-						}
-					}
-				});
-				
-				this.panelBoard.add(currentButton);
-			}
-		}
+							PaneCreateGame.this.labelGameState.setText("Invalid tile position");}});
+				this.panelBoard.add(currentButton);}}
 		panelBoard.setVisible(true);
 	}
 	

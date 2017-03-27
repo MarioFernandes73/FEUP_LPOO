@@ -67,10 +67,8 @@ public class PanelGame extends JPanel implements KeyListener{
 	public void moveHero(String movement)
 	{
 		this.game.playerTurn(movement);
-		if(game.getGameState().running == false)
-		{
-			if((!game.getHero().isDead()) && game.getGameState().currentLevel == 1)
-			{
+		if(game.getGameState().running == false){
+			if((!game.getHero().isDead()) && game.getGameState().currentLevel == 1){
 				int ogreQuantity = this.game.getGameState().ogreQuantity;
 				boolean enemiesMove = this.game.getGameState().movingEnemies;
 				boolean enemiesAttack = this.game.getGameState().attackingEnemies;
@@ -78,23 +76,19 @@ public class PanelGame extends JPanel implements KeyListener{
 				this.game.getGameState().movingEnemies = enemiesMove;
 				this.game.getGameState().attackingEnemies = enemiesAttack;				
 			}
-			else if(game.getHero().isDead())
-			{
+			else if(game.getHero().isDead()){
 				//YOU LOSE!
 				this.running = false;
 				this.game = null;
 				this.gameImages.background = this.gameImages.youLose;
 			}
-			else if((!game.getHero().isDead()) && game.getGameState().currentLevel == 2)
-			{
+			else if((!game.getHero().isDead()) && game.getGameState().currentLevel == 2){
 				//YOU WIN!
 				this.running = false;
 				this.game = null;
 				this.gameImages.background = this.gameImages.youWin;
 			}
 		}
-
-		
 		repaint();
 	}	
 	
