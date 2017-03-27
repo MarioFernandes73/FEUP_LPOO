@@ -55,30 +55,38 @@ public abstract class Auxiliary {
 		{
 			return new DoorOpened(coord, State.InDoor);
 		}
-		case 6:
-		{
-			return new DoorClosed(coord, State.OutDoor);
+		default:
+			return auxGetNewEntity(coord,identifier);
 		}
-		case 7:
-		{
-			return new DoorOpened(coord, State.OutDoor);
-		}
-		case 8:
-		{
-			return new Lever(coord);
-		}
-		case 9:
-		{
-			return new Key(coord);
-		}
-		case 10:
-		{
-			return new Ogre(coord);
-		}
-		}
-		return null;
 	}
 	
+	private static GameObject auxGetNewEntity(Point coord, int identifier) {
+	switch(identifier)
+	{
+	case 6:
+	{
+		return new DoorClosed(coord, State.OutDoor);
+	}
+	case 7:
+	{
+		return new DoorOpened(coord, State.OutDoor);
+	}
+	case 8:
+	{
+		return new Lever(coord);
+	}
+	case 9:
+	{
+		return new Key(coord);
+	}
+	case 10:
+	{
+		return new Ogre(coord);
+	}
+	}
+		return null;
+	}
+
 	/**
 	 * Given a movement direction, returns the opposite
 	 * 

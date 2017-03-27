@@ -94,21 +94,7 @@ public class Game implements Serializable {
 			for(int j = 0; j < dungeonModel[i].length; j++)
 			{
 				int identifier = dungeonModel[i][j];
-				if(identifier == 0)		
-				{
-					defaultDungeon[i][j] = genericEmptyTile;
-				}
-				else if(identifier == 1)
-				{
-					defaultDungeon[i][j] = genericWallTile;
-				}
-				else if(identifier == 3)
-				{
-					GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, gameState.guardPersonality);
-					npcs.add((Guard) objectGuard);
-					defaultDungeon[i][j] = genericEmptyTile;
-				}	
-				else
+				if(!specialIdentifier(identifier, defaultDungeon,i,j))
 				{
 					GameObject object = Auxiliary.getNewEntity(new Point(j,i), identifier);
 					populateDungeon(identifier, object);
@@ -128,6 +114,27 @@ public class Game implements Serializable {
 		
 		return defaultDungeon;
 		
+	}
+
+	private boolean specialIdentifier(int identifier, GameObject[][] defaultDungeon, int i, int j) {
+		if(identifier == 0)		
+		{
+			defaultDungeon[i][j] = genericEmptyTile;
+		}
+		else if(identifier == 1)
+		{
+			defaultDungeon[i][j] = genericWallTile;
+		}
+		else if(identifier == 3)
+		{
+			GameObject objectGuard = Auxiliary.getNewEntity(new Point(j,i), identifier, gameState.guardPersonality);
+			npcs.add((Guard) objectGuard);
+			defaultDungeon[i][j] = genericEmptyTile;
+		}
+		else
+			return false;
+		
+		return true;
 	}
 
 	private void populateDungeon(int identifier, GameObject object)
