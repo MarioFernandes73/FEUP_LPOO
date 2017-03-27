@@ -186,52 +186,36 @@ public class Guard extends Character implements Serializable {
 	public String suspiciousMovement()
 	{
 		String movement = null;
-		if(movingDirection == 1)
-		{
+		if(movingDirection == 1){
 			movement = defaultMovementList[nextMovement];
 			nextMovement++;
 			if(nextMovement >= movementList.length)
-			{
 				nextMovement=0;
-			}
 		}
-		else if(movingDirection == -1)
-		{
+		else if(movingDirection == -1){
 			nextMovement--;
 			if(nextMovement < 0)
-			{
 				nextMovement = movementList.length-1;
-			}
 			movement = Auxiliary.reverseMovement(defaultMovementList[nextMovement]);
 		}
 		//chance of turning back
 		turningChance();
-		
 		return movement;
 	}
 	
 	private void turningChance() {
 		Random directionGenerator = new Random();
-		if(movingDirection == 1)
-		{
+		if(movingDirection == 1){
 			int directionRandomIdentifier = directionGenerator.nextInt(Math.abs(sleepTime)+1);
 			if(directionRandomIdentifier > 1)	// 100% to keep going to the front on the first try, 75% at the second, 50% at the third...
-			{
 				movingDirection = -1;
-			}
 			else
-			{
 				sleepTime--;
-			}
 		}
-		else if(movingDirection == -1)
-		{
-			if(directionGenerator.nextInt(10)+1 > 1) // 90% to turn to the front;
-			{
+		else if(movingDirection == -1){
+			if(directionGenerator.nextInt(10)+1 > 1){ // 90% to turn to the front;
 				movingDirection = 1;
-				sleepTime = 0;
-			}
-		}
+				sleepTime = 0;}}
 	}
 
 	/**
