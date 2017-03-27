@@ -229,21 +229,14 @@ public class PaneCreateGame extends JDialog {
 			for ( int j = 0; j<this.map[i].length; j++){
 				if(!validateWalls(i,j))
 					return false;
-					switch (map[i][j])
-					{
-					case 2:
-						heroCounter++;
+					switch (map[i][j]){
+					case 2:heroCounter++;
 						break;
-					case 6:
-						doorCounter++;
+					case 6:doorCounter++;
 						break;
-					case 9:
-						keyCounter++;
+					case 9:keyCounter++;
 						break;
-					case 10:
-						ogreCounter++;
-						break;
-					}}}
+					case 10:ogreCounter++;}}}
 		return finalValidate(heroCounter, doorCounter, keyCounter, ogreCounter);
 	}
 	

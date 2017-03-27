@@ -202,19 +202,12 @@ public class Game implements Serializable {
 		GameObject nextTile = dungeon.getTile(heroNextCoord);				//next tile identifier
 		boolean runningHero = InteractionStateMachine(hero, nextTile, heroNextCoord);		//hero interact
 		if(gameState.attackingHero)
-		{
 			heroAttack();
-		}
-		
 		//npc turn
 		if(gameState.movingEnemies)
-		{
 			npcsMovement();			//npcs move
-		}
 		if(gameState.attackingEnemies)
-		{
 			npcsAttack();			//npcs attack	
-		}
 		gameState.running = (!(hero.isDead()) && runningHero);	//changes running to the appropriate state according to this turn
 		return gameState.running;		//if either the hero died on his own / finished the level or the Npcs did something to prevent the hero from winning ex: killed him returns 0)
 	}
@@ -244,28 +237,19 @@ public class Game implements Serializable {
 	public void npcsAttack()
 	{
 		boolean heroHit = false;
-		for(int i = 0; i < npcs.size(); i++)
-		{
+		for(int i = 0; i < npcs.size(); i++){
 			Character currentNpc = npcs.get(i);
 			Point[] tilesAttacked = currentNpc.attack();				//area of attack of the npc (standard)
 			Point[] tilesAttackedWeapon = currentNpc.weaponAttack();	//area of attack of the weapon of the npc
-			if(tilesAttacked != null)
-			{
-				for(int j = 0; j < tilesAttacked.length; j++)
-				{
+			if(tilesAttacked != null){
+				for(int j = 0; j < tilesAttacked.length; j++){
 					if(tilesAttacked[j].equals(hero.getCoord()))
-						heroHit = true;
-				}
-			}
+						heroHit = true;}}
 			heroHit = npcsWeaponsAttack(currentNpc, tilesAttackedWeapon, heroHit);
 			
-			if(heroHit)
-			{
+			if(heroHit){
 				hero.died();
-				return;
-			}
-		}
-
+				return;}}
 	}
 	
 	private boolean npcsWeaponsAttack(Character currentNpc, Point[] tilesAttackedWeapon, boolean heroHit2) {
