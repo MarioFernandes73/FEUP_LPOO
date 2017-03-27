@@ -143,6 +143,42 @@ public class DialogSaveLoad extends JDialog {
 
 
 	private void createLoadButtons() {
+		createLoadGameButton();
+		createLoadKeepButton();
+	}
+
+
+	private void createLoadKeepButton() {
+		this.buttonLoadKeep = new JButton("Load custom keep");
+		buttonLoadKeep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					FileInputStream file;
+					try {
+					file = new FileInputStream(".\\src\\dkeep\\saves\\customKeep.ser");
+			        ObjectInputStream in = new ObjectInputStream(file);
+			        keep = (int[][]) in.readObject();
+			        in.close();
+			        file.close();
+			        loaded = 2;
+					} catch (FileNotFoundException e1) {
+						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
+						DialogSaveLoad.this.labelState.setVisible(true);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+						e1.printStackTrace();
+					}
+					
+					DialogSaveLoad.this.dispose();
+				}
+		});
+		this.buttonLoadKeep.setBounds(40,150,210,50);
+		this.buttonLoadKeep.setVisible(true);
+		
+	}
+
+
+	private void createLoadGameButton() {
 		this.buttonLoadGame = new JButton("Load");
 		buttonLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -177,34 +213,6 @@ public class DialogSaveLoad extends JDialog {
 		});
 		this.buttonLoadGame.setBounds(40,210,100,50);
 		this.buttonLoadGame.setVisible(true);
-		
-		
-		
-		this.buttonLoadKeep = new JButton("Load custom keep");
-		buttonLoadKeep.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					FileInputStream file;
-					try {
-					file = new FileInputStream(".\\src\\dkeep\\saves\\customKeep.ser");
-			        ObjectInputStream in = new ObjectInputStream(file);
-			        keep = (int[][]) in.readObject();
-			        in.close();
-			        file.close();
-			        loaded = 2;
-					} catch (FileNotFoundException e1) {
-						DialogSaveLoad.this.labelState.setText("Game save state has not been found");
-						DialogSaveLoad.this.labelState.setVisible(true);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					} catch (ClassNotFoundException e1) {
-						e1.printStackTrace();
-					}
-					
-					DialogSaveLoad.this.dispose();
-				}
-		});
-		this.buttonLoadKeep.setBounds(40,150,210,50);
-		this.buttonLoadKeep.setVisible(true);
 		
 	}
 
