@@ -58,9 +58,9 @@ public abstract class Auxiliary {
 	/**
 	 * Given a movement direction, returns the opposite
 	 * 
-	 * @param
+	 * @param movement string with the direction that will be inverted
 	 * 
-	 * @return
+	 * @return returns the opposite direction
 	 */
 	public static String reverseMovement(String movement)
 	{

@@ -11,9 +11,6 @@ import java.util.ArrayList;
  */
 public class Dungeon implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -79,6 +76,11 @@ public class Dungeon implements Serializable{
 		return dungeonString;
 	}
 	
+	/**
+	 * populates the skeleton dungeon with all objects
+	 * 
+	 * @param allObjects list with objects used to populate the dungeon
+	 */
 	private void populateDungeon(ArrayList<GameObject> allObjects) {
 		for(int i = 0; i<allObjects.size(); i++)
 		{
@@ -105,6 +107,12 @@ public class Dungeon implements Serializable{
 		
 	}
 
+	/**
+	 * Used to allow the representation on all different forms(when he is alone and when he's on top of a key)
+	 * @param currentObject ogre that is being analyzed
+	 * @param yCoord ogre y coordinate
+	 * @param xCoord ogre x coordinate
+	 */
 	private void ogrePrint(GameObject currentObject, int yCoord, int xCoord) {
 		int yCoordOgre = ((Ogre) currentObject).getCoord().getY();
 		int xCoordOgre = ((Ogre) currentObject).getCoord().getX();
@@ -123,6 +131,10 @@ public class Dungeon implements Serializable{
 		
 	}
 
+	/**
+	 * Used to allow the representation of an ogre when he's on top of a key
+	 * @param currentObject ogre being analyzed
+	 */
 	private void makeCollision(GameObject currentObject) {
 		int yCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getY();
 		int xCoordWeapon = ((Ogre) currentObject).getWeapon().getCoord().getX();
