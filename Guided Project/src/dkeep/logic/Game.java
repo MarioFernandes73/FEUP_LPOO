@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * @brief represents the game itself, all the elements are controlled by this class 
+ * represents the game itself, all the elements are controlled by this class 
  */
 public class Game implements Serializable {
 
@@ -31,7 +31,7 @@ public class Game implements Serializable {
 	private Wall genericWallTile;
 	
 	/**
-	 * represents a game element wich is empty, to where other characters can move
+	 * represents a game element which is empty, to where other characters can move
 	 */
 	private Empty genericEmptyTile;
 	
@@ -84,6 +84,14 @@ public class Game implements Serializable {
 		return defaultDungeon;
 	}
 	
+	/**
+	 * 
+	 * Creates a dungeon only constituted by its skeleton
+	 * 
+	 * @param dungeonModel a matrix with all the game elements, except they are represented as numbers and not as objects
+	 * 
+	 * @return returns a skeleton dungeon
+	 */
 	private GameObject[][] makeDungeonScheme(int[][] dungeonModel) {
 		
 		GameObject[][] defaultDungeon = new GameObject[dungeonModel.length][dungeonModel[0].length];
@@ -103,6 +111,14 @@ public class Game implements Serializable {
 		
 	}
 
+	/**
+	 * Adds an empty tile, wall or guard to the game
+	 * @param identifier number that identifies the game object that will be added
+	 * @param defaultDungeon the dungeon 
+	 * @param i y coordinate of the position where the object will be added
+	 * @param j x coordinate of the position where the object will be added
+	 * @return returns true if an empty tile, wall or guard to the game has been added, returns false otherwise
+	 */
 	private boolean specialIdentifier(int identifier, GameObject[][] defaultDungeon, int i, int j) {
 		if(identifier == 0)		
 		{
@@ -124,6 +140,11 @@ public class Game implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Adds a a given object to the dungeon, for population effects
+	 * @param identifier identifier of the element to add to the dungeon
+	 * @param object instance of the object that will be added
+	 */
 	private void populateDungeon(int identifier, GameObject object)
 	{
 		switch(identifier){
@@ -142,6 +163,9 @@ public class Game implements Serializable {
 				npcs.add(new Ogre(object.getCoord()));}
 	}
 	
+	/**
+	 * Gives weapons to the ogres
+	 */
 	private void setWeapons()
 	{
 		if(gameState.attackingEnemiesWeapons)
@@ -246,6 +270,18 @@ public class Game implements Serializable {
 				return;}}
 	}
 	
+	/**
+	 * 
+	 * Responsible for letting the weapons attack the hero
+	 * 
+	 * @param currentNpc npc responsible for the attack
+	 * 
+	 * @param tilesAttackedWeapon all the positions under the attack influence
+	 * 
+	 * @param heroHit2 a boolean set to true if the hero has already died, false otherwise
+	 * 
+	 * @return returns true if the hero has been hit, false otherwise
+	 */
 	private boolean npcsWeaponsAttack(Character currentNpc, Point[] tilesAttackedWeapon, boolean heroHit2) {
 		boolean heroHit = heroHit2;
 		if(currentNpc.getWeapon()!= null && tilesAttackedWeapon != null && gameState.attackingEnemiesWeapons)
@@ -307,6 +343,12 @@ public class Game implements Serializable {
 		return true;
 	}	
 	
+	/**
+	 * Allows interaction between the hero and the following elements: open level ending door, lever and key
+	 * @param nextTile tile to where the character will move
+	 * @param character character currently being analyzed
+	 * @return returns false if the level has finished, returns true otherwise
+	 */
 	private boolean interactionPassable(GameObject nextTile, Character character) {
 		if(nextTile instanceof Door && ((Door)nextTile).isEndingDoor() && character instanceof Hero)
 		{
@@ -325,6 +367,11 @@ public class Game implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Used to allow a game feature where, in level 2, the door should only open after the hero collides with it
+	 * @param nextTile tile to where the character is moving
+	 * @param character character currently being analyzed
+	 */
 	private void interactionNotPassable(GameObject nextTile, Character character) {
 		if(nextTile instanceof DoorClosed && character instanceof Hero)
 		{
@@ -350,21 +397,38 @@ public class Game implements Serializable {
 		this.doors = newDoors;
 	}
 	
+	/**
+	 * 
+	 * @return returns a list with all objects currently in the game
+	 */
 	public ArrayList<GameObject> getAllObjects()
 	{
 		return this.allObjects;
 	}
 	
+	/**
+	 * 
+	 * @return returns a list with all npcs
+	 */
 	public ArrayList<Character> getNpcs()
 	{
 		return this.npcs;
 	}
 	
+	/**
+	 * 
+	 * @return returns the game state
+	 */
 	public GameState getGameState()
 	{
 		return this.gameState;
 	}
 	
+	/**
+	 * Sets the game to a given level
+	 * 
+	 * @param level level to set
+	 */
 	public void setLevel(int level)
 	{
 		this.gameState.currentLevel = level;
@@ -376,6 +440,10 @@ public class Game implements Serializable {
 
 	}
 	
+	/**
+	 * 
+	 * @return returns the skeleton version of the game dungeon
+	 */
 	public GameObject[][] getMap()
 	{
 		return this.dungeon.getMap();
