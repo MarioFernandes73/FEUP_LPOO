@@ -50,13 +50,20 @@ On this package, all of the games's tests will be present; the following list co
 * Start the game, move ball left X seconds, wait Y seconds (enough so that the first ledge reaches spikes) check for positive updated score, updated timer, updated ledge velocity; repeat if failed until success or timeout.
 
 
+The following diagram is an activity diagram explaining how the game will function from start to finish, and all of the available options a user can do and their influence.
+
+![Diagram Activity](UMLDiagrams/Activity.bmp)
+
+Fig6 - Activity diagram.
+
+The diagram is self-explanatory, but an important aspect to refer is that the game will have a few states: "starting", "running", "over" and "paused".
 
 
 The following images are the mockups of the project:
 
 ![Mockup Menu](Mockups/Menu.png) ![Mockup Highscores](Mockups/HighScores.png) ![Mockup Paused](Mockups/Paused.png) ![Mockup Gameplay](Mockups/Gameplay.png)
 
-Fig1,2,3,4 - Menu, highscores, paused menu and gameplay mockup
+Fig7,8,9,10 - Menu, highscores, paused menu and gameplay mockup
 
 This last figure shows a red ball (the protagonist), ledges (which can be either normal or spiked) and spikes at the top (which continuously descend at a certain speed which increases the more the game prolongs, up to a cap).
 Ideally the user will be able to move the ball left and right aswel as making it jump.
