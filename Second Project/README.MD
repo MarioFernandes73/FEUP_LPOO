@@ -73,5 +73,5 @@ The following images are the mockups of the project:
 
 Fig7,8,9,10 - Menu, highscores, paused menu and gameplay mockup
 
-This last figure shows a red ball (the protagonist), ledges (which can be either normal or spiked) and spikes at the top (which continuously descend at a certain speed which increases the more the game prolongs, up to a cap).
+This last figure shows a red ball (the protagonist), ledges (which can be either normal or spiked) and spikes at the top (which continuously descend at a certain speed which increases the more the game prolongs).
 Ideally the user will be able to move the ball left and right aswel as making it jump.
