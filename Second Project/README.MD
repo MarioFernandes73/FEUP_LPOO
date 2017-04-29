@@ -59,6 +59,14 @@ Fig6 - Activity diagram.
 The diagram is self-explanatory, but an important aspect to refer is that the game will have a few states: "starting", "running", "over" and "paused".
 
 
+In terms of design patterns the game will use at least the following patterns:
+* Singleton which will be used for the application instant, the ball element etc. so that it makes sure that only one element of these is created.
+* Facade which besides being implemented on a lot of the libGDX functionalities themselves, will be used so that the user will only have to press, for instance, jump, in order for the ball to have its coordinates altered constantly for a few instants.
+* State which, as referred before, will be implemented to deal with the continuous changes to the game. Every "update" cycle will start by analyzing which state the game is in.
+* Template which, although a user will not be able to choose maps, the code will be generic enough so that that functionality can be implemented in the future, besides having an extremely easier code to read for bug fixing.
+* Flyweight which will be used to create multiple ledges and destroy them once their coordinates reach a certain Y. This pattern will make it so that only a few ledges are created but used in multiple instances. (prototype could be used here but flyweight will make it so the number of ledges are fixed and created only when the game starts).
+
+
 The following images are the mockups of the project:
 
 ![Mockup Menu](Mockups/Menu.png) ![Mockup Highscores](Mockups/HighScores.png) ![Mockup Paused](Mockups/Paused.png) ![Mockup Gameplay](Mockups/Gameplay.png)
