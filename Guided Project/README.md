@@ -1,4 +1,4 @@
-##Guided Project
+# Guided Project
 
 ![EclEmma Results](tests/EclEmmaResults.png)
 
