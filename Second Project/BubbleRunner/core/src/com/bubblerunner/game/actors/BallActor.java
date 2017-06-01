@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -26,6 +27,7 @@ import static com.bubblerunner.game.constants.Constants.BALL_INITIAL_POS_Y;
 import static com.bubblerunner.game.constants.Constants.BALL_NUMBER_FRAMES;
 import static com.bubblerunner.game.constants.Constants.BALL_RADIUS;
 import static com.bubblerunner.game.constants.Constants.BALL_RESTITUTION;
+import static com.bubblerunner.game.constants.Constants.STARTING_HP;
 
 /**
  * Created by Mario on 12/04/2017.
@@ -38,10 +40,11 @@ public class BallActor extends Actor {
     private Texture texture;
     private float stateTime = 0;
     private Body body;
+    private int hp;
 
-    public BallActor(GraphicsManager graphicsManager, World world)
-    {
+    public BallActor(GraphicsManager graphicsManager, World world) {
         this.texture = graphicsManager.gameGraphics.ball;
+        this.hp = STARTING_HP;
         createAnimation();
         createBody(world);
         this.setPosition(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
@@ -147,4 +150,17 @@ public class BallActor extends Actor {
     public void setBodyTransform(float x, float y, float z){
         this.body.setTransform(x,y,z);
     }
+
+    public Circle getBounds(){
+        return new Circle(body.getPosition().x, body.getPosition().y, BALL_RADIUS);
+    }
+
+    public int getHp(){
+        return this.hp;
+    }
+
+    public void setHp(int hp){
+        this.hp = hp;
+    }
+
 }

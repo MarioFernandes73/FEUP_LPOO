@@ -1,5 +1,6 @@
 package com.bubblerunner.game.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -21,73 +22,36 @@ import static com.bubblerunner.game.constants.Constants.VIEWPORT_WIDTH;
 
 public class MenuTableActor extends Table {
 
-    private boolean leftPressed = false;
-    private boolean rightPressed = false;
+    private GenericButton playButton;
+    private GenericButton highscoresButton;
+    private GenericButton exitButton;
 
     public MenuTableActor(GraphicsManager graphicsManager){
 
-        //this.left().bottom();
+        this.playButton = new GenericButton(graphicsManager.hud.leftButton);
+        this.highscoresButton = new GenericButton(graphicsManager.gameGraphics.ledge);
+        this.exitButton = new GenericButton(graphicsManager.gameGraphics.ledge);
 
-        Image leftImg = new Image(graphicsManager.gameGraphics.ledge);
-        leftImg.setSize(MENU_BUTTON_SIZE_WIDTH,MENU_BUTTON_SIZE_HEIGHT);
-        leftImg.addListener(new InputListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = false;
-            }
-
-        });
-
-        Image leftImg2 = new Image(graphicsManager.gameGraphics.ledge);
-        leftImg.setSize(MENU_BUTTON_SIZE_WIDTH,MENU_BUTTON_SIZE_HEIGHT);
-        leftImg.addListener(new InputListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = false;
-            }
-
-        });
-
-        Image rightImg = new Image(graphicsManager.hud.rightButton);
-        rightImg.setSize(MENU_BUTTON_SIZE_WIDTH,MENU_BUTTON_SIZE_HEIGHT);
-        rightImg.addListener(new InputListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = false;
-            }
-
-        });
-        this.add(leftImg).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
+        this.add(playButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
         this.row();
         this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/4);
         this.row();
-        this.add(leftImg2).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
+        this.add(highscoresButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
         this.row();
         this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/4);
         this.row();
-        this.add(rightImg).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
-        this.setDebug(true);
+        this.add(exitButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
         this.setFillParent(true);
     }
+
+    public boolean getPlayPressed(){
+        return this.playButton.getPressed();
+    }
+    public boolean getHighscoresPressed(){
+        return this.highscoresButton.getPressed();
+    }
+    public boolean getExitPressed(){
+        return this.exitButton.getPressed();
+    }
+
 }

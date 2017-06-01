@@ -37,13 +37,6 @@ public class BubbleScreen implements Screen {
         // Steps the stage
         gameStage.act(delta);
 
-        // TEST OLAAAOLAAAOLAAAOLAAAOLAAAOLAAAOLAAAOLAAAOLAAAOLAAAOLAAAOLAAA
-        if(gameStage.getScoreUpdate() == -1){
-           // scoreStage.addScore(-200);
-            game.setScreen(new MenuScreen(game));
-
-        }
-
         scoreStage.addScore(gameStage.getScoreUpdate());
         gameStage.setScoreUpdate(0);
 

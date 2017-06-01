@@ -16,56 +16,24 @@ import static com.bubblerunner.game.constants.Constants.BUTTON_SIZE_WIDTH;
 
 public class ControllerTableActor extends Table {
 
-    private boolean leftPressed = false;
-    private boolean rightPressed = false;
+    private GenericButton rightButton;
+    private GenericButton leftButton;
 
     public ControllerTableActor(GraphicsManager graphicsManager){
 
         this.left().bottom();
-
-        Image leftImg = new Image(graphicsManager.hud.leftButton);
-        leftImg.setSize(BUTTON_SIZE_WIDTH,BUTTON_SIZE_HEIGHT);
-        leftImg.addListener(new InputListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed = false;
-            }
-
-        });
-
-        Image rightImg = new Image(graphicsManager.hud.rightButton);
-        rightImg.setSize(BUTTON_SIZE_WIDTH,BUTTON_SIZE_HEIGHT);
-        rightImg.addListener(new InputListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = false;
-            }
-
-        });
-        this.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
+        this.leftButton = new GenericButton(graphicsManager.hud.leftButton);
+        this.rightButton = new GenericButton(graphicsManager.hud.rightButton);
+        this.add(leftButton).size(leftButton.getWidth()*1.5f, leftButton.getHeight()*1.5f);
         this.add();
-        this.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
+        this.add(rightButton).size(rightButton.getWidth()*1.5f, rightButton.getHeight()*1.5f);
     }
 
     public boolean getRightPressed(){
-        return this.rightPressed;
+        return this.rightButton.getPressed();
     }
 
     public boolean getLeftPressed(){
-        return this.leftPressed;
+        return this.leftButton.getPressed();
     }
 }

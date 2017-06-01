@@ -9,12 +9,8 @@ import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 public class BubbleRunner extends Game {
 
-	private GraphicsManager graphicsManager;
-	public GraphicsManager getGraphicsManager() {return graphicsManager;}
-
 	@Override
 	public void create () {
-		graphicsManager = graphicsManager.getInstance();
 		this.setScreen(new MenuScreen(this));
 		//this.setScreen(new BubbleScreen(this));
 	}

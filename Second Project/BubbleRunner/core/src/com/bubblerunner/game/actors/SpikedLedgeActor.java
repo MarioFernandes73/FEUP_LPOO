@@ -1,0 +1,28 @@
+package com.bubblerunner.game.actors;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.physics.box2d.World;
+import com.bubblerunner.game.utils.Point;
+import com.bubblerunner.game.utils.gui.GraphicsManager;
+
+import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.LETHAL;
+import static com.bubblerunner.game.constants.Constants.METER_TO_PIXEL;
+import static com.bubblerunner.game.constants.Constants.PIXEL_TO_METER;
+
+/**
+ * Created by Mario on 31/05/2017.
+ */
+
+public class SpikedLedgeActor extends LedgeActor {
+
+    public SpikedLedgeActor(GraphicsManager graphicsManager, World world, Point<Float> startingCoordinates, float width){
+        super(graphicsManager.gameGraphics.ball, world, startingCoordinates, width);
+        this.setLethality(LETHAL);
+        this.createBody();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(texture, (body.getPosition().x-width/2)*METER_TO_PIXEL, (body.getPosition().y-height/2)*METER_TO_PIXEL, 0, 0, (int)(width / PIXEL_TO_METER), (int)(height / PIXEL_TO_METER));
+    }
+}

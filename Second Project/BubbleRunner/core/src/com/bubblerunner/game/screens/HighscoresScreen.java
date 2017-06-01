@@ -4,20 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.bubblerunner.game.BubbleRunner;
-import com.bubblerunner.game.stages.MenuStage;
+import com.bubblerunner.game.stages.HighscoresStage;
 
 /**
- * Created by Mario on 08/05/2017.
+ * Created by Mario on 22/05/2017.
  */
 
+public class HighscoresScreen implements Screen {
 
-public class MenuScreen implements Screen {
+    private final HighscoresStage stage;
 
-    private final MenuStage stage;
+    public HighscoresScreen(BubbleRunner game) {
 
-    public MenuScreen(BubbleRunner game) {
-
-        this.stage = new MenuStage(game);
+        this.stage = new HighscoresStage(game);
         Gdx.input.setInputProcessor(stage);
     }
 
