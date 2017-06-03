@@ -7,12 +7,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.actors.GenericButton;
 import com.bubblerunner.game.actors.HighscoresTableActor;
-import com.bubblerunner.game.screens.MenuScreen;
-import com.bubblerunner.game.utils.gui.GameGraphics;
+import com.bubblerunner.game.screens.GenericScreen;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
-
-import static com.bubblerunner.game.constants.Constants.SCREEN_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.SCREEN_WIDTH;
 
 /**
  * Created by Mario on 22/05/2017.
@@ -36,7 +32,7 @@ public class HighscoresStage extends Stage {
 
         this.graphicsManager = graphicsManager.getInstance();
 
-        this.highscoresTableActor = new HighscoresTableActor(graphicsManager);
+        this.highscoresTableActor = new HighscoresTableActor(graphicsManager, game.getScoreManager().displayHighscores());
         this.addActor(highscoresTableActor);
 
         this.backButton = new GenericButton(graphicsManager.hud.rightButton);
@@ -44,6 +40,9 @@ public class HighscoresStage extends Stage {
         this.backTable.left().bottom();
         this.backTable.add(this.backButton).size(80, 80);
         this.addActor(backTable);
+
+
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class HighscoresStage extends Stage {
     {
         super.act(delta);
         if(backButton.getPressed()){
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new GenericScreen(game, new MenuStage(game)));
         }
     }
 }

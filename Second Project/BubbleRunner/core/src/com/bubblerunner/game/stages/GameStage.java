@@ -1,6 +1,5 @@
 package com.bubblerunner.game.stages;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -13,7 +12,7 @@ import com.bubblerunner.game.actors.LedgeActor;
 import com.bubblerunner.game.actors.NormalLedgeActor;
 import com.bubblerunner.game.actors.SpikedLedgeActor;
 import com.bubblerunner.game.constants.Constants;
-import com.bubblerunner.game.screens.MenuScreen;
+import com.bubblerunner.game.screens.GenericScreen;
 import com.bubblerunner.game.utils.Point;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
@@ -137,7 +136,7 @@ public class GameStage extends Stage {
         super.act(delta);
 
         if(gameState == OVER){
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new GenericScreen(game, new MenuStage(game)));
         }
 
         // Step the world

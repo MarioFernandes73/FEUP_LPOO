@@ -1,5 +1,6 @@
 package com.bubblerunner.game.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -16,17 +17,9 @@ import static com.bubblerunner.game.constants.Constants.MENU_BUTTON_SIZE_WIDTH;
 
 public class HighscoresTableActor extends Table {
 
-    private GenericButton playButton;
+    public HighscoresTableActor(GraphicsManager graphicsManager, String highscoresText){
 
-    public HighscoresTableActor(GraphicsManager graphicsManager){
-
-
-
-        this.playButton = new GenericButton(graphicsManager.hud.leftButton);
-        //this.add(playButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
-
-        Label label = new Label("olaaaaaaaaaa", new Label.LabelStyle(new BitmapFont(), null));
-        //label.setPosition(10, VIEWPORT_WIDTH * ratio - 30);
+        Label label = new Label(highscoresText, new Label.LabelStyle(new BitmapFont(), null));
         label.setColor(Color.WHITE);
         this.add(label).size(80, 80);
 

@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.actors.MenuTableActor;
 import com.bubblerunner.game.screens.BubbleScreen;
-import com.bubblerunner.game.screens.HighscoresScreen;
+import com.bubblerunner.game.screens.GenericScreen;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 import static com.bubblerunner.game.constants.Constants.SCREEN_HEIGHT;
@@ -31,6 +31,7 @@ public class MenuStage extends Stage {
 
         this.menuTableActor = new MenuTableActor(graphicsManager);
         this.addActor(menuTableActor);
+        Gdx.input.setInputProcessor(this);
 
     }
 
@@ -41,7 +42,7 @@ public class MenuStage extends Stage {
         if (menuTableActor.getPlayPressed()) {
             game.setScreen(new BubbleScreen(game));
         } else if(menuTableActor.getHighscoresPressed()) {
-            game.setScreen(new HighscoresScreen(game));
+            game.setScreen(new GenericScreen(game, new HighscoresStage(game)));
         } else if(menuTableActor.getExitPressed()) {
             Gdx.app.exit();
         }

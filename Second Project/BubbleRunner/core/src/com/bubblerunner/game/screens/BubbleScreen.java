@@ -15,12 +15,10 @@ import com.bubblerunner.game.stages.ScoreStage;
 
 public class BubbleScreen implements Screen {
 
-    private BubbleRunner game;
     private final GameStage gameStage;
     private final ScoreStage scoreStage;
 
     public BubbleScreen(BubbleRunner game) {
-        this.game = game;
         this.gameStage = new GameStage(game);
         this.scoreStage = new ScoreStage(game);
 

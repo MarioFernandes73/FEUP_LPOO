@@ -126,4 +126,7 @@ public class Constants {
     public static final float MENU_BUTTON_SIZE_WIDTH = 500;
     public static final float MENU_BUTTON_SIZE_HEIGHT = 300;
 
+
+    public static final int HIGHSCORES_MAX_PLAYERS = 5;
+    public static final int HIGHSCORES_INITIAL_POS = 1;
 }
