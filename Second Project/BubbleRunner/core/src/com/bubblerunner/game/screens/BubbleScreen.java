@@ -21,9 +21,6 @@ public class BubbleScreen implements Screen {
     public BubbleScreen(BubbleRunner game) {
         this.gameStage = new GameStage(game);
         this.scoreStage = new ScoreStage(game);
-
-        // Sets the stage as its input processor
-        Gdx.input.setInputProcessor(gameStage);
     }
 
     @Override

@@ -25,14 +25,12 @@ public class HighscoresStage extends Stage {
 
     public HighscoresStage(BubbleRunner game){
         this.game = game;
-        //this.setViewport(new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
-        //float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
         float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
         setViewport(new FitViewport(VIEWPORT_WIDTH, VIEWPORT_WIDTH * ratio));
 
         this.graphicsManager = graphicsManager.getInstance();
 
-        this.highscoresTableActor = new HighscoresTableActor(graphicsManager, game.getScoreManager().displayHighscores());
+        this.highscoresTableActor = new HighscoresTableActor(game.getScoreManager().displayHighscores());
         this.addActor(highscoresTableActor);
 
         this.backButton = new GenericButton(graphicsManager.hud.rightButton);
@@ -40,7 +38,6 @@ public class HighscoresStage extends Stage {
         this.backTable.left().bottom();
         this.backTable.add(this.backButton).size(80, 80);
         this.addActor(backTable);
-
 
         Gdx.input.setInputProcessor(this);
     }

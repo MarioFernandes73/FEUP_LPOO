@@ -1,5 +1,6 @@
 package com.bubblerunner.game.stages;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -124,6 +125,8 @@ public class GameStage extends Stage {
         //create controller
         this.controllerTableActor = new ControllerTableActor(graphicsManager);
         this.addActor(this.controllerTableActor);
+
+        Gdx.input.setInputProcessor(this);
 }
 
     @Override
@@ -136,7 +139,7 @@ public class GameStage extends Stage {
         super.act(delta);
 
         if(gameState == OVER){
-            game.setScreen(new GenericScreen(game, new MenuStage(game)));
+            game.setScreen(new GenericScreen(game, new GameOverStage(game)));
         }
 
         // Step the world

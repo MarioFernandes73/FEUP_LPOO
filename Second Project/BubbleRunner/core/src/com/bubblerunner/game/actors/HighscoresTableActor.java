@@ -17,11 +17,11 @@ import static com.bubblerunner.game.constants.Constants.MENU_BUTTON_SIZE_WIDTH;
 
 public class HighscoresTableActor extends Table {
 
-    public HighscoresTableActor(GraphicsManager graphicsManager, String highscoresText){
+    public HighscoresTableActor(String highscoresText){
 
         Label label = new Label(highscoresText, new Label.LabelStyle(new BitmapFont(), null));
         label.setColor(Color.WHITE);
-        this.add(label).size(80, 80);
+        this.add(label);
 
         this.setFillParent(true);
 
