@@ -274,6 +274,10 @@ public class GameStage extends Stage {
         }
     }
 
+    public GraphicsManager getGraphicsManager(){
+        return this.graphicsManager;
+    }
+
 }
 
 

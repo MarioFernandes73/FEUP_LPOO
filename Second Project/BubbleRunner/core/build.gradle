@@ -12,4 +12,5 @@ eclipse.project {
 
 dependencies {
     compile 'org.jetbrains:annotations-java5:15.0'
+    compile 'junit:junit:4.12'
 }
