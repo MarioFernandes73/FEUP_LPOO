@@ -1,6 +1,7 @@
 package com.bubblerunner.game.controller.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -21,8 +22,12 @@ import static com.bubblerunner.game.constants.Constants.BALL_RESTITUTION;
 
 public class BallBody extends EntityBody {
 
+    private BallModel model;
+
     public BallBody(World world, BallModel model){
         super();
+
+        this.model = model;
 
         // Create the ball body definition
         BodyDef bodyDef = new BodyDef();
@@ -51,6 +56,22 @@ public class BallBody extends EntityBody {
 
         // Dispose of circle shape
         circle.dispose();
+    }
+
+    public Circle getBounds(){
+        return new Circle(this.getX(), this.getY(), BALL_RADIUS);
+    }
+
+    public void setPos(float x, float y){
+        this.model.setPosition(x,y);
+    }
+
+    public int getHp(){
+        return this.model.getHp();
+    }
+
+    public void setHp(int hp){
+        this.model.setHp(hp);
     }
 
 

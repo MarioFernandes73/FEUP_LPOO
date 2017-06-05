@@ -28,7 +28,7 @@ public class Constants {
 
     //WORLD
     public static final int WORLD_GRAVITY_X = 0;
-    public static final int WORLD_GRAVITY_Y = -20;//-80;
+    public static final int WORLD_GRAVITY_Y = -1;//-80;
     public static final int WORLD_VELOCITY_ITERATIONS = 6;
     public static final int WORLD_POSITION_ITERATIONS = 2;
 
@@ -107,12 +107,12 @@ public class Constants {
     public static final float BALL_RADIUS = 0.11f;
     public static final float BALL_MAX_HEIGHT = (15* VIEWPORT_WIDTH * RATIO / 16) - BALL_RADIUS;
     public static final float BALL_MIN_HEIGHT = LEDGE_HEIGHT + BALL_RADIUS;
-    public static final float BALL_INITIAL_POS_X = VIEWPORT_WIDTH / 2 / PIXEL_TO_METER;
-    public static final float BALL_INITIAL_POS_Y = VIEWPORT_WIDTH * RATIO / 2 / Constants.PIXEL_TO_METER;
+    public static final float BALL_INITIAL_POS_X = (VIEWPORT_WIDTH / 2) / PIXEL_TO_METER;
+    public static final float BALL_INITIAL_POS_Y = (VIEWPORT_WIDTH * RATIO / 2) / Constants.PIXEL_TO_METER;
     public static final int BALL_NUMBER_FRAMES = 8;
     public static final float BALL_FRAMES_DURATION = .5f;
     public static final int BALL_INITIAL_FRAME = 0;
-    public static final float BALL_DENSITY = 0.8f;
+    public static final float BALL_DENSITY = 0.2f;
     public static final float BALL_FRICTION = 0f;
     public static final float BALL_RESTITUTION = 0f;
     public static final float BALL_VELOCITY = 1;

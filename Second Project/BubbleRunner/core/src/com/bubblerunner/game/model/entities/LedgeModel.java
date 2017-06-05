@@ -28,22 +28,23 @@ import static com.bubblerunner.game.model.entities.LedgeModel.LedgeSize.MEDIUM;
 
         private final float height;
 
-        private LEDGE_LETHALITY lethality = LEDGE_LETHALITY.NONLETHAL;
+        private LEDGE_LETHALITY lethality;
 
-        private boolean spawnedAnother = false;
+        private boolean spawnedAnother;
 
         /**
          * Constructs a asteroid model belonging to a game model.
          *
-         * @param x The x-coordinate of this asteroid.
-         * @param y The y-coordinate of this asteroid.
+         * @param coordinates The x-coordinate of this asteroid.
          * @param size The size of this asteroid.
          */
-        public LedgeModel(float x, float y, LedgeSize size, float width, float height) {
-            super(x, y);
+        public LedgeModel(Point<Float> coordinates, LedgeSize size, float width, float height, LEDGE_LETHALITY ledgeLethality) {
+            super(coordinates);
             this.size = size;
             this.width = width;
             this.height = height;
+            this.lethality = ledgeLethality;
+            this.spawnedAnother = false;
         }
 
         /**
@@ -67,10 +68,6 @@ import static com.bubblerunner.game.model.entities.LedgeModel.LedgeSize.MEDIUM;
 
         public LEDGE_LETHALITY getLethality(){
             return this.lethality;
-        }
-
-        public void setLethality(LEDGE_LETHALITY lethality){
-            this.lethality = lethality;
         }
 
         public boolean getSpawnedAnother(){

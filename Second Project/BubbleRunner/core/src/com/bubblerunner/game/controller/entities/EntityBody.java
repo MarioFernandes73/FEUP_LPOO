@@ -22,7 +22,7 @@ public abstract class EntityBody {
      * Constructs a body representing a model in a certain world.
      *
      */
-        public EntityBody() {
+    public EntityBody() {
             body = null;
         }
 
@@ -80,4 +80,7 @@ public abstract class EntityBody {
     public Vector2 getPos(){return body.getPosition();}
 
     public Body getBody(){return this.body;}
+
+
+
 }

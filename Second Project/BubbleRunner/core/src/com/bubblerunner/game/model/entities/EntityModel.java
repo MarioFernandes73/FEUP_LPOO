@@ -4,6 +4,8 @@ package com.bubblerunner.game.model.entities;
  * Created by Mario on 04/06/2017.
  */
 
+import com.bubblerunner.game.utils.Point;
+
 /**
  * An abstract model representing an entity belonging to a game model.
  */
@@ -29,12 +31,11 @@ public abstract class EntityModel {
     /**
      * Constructs a model with a position and a rotation.
      *
-     * @param x The x-coordinate of this entity in meters.
-     * @param y The y-coordinate of this entity in meters.
+     * @param coordinates The x-coordinate of this entity in meters.
      */
-    EntityModel(float x, float y) {
-        this.x = x;
-        this.y = y;
+    EntityModel(Point<Float> coordinates) {
+        this.x = coordinates.getX();
+        this.y = coordinates.getY();
     }
 
     /**

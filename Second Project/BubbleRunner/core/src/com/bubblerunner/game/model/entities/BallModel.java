@@ -4,6 +4,8 @@ package com.bubblerunner.game.model.entities;
  * Created by Mario on 04/06/2017.
  */
 
+import com.bubblerunner.game.utils.Point;
+
 /**
  * A model representing a the user space ship.
  */
@@ -20,8 +22,8 @@ public class BallModel extends EntityModel {
      * @param x the x-coordinate in meters
      * @param y the y-coordinate in meters
      */
-    public BallModel(float x, float y) {
-        super(x, y);
+    public BallModel(Point<Float> coordinates) {
+        super(coordinates);
     }
 
     /**

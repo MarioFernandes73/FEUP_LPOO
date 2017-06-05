@@ -33,67 +33,24 @@ import static com.bubblerunner.game.constants.Constants.VIEWPORT_WIDTH;
 
 public class LedgeActor extends Actor {
 
-    protected LedgeBody body;
-    protected final Texture texture;
-    protected LedgeModel ledgeModel;
-    private final Point<Float> startingCoordinates;
-    private World world;
+    private LedgeBody body;
+    private final Texture texture;
 
 
-    public LedgeActor(Texture texture, World world, Point<Float> startingCoordinates, float width) {
-        this.world = world;
-        this.startingCoordinates = startingCoordinates;
+    public LedgeActor(Texture texture, LedgeBody body) {
         this.texture = texture;
         this.texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        if(width == VIEWPORT_WIDTH/2){
-            this.ledgeModel = new LedgeModel(startingCoordinates.getX(), startingCoordinates.getY(), LedgeModel.LedgeSize.MEDIUM, width, LEDGE_HEIGHT );
-        } else {
-            this.ledgeModel = new LedgeModel(startingCoordinates.getX(), startingCoordinates.getY(), LedgeModel.LedgeSize.SMALL, width, LEDGE_HEIGHT);
-        }
+        this.body = body;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, startingCoordinates.getX()*METER_TO_PIXEL, startingCoordinates.getY()*METER_TO_PIXEL, 0, 0, (int)(ledgeModel.getWidth() / PIXEL_TO_METER), (int)(ledgeModel.getHeight() / PIXEL_TO_METER));
+        batch.draw(texture, (body.getX()- body.getWidth()/2)*METER_TO_PIXEL, (body.getY()-body.getHeight()/2)*METER_TO_PIXEL, 0, 0, (int)(body.getWidth() / PIXEL_TO_METER), (int)(body.getHeight() / PIXEL_TO_METER));
     }
 
-    protected void createBody() {
-        this.body = new LedgeBody(world, ledgeModel);
-    }
+    public void setHasActor(boolean value){this.body.setHasActor(value); }
 
-    public void setVelocity(float yVelocity){
-        this.body.setLinearVelocity(0, yVelocity);
-    }
+    public boolean needsDelete(){return this.body.getNeedsDelete();}
 
-    public Vector2 getBodyPosition(){
-        return this.body.getPos();
-    }
-
-    public void delete(){
-        world.destroyBody(this.body.getBody());
-        this.remove();
-        this.body.setUserData(null);
-        this.body = null;
-    }
-
-    public boolean hasSpawnedAnother(){
-        return this.ledgeModel.getSpawnedAnother();
-    }
-
-    public void setSpawnedAnother(boolean state){
-        this.ledgeModel.setSpawnedAnother(state);
-    }
-
-    public int getLethality(){
-        return this.ledgeModel.getLethality().getValue();
-    }
-
-    public void setLethality(Constants.LEDGE_LETHALITY lethality){
-        this.ledgeModel.setLethality(lethality);
-    }
-
-    public Rectangle getBounds(){
-        return new Rectangle(body.getX(), body.getY(), this.ledgeModel.getWidth(), this.ledgeModel.getHeight());
-    }
-
+    public void setCanDelete(boolean value){this.body.setCanDelete(value);}
 }

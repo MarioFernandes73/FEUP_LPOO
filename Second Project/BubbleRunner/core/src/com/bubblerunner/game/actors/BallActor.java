@@ -29,6 +29,7 @@ import static com.bubblerunner.game.constants.Constants.BALL_INITIAL_POS_Y;
 import static com.bubblerunner.game.constants.Constants.BALL_NUMBER_FRAMES;
 import static com.bubblerunner.game.constants.Constants.BALL_RADIUS;
 import static com.bubblerunner.game.constants.Constants.BALL_RESTITUTION;
+import static com.bubblerunner.game.constants.Constants.PIXEL_TO_METER;
 import static com.bubblerunner.game.constants.Constants.STARTING_HP;
 
 /**
@@ -41,15 +42,13 @@ public class BallActor extends Actor {
     private Animation<TextureRegion> animation;
     private Texture texture;
     private float stateTime = 0;
-    private BallModel ballModel;
     private BallBody body;
 
-    public BallActor(GraphicsManager graphicsManager, World world) {
+    public BallActor(GraphicsManager graphicsManager, BallBody body) {
         this.texture = graphicsManager.gameGraphics.ball;
         createAnimation();
         this.setPosition(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
-        ballModel = new BallModel(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
-        body = new BallBody(world, ballModel);
+        this.body = body;
     }
 
     @Override
@@ -72,7 +71,7 @@ public class BallActor extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-
+        this.setPosition(body.getX()/PIXEL_TO_METER, body.getY()/PIXEL_TO_METER);
         stateTime += delta;
         sprite.setRegion(animation.getKeyFrame(stateTime, true));
     }
@@ -81,10 +80,6 @@ public class BallActor extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         sprite.setColor(getColor());
         sprite.draw(batch);
-    }
-
-    public float getYPosition(){
-        return body.getY();
     }
 
     private void createAnimation(){
@@ -110,30 +105,6 @@ public class BallActor extends Actor {
 
     public void setBodyLinearVelocity(float x, float y){
         this.body.setLinearVelocity(x,y);
-    }
-
-    public Vector2 getBodyPosition(){
-        return this.body.getPos();
-    }
-
-   // public float getBodyAngle(){
-      //  return this.body.getAngle;
-   // }
-
-    public void setBodyTransform(float x, float y, float z){
-        this.body.setTransform(x,y,z);
-    }
-
-    public Circle getBounds(){
-        return new Circle(body.getX(), body.getY(), BALL_RADIUS);
-    }
-
-    public int getHp(){
-        return this.ballModel.getHp();
-    }
-
-    public void setHp(int hp){
-        this.ballModel.setHp(hp);
     }
 
 }
