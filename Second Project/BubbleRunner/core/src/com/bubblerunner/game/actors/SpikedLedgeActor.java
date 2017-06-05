@@ -23,6 +23,6 @@ public class SpikedLedgeActor extends LedgeActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, (body.getPosition().x-width/2)*METER_TO_PIXEL, (body.getPosition().y-height/2)*METER_TO_PIXEL, 0, 0, (int)(width / PIXEL_TO_METER), (int)(height / PIXEL_TO_METER));
+        batch.draw(texture, (body.getX()- ledgeModel.getWidth()/2)*METER_TO_PIXEL, (body.getY()-ledgeModel.getHeight()/2)*METER_TO_PIXEL, 0, 0, (int)(ledgeModel.getWidth() / PIXEL_TO_METER), (int)(ledgeModel.getHeight() / PIXEL_TO_METER));
     }
 }

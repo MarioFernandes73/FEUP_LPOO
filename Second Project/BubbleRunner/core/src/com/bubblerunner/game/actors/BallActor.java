@@ -16,6 +16,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.constants.Constants;
+import com.bubblerunner.game.controller.entities.BallBody;
+import com.bubblerunner.game.model.entities.BallModel;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 import static com.bubblerunner.game.constants.Constants.BALL_DENSITY;
@@ -39,15 +41,15 @@ public class BallActor extends Actor {
     private Animation<TextureRegion> animation;
     private Texture texture;
     private float stateTime = 0;
-    private Body body;
-    private int hp;
+    private BallModel ballModel;
+    private BallBody body;
 
     public BallActor(GraphicsManager graphicsManager, World world) {
         this.texture = graphicsManager.gameGraphics.ball;
-        this.hp = STARTING_HP;
         createAnimation();
-        createBody(world);
         this.setPosition(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
+        ballModel = new BallModel(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
+        body = new BallBody(world, ballModel);
     }
 
     @Override
@@ -81,37 +83,8 @@ public class BallActor extends Actor {
         sprite.draw(batch);
     }
 
-    public void createBody(World world) {
-        // Create the ball body definition
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        // Create the ball body
-        float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
-        Body body = world.createBody(bodyDef);
-        body.setTransform(Constants.VIEWPORT_WIDTH / 2, (Constants.VIEWPORT_WIDTH * ratio) / 2, 0); // Middle of the viewport, no rotation
-
-        // Create circle shape
-        CircleShape circle = new CircleShape();
-        circle.setRadius(BALL_RADIUS); // 22cm / 2
-
-        // Create ball fixture
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;
-        fixtureDef.density = BALL_DENSITY;      // how heavy is the ball
-        fixtureDef.friction =  BALL_FRICTION;    // how slippery is the ball
-        fixtureDef.restitution =  BALL_RESTITUTION; // how bouncy is the ball
-
-        // Attach fixture to body
-        body.createFixture(fixtureDef);
-
-        // Dispose of circle shape
-        circle.dispose();
-        this.body = body;
-    }
-
     public float getYPosition(){
-        return body.getPosition().y;
+        return body.getY();
     }
 
     private void createAnimation(){
@@ -140,27 +113,27 @@ public class BallActor extends Actor {
     }
 
     public Vector2 getBodyPosition(){
-        return this.body.getPosition();
+        return this.body.getPos();
     }
 
-    public float getBodyAngle(){
-        return this.body.getAngle();
-    }
+   // public float getBodyAngle(){
+      //  return this.body.getAngle;
+   // }
 
     public void setBodyTransform(float x, float y, float z){
         this.body.setTransform(x,y,z);
     }
 
     public Circle getBounds(){
-        return new Circle(body.getPosition().x, body.getPosition().y, BALL_RADIUS);
+        return new Circle(body.getX(), body.getY(), BALL_RADIUS);
     }
 
     public int getHp(){
-        return this.hp;
+        return this.ballModel.getHp();
     }
 
     public void setHp(int hp){
-        this.hp = hp;
+        this.ballModel.setHp(hp);
     }
 
 }

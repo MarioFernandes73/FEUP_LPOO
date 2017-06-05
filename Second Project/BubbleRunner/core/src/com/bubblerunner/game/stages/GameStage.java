@@ -191,7 +191,6 @@ public class GameStage extends Stage {
     }
 
     private void updateBallPosition(){
-        this.ballActor.setRotation((float) Math.toDegrees(this.ballActor.getBodyAngle()));
         this.ballActor.setPosition(this.ballActor.getBodyPosition().x / Constants.PIXEL_TO_METER, this.ballActor.getBodyPosition().y / Constants.PIXEL_TO_METER);
     }
 

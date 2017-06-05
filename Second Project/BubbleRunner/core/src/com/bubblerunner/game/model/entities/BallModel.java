@@ -1,0 +1,58 @@
+package com.bubblerunner.game.model.entities;
+
+/**
+ * Created by Mario on 04/06/2017.
+ */
+
+/**
+ * A model representing a the user space ship.
+ */
+public class BallModel extends EntityModel {
+    /**
+     * Is this ship accelerating in this update delta
+     */
+    private boolean falling = true;
+    private int hp = 1;
+
+    /**
+     * Creates a new ship model in a certain position and having a certain rotation.
+     *
+     * @param x the x-coordinate in meters
+     * @param y the y-coordinate in meters
+     */
+    public BallModel(float x, float y) {
+        super(x, y);
+    }
+
+    /**
+     * Set the accelerating flag for this ship
+     *
+     * @param falling the accelerating tag
+     */
+    public void setFalling(boolean falling) {
+        this.falling = falling;
+    }
+
+    /**
+     * Is the ship accelerating in this update
+     *
+     * @return the accelerating flag
+     */
+    public boolean isFalling() {
+        return falling;
+    }
+
+
+    public int getHp(){
+        return this.hp;
+    }
+
+    public void setHp(int hp){
+        this.hp = hp;
+    }
+
+    @Override
+    public ModelType getType() {
+        return ModelType.BALL;
+    }
+}
