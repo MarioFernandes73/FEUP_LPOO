@@ -6,6 +6,8 @@ package com.bubblerunner.game.model.entities;
 
 import com.bubblerunner.game.utils.Point;
 
+import static com.bubblerunner.game.constants.Constants.STARTING_HP;
+
 /**
  * A model representing a the user space ship.
  */
@@ -13,8 +15,8 @@ public class BallModel extends EntityModel {
     /**
      * Is this ship accelerating in this update delta
      */
-    private boolean falling = true;
-    private int hp = 1;
+    private boolean falling;
+    private int hp;
 
     /**
      * Creates a new ship model in a certain position and having a certain rotation.
@@ -24,6 +26,8 @@ public class BallModel extends EntityModel {
      */
     public BallModel(Point<Float> coordinates) {
         super(coordinates);
+        this.hp = STARTING_HP;
+        this.falling = true;
     }
 
     /**

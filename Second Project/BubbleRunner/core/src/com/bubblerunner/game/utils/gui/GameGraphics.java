@@ -22,13 +22,13 @@ public class GameGraphics {
 
     public void loadAssets(AssetManager manager){
         manager.load("ball.png", Texture.class);
-        manager.load("ground.png", Texture.class);
+        manager.load("normalledge.png", Texture.class);
         manager.finishLoading();
     }
 
     public void assignAssets(AssetManager manager){
         this.ball = manager.get("ball.png");
-        this.ledge = manager.get("ground.png");
+        this.ledge = manager.get("normalledge.png");
     }
 
     public static GameGraphics getInstance() {

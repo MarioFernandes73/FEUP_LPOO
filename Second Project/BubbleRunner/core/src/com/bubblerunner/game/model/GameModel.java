@@ -33,7 +33,6 @@ public class GameModel {
     private ArrayList<LedgeModel> ledgeModels;
 
     public GameModel (){
-
         this.ballModel = new BallModel(new Point<Float>(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y));
         this.ledgeModels = new ArrayList<LedgeModel>();
         this.ledgeModels.add(new LedgeModel(new Point<Float>(LEDGE_INITIAL_POS_X_SMALL[LEDGE_INITIAL_POS_X_INDEX_MRIGHT], LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_MUP]), LedgeModel.LedgeSize.MEDIUM,LEDGE_WIDTH[MEDIUM.getValue()], LEDGE_HEIGHT, NONLETHAL));
