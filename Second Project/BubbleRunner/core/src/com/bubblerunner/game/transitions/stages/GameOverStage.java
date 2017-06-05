@@ -1,19 +1,15 @@
-package com.bubblerunner.game.stages;
+package com.bubblerunner.game.transitions.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.BubbleRunner;
-import com.bubblerunner.game.actors.MenuTableActor;
-import com.bubblerunner.game.actors.OverTableActor;
-import com.bubblerunner.game.screens.BubbleScreen;
-import com.bubblerunner.game.screens.GenericScreen;
+import com.bubblerunner.game.transitions.actors.OverTableActor;
+import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 import static com.bubblerunner.game.constants.Constants.PIXEL_TO_METER;
 import static com.bubblerunner.game.constants.Constants.RATIO;
-import static com.bubblerunner.game.constants.Constants.SCREEN_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.SCREEN_WIDTH;
 import static com.bubblerunner.game.constants.Constants.VIEWPORT_WIDTH;
 
 /**

@@ -1,13 +1,8 @@
-package com.bubblerunner.game.actors;
+package com.bubblerunner.game.view.entities;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.bubblerunner.game.transitions.actors.GenericButton;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
-
-import static com.bubblerunner.game.constants.Constants.BUTTON_SIZE_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.BUTTON_SIZE_WIDTH;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.bubblerunner.game.actors;
+package com.bubblerunner.game.view.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

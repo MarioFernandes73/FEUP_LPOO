@@ -1,4 +1,4 @@
-package com.bubblerunner.game.stages;
+package com.bubblerunner.game.transitions.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

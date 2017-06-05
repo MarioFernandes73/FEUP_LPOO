@@ -1,13 +1,11 @@
-package com.bubblerunner.game.screens;
+package com.bubblerunner.game.transitions.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.bubblerunner.game.BubbleRunner;
-import com.bubblerunner.game.constants.Constants;
-import com.bubblerunner.game.stages.GameStage;
-import com.bubblerunner.game.stages.ScoreStage;
+import com.bubblerunner.game.view.GameStage;
+import com.bubblerunner.game.transitions.stages.ScoreStage;
 
 /**
  * Created by Mario on 12/04/2017.

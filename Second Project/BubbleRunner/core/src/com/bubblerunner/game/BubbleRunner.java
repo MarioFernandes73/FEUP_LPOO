@@ -1,8 +1,8 @@
 package com.bubblerunner.game;
 
 import com.badlogic.gdx.Game;
-import com.bubblerunner.game.screens.GenericScreen;
-import com.bubblerunner.game.stages.MenuStage;
+import com.bubblerunner.game.transitions.screens.GenericScreen;
+import com.bubblerunner.game.transitions.stages.MenuStage;
 import com.bubblerunner.game.utils.ScoreManager;
 
 import java.io.IOException;

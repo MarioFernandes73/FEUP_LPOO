@@ -1,13 +1,10 @@
-package com.bubblerunner.game.screens;
+package com.bubblerunner.game.transitions.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bubblerunner.game.BubbleRunner;
-import com.bubblerunner.game.stages.MenuStage;
-
-import java.util.ArrayList;
 
 /**
  * Created by Mario on 03/06/2017.

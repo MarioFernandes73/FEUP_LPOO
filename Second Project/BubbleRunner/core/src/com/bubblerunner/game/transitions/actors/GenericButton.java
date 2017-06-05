@@ -1,4 +1,4 @@
-package com.bubblerunner.game.actors;
+package com.bubblerunner.game.transitions.actors;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

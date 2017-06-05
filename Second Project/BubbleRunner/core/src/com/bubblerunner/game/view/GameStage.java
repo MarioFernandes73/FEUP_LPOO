@@ -1,38 +1,24 @@
-package com.bubblerunner.game.stages;
+package com.bubblerunner.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.bubblerunner.game.actors.BallActor;
+import com.bubblerunner.game.view.entities.BallActor;
 import com.bubblerunner.game.BubbleRunner;
-import com.bubblerunner.game.actors.ControllerTableActor;
-import com.bubblerunner.game.actors.LedgeActor;
+import com.bubblerunner.game.view.entities.ControllerTableActor;
+import com.bubblerunner.game.view.entities.LedgeActor;
 import com.bubblerunner.game.controller.GameController;
 import com.bubblerunner.game.controller.entities.LedgeBody;
-import com.bubblerunner.game.screens.GenericScreen;
-import com.bubblerunner.game.utils.Point;
+import com.bubblerunner.game.transitions.screens.GenericScreen;
+import com.bubblerunner.game.transitions.stages.GameOverStage;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 import java.util.ArrayList;
 
 import static com.bubblerunner.game.constants.Constants.BALL_VELOCITY;
 import static com.bubblerunner.game.constants.Constants.GAME_STATE.OVER;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_X_INDEX_LEFT;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_X_INDEX_MLEFT;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_X_INDEX_MRIGHT;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_X_LARGE;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_X_MEDIUM;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_X_SMALL;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_Y;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_Y_INDEX_BOTTOM;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_Y_INDEX_MBOTTOM;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_Y_INDEX_MUP;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_Y_INDEX_UP;
 import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH;
-import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH.LARGE;
-import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH.MEDIUM;
-import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH.SMALL;
 import static com.bubblerunner.game.constants.Constants.SCREEN_HEIGHT;
 import static com.bubblerunner.game.constants.Constants.SCREEN_WIDTH;
 

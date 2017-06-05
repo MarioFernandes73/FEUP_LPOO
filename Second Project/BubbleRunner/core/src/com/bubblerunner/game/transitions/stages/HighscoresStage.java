@@ -1,13 +1,13 @@
-package com.bubblerunner.game.stages;
+package com.bubblerunner.game.transitions.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.BubbleRunner;
-import com.bubblerunner.game.actors.GenericButton;
-import com.bubblerunner.game.actors.HighscoresTableActor;
-import com.bubblerunner.game.screens.GenericScreen;
+import com.bubblerunner.game.transitions.actors.GenericButton;
+import com.bubblerunner.game.transitions.actors.HighscoresTableActor;
+import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 /**

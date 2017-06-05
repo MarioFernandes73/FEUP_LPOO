@@ -1,20 +1,10 @@
-package com.bubblerunner.game.actors;
+package com.bubblerunner.game.transitions.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
-import static com.bubblerunner.game.constants.Constants.BUTTON_SIZE_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.BUTTON_SIZE_WIDTH;
 import static com.bubblerunner.game.constants.Constants.MENU_BUTTON_SIZE_HEIGHT;
 import static com.bubblerunner.game.constants.Constants.MENU_BUTTON_SIZE_WIDTH;
-import static com.bubblerunner.game.constants.Constants.METER_TO_PIXEL;
-import static com.bubblerunner.game.constants.Constants.PIXEL_TO_METER;
-import static com.bubblerunner.game.constants.Constants.RATIO;
-import static com.bubblerunner.game.constants.Constants.VIEWPORT_WIDTH;
 
 /**
  * Created by Mario on 15/05/2017.
