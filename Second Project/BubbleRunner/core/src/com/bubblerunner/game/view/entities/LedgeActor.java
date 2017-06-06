@@ -2,6 +2,7 @@ package com.bubblerunner.game.view.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -36,10 +37,10 @@ public class LedgeActor extends Actor {
     private LedgeBody body;
     private final Texture texture;
 
-
     public LedgeActor(Texture texture, LedgeBody body) {
         this.texture = texture;
-        this.texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        this.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        this.texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.ClampToEdge);
         this.body = body;
     }
 

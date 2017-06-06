@@ -17,8 +17,8 @@ public class ControllerTableActor extends Table {
     public ControllerTableActor(GraphicsManager graphicsManager){
 
         this.left().bottom();
-        this.leftButton = new GenericButton(graphicsManager.hud.leftButton);
-        this.rightButton = new GenericButton(graphicsManager.hud.rightButton);
+        this.leftButton = new GenericButton(graphicsManager.leftButton);
+        this.rightButton = new GenericButton(graphicsManager.rightButton);
         this.add(leftButton).size(leftButton.getWidth()*1.5f, leftButton.getHeight()*1.5f);
         this.add();
         this.add(rightButton).size(rightButton.getWidth()*1.5f, rightButton.getHeight()*1.5f);

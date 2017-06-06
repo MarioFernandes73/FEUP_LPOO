@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 import static com.bubblerunner.game.constants.Constants.BALL_VELOCITY;
 import static com.bubblerunner.game.constants.Constants.GAME_STATE.OVER;
+import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.LETHAL;
+import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.NONLETHAL;
 import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH;
 import static com.bubblerunner.game.constants.Constants.SCREEN_HEIGHT;
 import static com.bubblerunner.game.constants.Constants.SCREEN_WIDTH;
@@ -64,7 +66,7 @@ public class GameStage extends Stage {
 
         //create initial ledges
         for(int i = 0; i < this.gameController.getLedgeBodies().size(); i++){
-            LedgeActor newLedgeActor = new LedgeActor(graphicsManager.gameGraphics.ledge,this.gameController.getLedgeBodies().get(i));
+            LedgeActor newLedgeActor = new LedgeActor(graphicsManager.normalLedge,this.gameController.getLedgeBodies().get(i));
             this.ledgeActors.add(newLedgeActor);
             this.addActor(newLedgeActor);
             newLedgeActor.setHasActor(true);
@@ -104,10 +106,6 @@ public class GameStage extends Stage {
             deleteLedgeActors();
             gameController.setDeleteLedgeActors(false);
         }
-
-        if(gameController.getGameState() == OVER){
-            game.setScreen(new GenericScreen(game, new GameOverStage(game)));
-        }
     }
 
     public void deleteLedgeActors(){
@@ -123,7 +121,12 @@ public class GameStage extends Stage {
         for(int i = 0; i<this.gameController.getLedgeBodies().size(); i++){
             LedgeBody currentBody = this.gameController.getLedgeBodies().get(i);
             if(!currentBody.getHasActor()){
-                this.addActor(new LedgeActor(graphicsManager.gameGraphics.ledge, currentBody));
+                if(currentBody.getLethality() == NONLETHAL){
+                    this.addActor(new LedgeActor(graphicsManager.normalLedge, currentBody));
+                } else if(currentBody.getLethality() == LETHAL){
+                    this.addActor(new LedgeActor(graphicsManager.spikedLedge, currentBody));
+                }
+
                 controllerTableActor.remove();
                 this.addActor(controllerTableActor);
                 currentBody.setHasActor(true);
@@ -147,6 +150,8 @@ public class GameStage extends Stage {
     public int getScoreUpdate(){return this.gameController.getScoreUpdate();}
 
     public void setScoreUpdate(int scoreUpdate){this.gameController.setScoreUpdate(scoreUpdate);}
+
+    public GameController getGameController(){return this.gameController;}
 
 }
 

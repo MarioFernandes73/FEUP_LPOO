@@ -33,7 +33,7 @@ public class HighscoresStage extends Stage {
         this.highscoresTableActor = new HighscoresTableActor(game.getScoreManager().displayHighscores());
         this.addActor(highscoresTableActor);
 
-        this.backButton = new GenericButton(graphicsManager.hud.rightButton);
+        this.backButton = new GenericButton(graphicsManager.leftButton);
         this.backTable = new Table();
         this.backTable.left().bottom();
         this.backTable.add(this.backButton).size(80, 80);

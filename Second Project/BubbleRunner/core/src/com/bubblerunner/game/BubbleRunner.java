@@ -3,7 +3,8 @@ package com.bubblerunner.game;
 import com.badlogic.gdx.Game;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.transitions.stages.MenuStage;
-import com.bubblerunner.game.utils.ScoreManager;
+import com.bubblerunner.game.utils.highscores.ScoreManager;
+import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 import java.io.IOException;
 
@@ -30,6 +31,7 @@ public class BubbleRunner extends Game {
 	@Override
 	public void dispose(){
 		super.dispose();
+		GraphicsManager.getInstance().dispose();
 		saveHighscores();
 	}
 

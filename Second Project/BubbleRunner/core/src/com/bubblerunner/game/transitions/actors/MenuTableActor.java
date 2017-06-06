@@ -18,17 +18,17 @@ public class MenuTableActor extends Table {
 
     public MenuTableActor(GraphicsManager graphicsManager){
 
-        this.playButton = new GenericButton(graphicsManager.hud.leftButton);
-        this.highscoresButton = new GenericButton(graphicsManager.gameGraphics.ledge);
-        this.exitButton = new GenericButton(graphicsManager.gameGraphics.ledge);
+        this.playButton = new GenericButton(graphicsManager.playButton);
+        this.highscoresButton = new GenericButton(graphicsManager.highscoresButton);
+        this.exitButton = new GenericButton(graphicsManager.exitButton);
 
         this.add(playButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
         this.row();
-        this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/4);
+        this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/12);
         this.row();
         this.add(highscoresButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
         this.row();
-        this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/4);
+        this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/12);
         this.row();
         this.add(exitButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
         this.setFillParent(true);

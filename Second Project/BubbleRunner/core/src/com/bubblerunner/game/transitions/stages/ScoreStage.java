@@ -35,4 +35,6 @@ public class ScoreStage extends Stage {
         currentScore += score;
         scoreLabel.setText("" + currentScore);
     }
+
+    public int getCurrentScore(){return this.currentScore;}
 }

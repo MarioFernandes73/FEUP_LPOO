@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.bubblerunner.game.BubbleRunner;
+import com.bubblerunner.game.transitions.stages.GameOverStage;
 import com.bubblerunner.game.view.GameStage;
 import com.bubblerunner.game.transitions.stages.ScoreStage;
+
+import static com.bubblerunner.game.constants.Constants.GAME_STATE.OVER;
 
 /**
  * Created by Mario on 12/04/2017.
@@ -13,10 +16,12 @@ import com.bubblerunner.game.transitions.stages.ScoreStage;
 
 public class BubbleScreen implements Screen {
 
+    private final BubbleRunner game;
     private final GameStage gameStage;
     private final ScoreStage scoreStage;
 
     public BubbleScreen(BubbleRunner game) {
+        this.game = game;
         this.gameStage = new GameStage(game);
         this.scoreStage = new ScoreStage(game);
     }
@@ -32,6 +37,10 @@ public class BubbleScreen implements Screen {
 
         scoreStage.addScore(gameStage.getScoreUpdate());
         gameStage.setScoreUpdate(0);
+
+        if(gameStage.getGameController().getGameState() == OVER){
+            game.setScreen(new GenericScreen(game, new GameOverStage(game,scoreStage.getCurrentScore())));
+        }
 
         // Draws the stage
         gameStage.draw();

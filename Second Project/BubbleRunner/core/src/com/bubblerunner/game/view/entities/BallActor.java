@@ -45,7 +45,7 @@ public class BallActor extends Actor {
     private BallBody body;
 
     public BallActor(GraphicsManager graphicsManager, BallBody body) {
-        this.texture = graphicsManager.gameGraphics.ball;
+        this.texture = graphicsManager.ball;
         createAnimation();
         this.setPosition(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
         this.body = body;
