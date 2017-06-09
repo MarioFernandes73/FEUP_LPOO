@@ -152,8 +152,8 @@ public class Constants {
     public static final int LEDGE_INITIAL_POS_X_SMALL_POSSIBILITIES_TEST = 1;
     public static final int LEDGE_INITIAL_POS_X_MEDIUM_POSSIBILITIES_TEST = 1;
     public static final int LEDGE_HEIGHT_GENERATOR_INDEX_TEST = 0;
-    public static final float[] LEDGE_INITIAL_POS_X_SMALL_TEST = new float[]{0f};
-    public static final float[] LEDGE_INITIAL_POS_X_MEDIUM_TEST = new float[]{0f};
-    public static final float[] LEDGE_INITIAL_POS_Y_TEST = new float[]{0f};
+    //public final float[] LEDGE_INITIAL_POS_X_SMALL_TEST = new float[]{0f};
+    //public static final float[] LEDGE_INITIAL_POS_X_MEDIUM_TEST = new float[]{0f};
+    //public static final float[] LEDGE_INITIAL_POS_Y_TEST = new float[]{0f};
 
 }

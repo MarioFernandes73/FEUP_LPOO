@@ -1,29 +1,36 @@
 package com.bubblerunner.game.controller.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.bubblerunner.game.utils.Constants;
 import com.bubblerunner.game.model.entities.BallModel;
 
 import static com.bubblerunner.game.utils.Constants.BALL_DENSITY;
 import static com.bubblerunner.game.utils.Constants.BALL_FRICTION;
 import static com.bubblerunner.game.utils.Constants.BALL_RADIUS;
 import static com.bubblerunner.game.utils.Constants.BALL_RESTITUTION;
-import static com.bubblerunner.game.utils.Constants.RATIO;
+
 
 /**
- * Created by Mario on 04/06/2017.
+ * Representation of a ball's body.
  */
-
 public class BallBody extends EntityBody {
 
+    /**
+     * Model of the current ball
+     */
     private BallModel model;
 
-    public BallBody(World world, BallModel model){
+
+    /**
+     * Creates the ball's body.
+     *
+     * @param world The world this body belongs to.
+     * @param model The basic model of the ball.
+     */
+    public BallBody(World world, BallModel model) {
         super();
 
         this.model = model;
@@ -46,8 +53,8 @@ public class BallBody extends EntityBody {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = BALL_DENSITY;      // how heavy is the ball
-        fixtureDef.friction =  BALL_FRICTION;    // how slippery is the ball
-        fixtureDef.restitution =  BALL_RESTITUTION; // how bouncy is the ball
+        fixtureDef.friction = BALL_FRICTION;    // how slippery is the ball
+        fixtureDef.restitution = BALL_RESTITUTION; // how bouncy is the ball
 
         // Attach fixture to body
         body.createFixture(fixtureDef);
@@ -56,19 +63,32 @@ public class BallBody extends EntityBody {
         circle.dispose();
     }
 
-    public Circle getBounds(){
+
+    /**
+     * Returns the outer limits of the ball.
+     *
+     * @return The ball's bounds.
+     */
+    public Circle getBounds() {
         return new Circle(this.getX(), this.getY(), BALL_RADIUS);
     }
 
-    public void setPos(float x, float y){
-        this.model.setPosition(x,y);
-    }
-
-    public int getHp(){
+    /**
+     * Returns the ball's HP.
+     *
+     * @return The ball's HP.
+     */
+    public int getHp() {
         return this.model.getHp();
     }
 
-    public void setHp(int hp){
+
+    /**
+     * Set's the ball's HP
+     *
+     * @param hp the hp the ball will have.
+     */
+    public void setHp(int hp) {
         this.model.setHp(hp);
     }
 

@@ -15,16 +15,37 @@ import static com.bubblerunner.game.utils.Constants.LEDGE_RESTITUTION;
 import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY;
 
 /**
- * Created by Mario on 04/06/2017.
+ * Representation of a ledge's body.
  */
-
 public class LedgeBody extends EntityBody {
 
+    /**
+     * Model of this ledge
+     */
     private LedgeModel model;
+
+    /**
+     * Flag indicating if this body already has a body.
+     */
     private boolean hasActor;
+
+    /**
+     * Flag indicating if this body needs to be deleted.
+     */
     private boolean needsDelete;
+
+    /**
+     * Flag indicating if this body can be deleted.
+     */
     private boolean canDelete;
 
+
+    /**
+     * Creates the ledge's body.
+     *
+     * @param world The world this body belongs to.
+     * @param model The basic model of the ledge.
+     */
     public LedgeBody(World world, LedgeModel model){
         super();
 
@@ -80,36 +101,92 @@ public class LedgeBody extends EntityBody {
         this.body = null;
     }
 
+    /**
+     * Set's the vertical velocity of this body
+     *
+     * @param yVelocity the vertical velocity of this body.
+     */
     public void setVelocity(float yVelocity){
         this.body.setLinearVelocity(0, yVelocity);
     }
 
+    /**
+     * Returns the bounds of this body.
+     *
+     * @return the bounds of this body.
+     */
     public Rectangle getBounds(){
         return new Rectangle(this.getX(), this.getY(), this.model.getWidth(), this.model.getHeight());
     }
 
+    /**
+     * Returns the lethality of this model
+     *
+     * @return returns either LETHAL if it's a spiked ledge or NONLETHAL if it's normal
+     */
     public LEDGE_LETHALITY getLethality(){
         return this.model.getLethality();
     }
 
+    /**
+     * Returns the width of this body.
+     *
+     * @return the width of this body.
+     */
     public float getWidth(){
         return this.model.getWidth();
     }
 
+    /**
+     * Returns the height of this body.
+     *
+     * @return the height of this body.
+     */
     public float getHeight(){
         return this.model.getHeight();
     }
 
+    /**
+     * Sets the flag hasActor
+     *
+     * @param value the value of the flag.
+     */
     public void setHasActor(boolean value){this.hasActor = value; }
 
+    /**
+     * Returns the hasActor flag.
+     *
+     * @return the hasActor flag.
+     */
     public boolean getHasActor(){return this.hasActor;}
 
+
+    /**
+     * Returns the needsDelete flag.
+     *
+     * @return the needsDelete flag
+     */
     public boolean getNeedsDelete(){return this.needsDelete;}
 
+    /**
+     * Sets the needDelete flag.
+     *
+     * @param value the value of the flag.
+     */
     public void setNeedsDelete(boolean value){this.needsDelete = value; }
 
+    /**
+     * Sets the canDelete flag.
+     *
+     * @param value the value of the flag.
+     */
     public void setCanDelete(boolean value){this.canDelete = value;}
 
+    /**
+     * Returns the canDelete flag.
+     *
+     * @return the canDelete flag.
+     */
     public boolean getCanDelete(){return this.canDelete;}
 
 }

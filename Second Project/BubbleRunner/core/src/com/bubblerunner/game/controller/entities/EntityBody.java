@@ -1,15 +1,11 @@
 package com.bubblerunner.game.controller.entities;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.World;
-import com.bubblerunner.game.model.entities.EntityModel;
 
 /**
- * Created by Mario on 04/06/2017.
+ * Wrapper class that represents an abstract physical
+ * body supported by a Box2D body.
  */
-
 public abstract class EntityBody {
 
     /**
@@ -19,7 +15,7 @@ public abstract class EntityBody {
 
 
     /**
-     * Constructs a body representing a model in a certain world.
+     * Constructs an entity without a body.
      *
      */
     public EntityBody() {
@@ -60,27 +56,19 @@ public abstract class EntityBody {
     /**
      * Sets the angular velocity of this object in the direction it is rotated.
      *
-     * @param velocityX the new linear velocity angle for this body
+     * @param velocityX the new x component of the linear velocity angle for this body
+     * @param velocityY the new y component of the linear velocity angle for this body
      */
     public void setLinearVelocity(float velocityX, float velocityY) {
         body.setLinearVelocity(velocityX, velocityY);
     }
 
+
     /**
-     * Wraps the getUserData method from the Box2D body class.
+     * Returns the body of this entity
      *
-     * @return the user data
+     * @return the body of this entity
      */
-    public Object getUserData() {
-        return body.getUserData();
-    }
-
-    public void setUserData(Object userData){this.body.setUserData(userData);}
-
-    public Vector2 getPos(){return body.getPosition();}
-
     public Body getBody(){return this.body;}
-
-
 
 }
