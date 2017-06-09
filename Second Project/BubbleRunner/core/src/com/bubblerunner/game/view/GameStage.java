@@ -4,25 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.bubblerunner.game.controller.GameControllerState;
+import com.bubblerunner.game.model.GameModel;
+import com.bubblerunner.game.model.GameModelState;
+import com.bubblerunner.game.utils.Constants;
 import com.bubblerunner.game.view.entities.BallActor;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.view.entities.ControllerTableActor;
 import com.bubblerunner.game.view.entities.LedgeActor;
 import com.bubblerunner.game.controller.GameController;
 import com.bubblerunner.game.controller.entities.LedgeBody;
-import com.bubblerunner.game.transitions.screens.GenericScreen;
-import com.bubblerunner.game.transitions.stages.GameOverStage;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 import java.util.ArrayList;
 
-import static com.bubblerunner.game.constants.Constants.BALL_VELOCITY;
-import static com.bubblerunner.game.constants.Constants.GAME_STATE.OVER;
-import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.LETHAL;
-import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.NONLETHAL;
-import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH;
-import static com.bubblerunner.game.constants.Constants.SCREEN_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.SCREEN_WIDTH;
+import static com.bubblerunner.game.utils.Constants.BALL_VELOCITY;
+import static com.bubblerunner.game.utils.Constants.GAME_CREATION.RELEASE;
+import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY.LETHAL;
+import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY.NONLETHAL;
+import static com.bubblerunner.game.utils.Constants.LEDGE_WIDTH;
+import static com.bubblerunner.game.utils.Constants.SCREEN_HEIGHT;
+import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 
 /**
  * Created by Mario on 12/04/2017.
@@ -41,7 +43,7 @@ public class GameStage extends Stage {
     public GameStage(BubbleRunner game) {
 
         this.game = game;
-        this.gameController = new GameController();
+        this.gameController = new GameController(new GameModel(new GameModelState(RELEASE)), new GameControllerState(RELEASE));
 
         //set viewport
         this.setViewport(new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT));

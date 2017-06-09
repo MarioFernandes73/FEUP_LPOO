@@ -6,7 +6,7 @@ package com.bubblerunner.game.model.entities;
 
 import com.bubblerunner.game.utils.Point;
 
-import static com.bubblerunner.game.constants.Constants.STARTING_HP;
+import static com.bubblerunner.game.utils.Constants.STARTING_HP;
 
 /**
  * A model representing a the user space ship.

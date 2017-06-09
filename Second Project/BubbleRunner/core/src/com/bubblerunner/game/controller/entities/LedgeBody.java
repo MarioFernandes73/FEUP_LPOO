@@ -1,22 +1,18 @@
 package com.bubblerunner.game.controller.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.bubblerunner.game.constants.Constants;
-import com.bubblerunner.game.model.entities.EntityModel;
 import com.bubblerunner.game.model.entities.LedgeModel;
 
-import static com.bubblerunner.game.constants.Constants.LEDGE_DENSITY;
-import static com.bubblerunner.game.constants.Constants.LEDGE_FRICTION;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_Z;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_VELOCITY;
-import static com.bubblerunner.game.constants.Constants.LEDGE_RESTITUTION;
-import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY;
+import static com.bubblerunner.game.utils.Constants.LEDGE_DENSITY;
+import static com.bubblerunner.game.utils.Constants.LEDGE_FRICTION;
+import static com.bubblerunner.game.utils.Constants.LEDGE_INITIAL_POS_Z;
+import static com.bubblerunner.game.utils.Constants.LEDGE_INITIAL_VELOCITY;
+import static com.bubblerunner.game.utils.Constants.LEDGE_RESTITUTION;
+import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY;
 
 /**
  * Created by Mario on 04/06/2017.

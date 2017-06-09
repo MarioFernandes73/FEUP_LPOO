@@ -9,8 +9,8 @@ import com.bubblerunner.game.transitions.screens.BubbleScreen;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
 
-import static com.bubblerunner.game.constants.Constants.SCREEN_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.SCREEN_WIDTH;
+import static com.bubblerunner.game.utils.Constants.SCREEN_HEIGHT;
+import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 
 /**
  * Created by Mario on 08/05/2017.

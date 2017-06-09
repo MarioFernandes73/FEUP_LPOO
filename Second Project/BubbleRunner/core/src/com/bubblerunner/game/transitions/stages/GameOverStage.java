@@ -13,10 +13,10 @@ import com.bubblerunner.game.utils.gui.GraphicsManager;
 import java.io.IOException;
 import java.util.Map;
 
-import static com.bubblerunner.game.constants.Constants.HIGHSCORES_MAX_PLAYERS;
-import static com.bubblerunner.game.constants.Constants.PIXEL_TO_METER;
-import static com.bubblerunner.game.constants.Constants.RATIO;
-import static com.bubblerunner.game.constants.Constants.VIEWPORT_WIDTH;
+import static com.bubblerunner.game.utils.Constants.HIGHSCORES_MAX_PLAYERS;
+import static com.bubblerunner.game.utils.Constants.PIXEL_TO_METER;
+import static com.bubblerunner.game.utils.Constants.RATIO;
+import static com.bubblerunner.game.utils.Constants.VIEWPORT_WIDTH;
 
 /**
  * Created by Mario on 03/06/2017.

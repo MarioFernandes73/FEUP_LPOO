@@ -6,10 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
 
-import static com.bubblerunner.game.constants.Constants.BUTTON_SIZE_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.BUTTON_SIZE_WIDTH;
+import static com.bubblerunner.game.utils.Constants.BUTTON_SIZE_HEIGHT;
+import static com.bubblerunner.game.utils.Constants.BUTTON_SIZE_WIDTH;
 
 /**
  * Created by Mario on 22/05/2017.

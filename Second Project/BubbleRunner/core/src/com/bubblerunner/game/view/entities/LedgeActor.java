@@ -2,31 +2,11 @@ package com.bubblerunner.game.view.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.bubblerunner.game.constants.Constants;
 import com.bubblerunner.game.controller.entities.LedgeBody;
-import com.bubblerunner.game.model.entities.LedgeModel;
-import com.bubblerunner.game.utils.Point;
 
-import static com.bubblerunner.game.constants.Constants.LEDGE_DENSITY;
-import static com.bubblerunner.game.constants.Constants.LEDGE_FRICTION;
-import static com.bubblerunner.game.constants.Constants.LEDGE_HEIGHT;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_POS_Z;
-import static com.bubblerunner.game.constants.Constants.LEDGE_INITIAL_VELOCITY;
-import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY;
-import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.NONLETHAL;
-import static com.bubblerunner.game.constants.Constants.LEDGE_RESTITUTION;
-import static com.bubblerunner.game.constants.Constants.METER_TO_PIXEL;
-import static com.bubblerunner.game.constants.Constants.PIXEL_TO_METER;
-import static com.bubblerunner.game.constants.Constants.VIEWPORT_WIDTH;
+import static com.bubblerunner.game.utils.Constants.METER_TO_PIXEL;
+import static com.bubblerunner.game.utils.Constants.PIXEL_TO_METER;
 
 /**
  * Created by Mario on 12/04/2017.

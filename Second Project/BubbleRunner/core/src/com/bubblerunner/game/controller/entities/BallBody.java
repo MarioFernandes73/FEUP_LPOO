@@ -2,19 +2,18 @@ package com.bubblerunner.game.controller.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.bubblerunner.game.constants.Constants;
+import com.bubblerunner.game.utils.Constants;
 import com.bubblerunner.game.model.entities.BallModel;
-import com.bubblerunner.game.model.entities.EntityModel;
 
-import static com.bubblerunner.game.constants.Constants.BALL_DENSITY;
-import static com.bubblerunner.game.constants.Constants.BALL_FRICTION;
-import static com.bubblerunner.game.constants.Constants.BALL_RADIUS;
-import static com.bubblerunner.game.constants.Constants.BALL_RESTITUTION;
+import static com.bubblerunner.game.utils.Constants.BALL_DENSITY;
+import static com.bubblerunner.game.utils.Constants.BALL_FRICTION;
+import static com.bubblerunner.game.utils.Constants.BALL_RADIUS;
+import static com.bubblerunner.game.utils.Constants.BALL_RESTITUTION;
+import static com.bubblerunner.game.utils.Constants.RATIO;
 
 /**
  * Created by Mario on 04/06/2017.
@@ -37,8 +36,7 @@ public class BallBody extends EntityBody {
         body.setUserData(model);
 
         // Create the ball body
-        float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
-        body.setTransform(Constants.VIEWPORT_WIDTH / 2, (Constants.VIEWPORT_WIDTH * ratio) / 2, 0); // Middle of the viewport, no rotation
+        body.setTransform(model.getX(), model.getY(), 0); // Middle of the viewport, no rotation
 
         // Create circle shape
         CircleShape circle = new CircleShape();

@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static com.bubblerunner.game.constants.Constants.HIGHSCORES_INITIAL_POS;
-import static com.bubblerunner.game.constants.Constants.HIGHSCORES_MAX_PLAYERS;
+import static com.bubblerunner.game.utils.Constants.HIGHSCORES_INITIAL_POS;
+import static com.bubblerunner.game.utils.Constants.HIGHSCORES_MAX_PLAYERS;
 
 /**
  * Created by Mario on 03/06/2017.

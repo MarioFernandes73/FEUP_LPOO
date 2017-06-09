@@ -22,4 +22,13 @@ public class Point<T> {
         return this.y;
     }
 
+    public boolean equals(Object o){
+        if(o instanceof Point<?>){
+            if ( ((Point<?>)o).getX().equals(this.x) && ((Point<?>)o).getY().equals(this.y)  ){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

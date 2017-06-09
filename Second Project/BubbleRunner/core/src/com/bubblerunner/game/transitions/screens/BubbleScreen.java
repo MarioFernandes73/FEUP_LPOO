@@ -8,7 +8,7 @@ import com.bubblerunner.game.transitions.stages.GameOverStage;
 import com.bubblerunner.game.view.GameStage;
 import com.bubblerunner.game.transitions.stages.ScoreStage;
 
-import static com.bubblerunner.game.constants.Constants.GAME_STATE.OVER;
+import static com.bubblerunner.game.utils.Constants.GAME_STATE.OVER;
 
 /**
  * Created by Mario on 12/04/2017.

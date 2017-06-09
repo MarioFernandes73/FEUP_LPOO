@@ -1,11 +1,11 @@
-package com.bubblerunner.game.constants;
+package com.bubblerunner.game.utils;
 
 import com.badlogic.gdx.Gdx;
 
-import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.LETHAL;
-import static com.bubblerunner.game.constants.Constants.LEDGE_LETHALITY.NONLETHAL;
-import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH.MEDIUM;
-import static com.bubblerunner.game.constants.Constants.LEDGE_WIDTH.SMALL;
+import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY.LETHAL;
+import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY.NONLETHAL;
+import static com.bubblerunner.game.utils.Constants.LEDGE_WIDTH.MEDIUM;
+import static com.bubblerunner.game.utils.Constants.LEDGE_WIDTH.SMALL;
 
 /**
  * Created by Mario on 08/05/2017.
@@ -15,6 +15,7 @@ public class Constants {
 
     //GAME
     public enum GAME_STATE {RUNNING, OVER}
+    public enum GAME_CREATION {DEBUG, TESTS, RELEASE}
 
     //MEASURES
     public static final float PIXEL_TO_METER = 0.22f / 200;
@@ -60,7 +61,7 @@ public class Constants {
             return value;
         }
     }
-
+    public static final int LEDGE_STARTING_QUANTITY = 3;
     //enum arrays
     public static final LEDGE_LETHALITY [] LEDGE_TYPES = new LEDGE_LETHALITY [] {LETHAL, NONLETHAL};
     public static final LEDGE_WIDTH [] LEDGE_SIZES = new LEDGE_WIDTH [] {SMALL, MEDIUM};
@@ -72,7 +73,7 @@ public class Constants {
     public static final float[] LEDGE_INITIAL_POS_X_MEDIUM = new float[]{0,VIEWPORT_WIDTH/4,VIEWPORT_WIDTH/2};
     public static final float LEDGE_INITIAL_POS_X_LARGE = 0;
     public static final float[] LEDGE_INITIAL_POS_Y = new float[] {0,VIEWPORT_WIDTH * RATIO/4, VIEWPORT_WIDTH * RATIO/2, 15 * VIEWPORT_WIDTH * RATIO/16};
-    public static final float LEDGE_GENERATOR_POS_Y = 3 * VIEWPORT_WIDTH * RATIO/4;
+    public static final float LEDGE_GEN_HEIGHT = 3 * VIEWPORT_WIDTH * RATIO/4;
     public static final float LEDGE_INITIAL_POS_Z = 0;  //no z variation
     //initial position possibilities (always bottom of screen, so y constant)
     public static final int LEDGE_INITIAL_POS_X_SMALL_POSSIBILITIES = LEDGE_INITIAL_POS_X_SMALL.length;
@@ -107,8 +108,8 @@ public class Constants {
     public static final float BALL_RADIUS = 0.11f;
     public static final float BALL_MAX_HEIGHT = (15* VIEWPORT_WIDTH * RATIO / 16) - BALL_RADIUS;
     public static final float BALL_MIN_HEIGHT = LEDGE_HEIGHT + BALL_RADIUS;
-    public static final float BALL_INITIAL_POS_X = (VIEWPORT_WIDTH / 2) / PIXEL_TO_METER;
-    public static final float BALL_INITIAL_POS_Y = (VIEWPORT_WIDTH * RATIO / 2) / PIXEL_TO_METER;
+    public static final float BALL_INITIAL_POS_X = (VIEWPORT_WIDTH / 2);
+    public static final float BALL_INITIAL_POS_Y = (VIEWPORT_WIDTH * RATIO / 2);
     public static final int BALL_NUMBER_FRAMES = 4;
     public static final float BALL_FRAMES_DURATION = .5f;
     public static final int BALL_INITIAL_FRAME = 0;
@@ -129,4 +130,30 @@ public class Constants {
 
     public static final int HIGHSCORES_MAX_PLAYERS = 5;
     public static final int HIGHSCORES_INITIAL_POS = 1;
+
+
+    //TESTS
+    public static final int LEDGE_STARTING_QUANTITY_TEST = 2;
+    public static final float BALL_MAX_HEIGHT_TEST = 8f;
+    public static final float BALL_MIN_HEIGHT_TEST = 2f;
+    public static final float BALL_INITIAL_POS_X_TEST = 5f;
+    public static final float BALL_INITIAL_POS_Y_TEST = 8f;
+    public static final float LEDGE_1_INITIAL_WIDTH_TEST = 5f;
+    public static final float LEDGE_2_INITIAL_WIDTH_TEST = 3f;
+    public static final float LEDGE_1_INITIAL_POS_X_TEST = 2f;
+    public static final float LEDGE_1_INITIAL_POS_Y_TEST = 2f;
+    public static final float LEDGE_2_INITIAL_POS_X_TEST = 2f;
+    public static final float LEDGE_2_INITIAL_POS_Y_TEST = 2f;
+    public static final float LEDGE_HEIGHT_TEST = 2f;
+    public static final float LEDGE_MAX_HEIGHT_TEST = 10f;
+    public static final float LEDGE_GEN_HEIGHT_TEST = 8f;
+    public static final int LEDGE_TYPE_POSSIBILITIES_TEST = 2;
+    public static final int LEDGE_WIDTH_POSSIBILITIES_TEST = 2;
+    public static final int LEDGE_INITIAL_POS_X_SMALL_POSSIBILITIES_TEST = 1;
+    public static final int LEDGE_INITIAL_POS_X_MEDIUM_POSSIBILITIES_TEST = 1;
+    public static final int LEDGE_HEIGHT_GENERATOR_INDEX_TEST = 0;
+    public static final float[] LEDGE_INITIAL_POS_X_SMALL_TEST = new float[]{0f};
+    public static final float[] LEDGE_INITIAL_POS_X_MEDIUM_TEST = new float[]{0f};
+    public static final float[] LEDGE_INITIAL_POS_Y_TEST = new float[]{0f};
+
 }
