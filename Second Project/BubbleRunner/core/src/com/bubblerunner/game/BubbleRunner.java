@@ -1,6 +1,7 @@
 package com.bubblerunner.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.transitions.stages.MenuStage;
 import com.bubblerunner.game.utils.highscores.ScoreManager;
@@ -14,9 +15,6 @@ public class BubbleRunner extends Game {
 
 	@Override
 	public void create () {
-		//this.setScreen(new MenuScreen(this));
-		//this.setScreen(new BubbleScreen(this));
-
 		this.setScreen(new GenericScreen(this, new MenuStage(this)));
 		scoreManager = new ScoreManager();
 

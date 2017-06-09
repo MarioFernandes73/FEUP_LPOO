@@ -21,6 +21,7 @@ public class GraphicsManager {
     public Texture highscoresButton;
     public Texture exitButton;
     public Texture confirmButton;
+    public Texture spikedLedge2;
 
     private static GraphicsManager instance = new GraphicsManager();
 
@@ -42,6 +43,7 @@ public class GraphicsManager {
         assetManager.load("highscoresButton.png", Texture.class);
         assetManager.load("exitButton.png", Texture.class);
         assetManager.load("confirmButton.png", Texture.class);
+        assetManager.load("spiked2.png", Texture.class);
         assetManager.finishLoading();
     }
 
@@ -56,6 +58,7 @@ public class GraphicsManager {
         this.highscoresButton = assetManager.get("highscoresButton.png");
         this.exitButton = assetManager.get("exitButton.png");
         this.confirmButton = assetManager.get("confirmButton.png");
+        this.spikedLedge2 = assetManager.get("spiked2.png");
     }
 
     public void dispose(){

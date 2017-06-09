@@ -3,6 +3,7 @@ package com.bubblerunner.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.controller.GameControllerState;
 import com.bubblerunner.game.model.GameModel;
@@ -20,9 +21,13 @@ import java.util.ArrayList;
 
 import static com.bubblerunner.game.utils.Constants.BALL_VELOCITY;
 import static com.bubblerunner.game.utils.Constants.GAME_CREATION.RELEASE;
+import static com.bubblerunner.game.utils.Constants.LEDGE_HEIGHT;
+import static com.bubblerunner.game.utils.Constants.LEDGE_INITIAL_POS_Y;
+import static com.bubblerunner.game.utils.Constants.LEDGE_INITIAL_POS_Y_INDEX_UP;
 import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY.LETHAL;
 import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY.NONLETHAL;
 import static com.bubblerunner.game.utils.Constants.LEDGE_WIDTH;
+import static com.bubblerunner.game.utils.Constants.PIXEL_TO_METER;
 import static com.bubblerunner.game.utils.Constants.SCREEN_HEIGHT;
 import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 
@@ -60,8 +65,6 @@ public class GameStage extends Stage {
         //  music.setLooping(true);
         // music.play();
 
-        //create world
-
         //create ball
         this.ballActor = new BallActor(graphicsManager, gameController.getBallBody());
         this.addActor(ballActor);
@@ -75,10 +78,12 @@ public class GameStage extends Stage {
         }
 
         //create ceiling and floor spikes
-       // LedgeActor ceiling = new LedgeActor(graphicsManager.gameGraphics.ball, world, new Point<Float>(LEDGE_INITIAL_POS_X_LARGE, LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_UP]),LEDGE_WIDTH[LARGE.getValue()]);
-      //  this.addActor(ceiling);
-      //  LedgeActor floor = new LedgeActor(graphicsManager.gameGraphics.ball, world, new Point<Float>(LEDGE_INITIAL_POS_X_LARGE, LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_BOTTOM]),LEDGE_WIDTH[LARGE.getValue()]);
-       // this.addActor(floor);
+        Image floor = new Image(graphicsManager.spikedLedge);
+        floor.setBounds(0,0,SCREEN_WIDTH,LEDGE_HEIGHT/PIXEL_TO_METER);
+        this.addActor(floor);
+        Image ceiling = new Image(graphicsManager.spikedLedge2);
+        ceiling.setBounds(0,LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_UP]/PIXEL_TO_METER,SCREEN_WIDTH,LEDGE_HEIGHT/PIXEL_TO_METER);
+        this.addActor(ceiling);
 
 
         //create controller
