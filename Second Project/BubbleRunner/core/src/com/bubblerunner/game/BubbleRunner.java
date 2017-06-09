@@ -25,6 +25,7 @@ public class BubbleRunner extends Game {
 	@Override
 	public void pause(){
 		super.pause();
+		GraphicsManager.getInstance().dispose();
 		saveHighscores();
 	}
 

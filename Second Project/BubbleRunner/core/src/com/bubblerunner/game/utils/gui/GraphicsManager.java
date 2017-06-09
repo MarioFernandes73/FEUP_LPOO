@@ -34,8 +34,8 @@ public class GraphicsManager {
     private void loadAssets(){
         assetManager.load("ballAnimation.png", Texture.class);
         assetManager.load("flyingAnimation.png", Texture.class);
-        assetManager.load("normalledge.png", Texture.class);
-        assetManager.load("spikedLedge.png", Texture.class);
+        assetManager.load("normal.png", Texture.class);
+        assetManager.load("spiked.png", Texture.class);
         assetManager.load("left.png", Texture.class);
         assetManager.load("right.png", Texture.class);
         assetManager.load("playButton.png", Texture.class);
@@ -48,8 +48,8 @@ public class GraphicsManager {
     private void assignAssets(){
         this.ball = assetManager.get("ballAnimation.png");
         this.flyingBall = assetManager.get("flyingAnimation.png");
-        this.normalLedge = assetManager.get("normalledge.png");
-        this.spikedLedge = assetManager.get("spikedLedge.png");
+        this.normalLedge = assetManager.get("normal.png");
+        this.spikedLedge = assetManager.get("spiked.png");
         this.leftButton = assetManager.get("left.png");
         this.rightButton = assetManager.get("right.png");
         this.playButton = assetManager.get("playButton.png");
