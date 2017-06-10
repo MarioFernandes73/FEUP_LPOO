@@ -6,10 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bubblerunner.game.BubbleRunner;
 
-/**
- * Created by Mario on 03/06/2017.
- */
-
 public class GenericScreen implements Screen {
 
     private Stage currentScreenStage;

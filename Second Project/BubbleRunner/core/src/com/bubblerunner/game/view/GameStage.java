@@ -15,6 +15,7 @@ import com.bubblerunner.game.utils.AssetsManager;
 import com.bubblerunner.game.view.entities.BallActor;
 import com.bubblerunner.game.view.entities.ControllerTableActor;
 import com.bubblerunner.game.view.entities.LedgeActor;
+import com.sun.scenario.effect.impl.prism.ps.PPSBlend_ADDPeer;
 
 import java.util.ArrayList;
 
@@ -29,23 +30,43 @@ import static com.bubblerunner.game.utils.Constants.PIXEL_TO_METER;
 import static com.bubblerunner.game.utils.Constants.SCREEN_HEIGHT;
 import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 
-/**
- * Created by Mario on 12/04/2017.
- */
 
+/**
+ * Game overall view extending Stage LIBGdx class.
+ */
 public class GameStage extends Stage {
 
-    private final BubbleRunner game;
+    /**
+     * The AssetsManager containing the textures and music
+     */
     private final AssetsManager assetsManager;
+
+    /**
+     * The game's controller module
+     */
     private GameController gameController;
+
+    /**
+     * The user's controls
+     */
     private ControllerTableActor controllerTableActor;
+
+    /**
+     * The ball's actor.
+     */
     private final BallActor ballActor;
+
+    /**
+     * The ledge's actors.
+     */
     private ArrayList<LedgeActor> ledgeActors = new ArrayList<LedgeActor>();
 
+    /**
+     * Constructs a new GameStage using a new GameController and a new GameModel.
+     * Sets all the initial configurations such as viewport, actors and scenario.
+     */
+    public GameStage() {
 
-    public GameStage(BubbleRunner game) {
-
-        this.game = game;
         this.gameController = new GameController(new GameModel(new GameModelState(RELEASE)), new GameControllerState(RELEASE));
 
         //set viewport
@@ -59,8 +80,8 @@ public class GameStage extends Stage {
         this.addActor(ballActor);
 
         //create initial ledges
-        for(int i = 0; i < this.gameController.getLedgeBodies().size(); i++){
-            LedgeActor newLedgeActor = new LedgeActor(assetsManager.normalLedge,this.gameController.getLedgeBodies().get(i));
+        for (int i = 0; i < this.gameController.getLedgeBodies().size(); i++) {
+            LedgeActor newLedgeActor = new LedgeActor(assetsManager.normalLedge, this.gameController.getLedgeBodies().get(i));
             this.ledgeActors.add(newLedgeActor);
             this.addActor(newLedgeActor);
             newLedgeActor.setHasActor(true);
@@ -68,10 +89,10 @@ public class GameStage extends Stage {
 
         //create ceiling and floor spikes
         Image floor = new Image(assetsManager.spikedLedge);
-        floor.setBounds(0,0,SCREEN_WIDTH,LEDGE_HEIGHT/PIXEL_TO_METER);
+        floor.setBounds(0, 0, SCREEN_WIDTH, LEDGE_HEIGHT / PIXEL_TO_METER);
         this.addActor(floor);
         Image ceiling = new Image(assetsManager.spikedLedge2);
-        ceiling.setBounds(0,LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_UP]/PIXEL_TO_METER,SCREEN_WIDTH,LEDGE_HEIGHT/PIXEL_TO_METER);
+        ceiling.setBounds(0, LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_UP] / PIXEL_TO_METER, SCREEN_WIDTH, LEDGE_HEIGHT / PIXEL_TO_METER);
         this.addActor(ceiling);
 
 
@@ -80,13 +101,23 @@ public class GameStage extends Stage {
         this.addActor(this.controllerTableActor);
 
         Gdx.input.setInputProcessor(this);
-}
+    }
 
+    /**
+     * Overriden draw method.
+     */
     @Override
     public void draw() {
         super.draw();
     }
 
+    /**
+     * Act method which simply calls the update cycle of the game controller,
+     * checks for any refresh/deletion flag,
+     * and handles the user's controller's input.
+     *
+     * @param delta the world's float's variation.
+     */
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -94,32 +125,38 @@ public class GameStage extends Stage {
         gameController.update(delta);
         handleControllerInput();
 
-        if(gameController.getRefreshLedgeActors()){
+        if (gameController.getRefreshLedgeActors()) {
             updateLedgeActors();
             gameController.setRefreshLedgeActors(false);
         }
-        if(gameController.getDeleteLedgeActors()) {
+        if (gameController.getDeleteLedgeActors()) {
             deleteLedgeActors();
             gameController.setDeleteLedgeActors(false);
         }
     }
 
-    public void deleteLedgeActors(){
-        for(Actor actor : this.getActors()){
-            if(actor instanceof LedgeActor && ((LedgeActor) actor).needsDelete()){
+    /**
+     * Deletes a ledge's actor depending on the flag.
+     */
+    public void deleteLedgeActors() {
+        for (Actor actor : this.getActors()) {
+            if (actor instanceof LedgeActor && ((LedgeActor) actor).needsDelete()) {
                 ((LedgeActor) actor).setCanDelete(true);
                 actor.remove();
             }
         }
     }
 
-    public void updateLedgeActors(){
-        for(int i = 0; i<this.gameController.getLedgeBodies().size(); i++){
+    /**
+     * Updates the ledge's actors.
+     */
+    public void updateLedgeActors() {
+        for (int i = 0; i < this.gameController.getLedgeBodies().size(); i++) {
             LedgeBody currentBody = this.gameController.getLedgeBodies().get(i);
-            if(!currentBody.getHasActor()){
-                if(currentBody.getLethality() == NONLETHAL){
+            if (!currentBody.getHasActor()) {
+                if (currentBody.getLethality() == NONLETHAL) {
                     this.addActor(new LedgeActor(assetsManager.normalLedge, currentBody));
-                } else if(currentBody.getLethality() == LETHAL){
+                } else if (currentBody.getLethality() == LETHAL) {
                     this.addActor(new LedgeActor(assetsManager.spikedLedge, currentBody));
                 }
 
@@ -130,24 +167,45 @@ public class GameStage extends Stage {
         }
     }
 
-
+    /**
+     * Handles the user's input on the controller.
+     */
     private void handleControllerInput() {
-        if(controllerTableActor.getRightPressed()) {
-            this.ballActor.setBodyLinearVelocity(BALL_VELOCITY,0);
-        }
-        else if (controllerTableActor.getLeftPressed()) {
-            this.ballActor.setBodyLinearVelocity(-BALL_VELOCITY,0);
-        }
-        else {
-            this.ballActor.setBodyLinearVelocity(0,0);
+        if (controllerTableActor.getRightPressed()) {
+            this.ballActor.setBodyLinearVelocity(BALL_VELOCITY, 0);
+        } else if (controllerTableActor.getLeftPressed()) {
+            this.ballActor.setBodyLinearVelocity(-BALL_VELOCITY, 0);
+        } else {
+            this.ballActor.setBodyLinearVelocity(0, 0);
         }
     }
 
-    public int getScoreUpdate(){return this.gameController.getScoreUpdate();}
+    /**
+     * Wrapper for the scoreUpdate get method.
+     *
+     * @return The scoreUpdate value.
+     */
+    public int getScoreUpdate() {
+        return this.gameController.getScoreUpdate();
+    }
 
-    public void setScoreUpdate(int scoreUpdate){this.gameController.setScoreUpdate(scoreUpdate);}
+    /**
+     * Wrapper for the scoreUpdate set method.
+     *
+     * @param scoreUpdate the scoreUpdate value.
+     */
+    public void setScoreUpdate(int scoreUpdate) {
+        this.gameController.setScoreUpdate(scoreUpdate);
+    }
 
-    public GameController getGameController(){return this.gameController;}
+    /**
+     * Wrapper for the gameController get method.
+     *
+     * @return The gameController.
+     */
+    public GameController getGameController() {
+        return this.gameController;
+    }
 
 }
 

@@ -5,10 +5,11 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Created by Mario on 08/05/2017.
+ * AssetManager class using a singleton design pattern which loads as the
+ * game starts and can be called anywhere on the program.
+ * All the public variables are either Textures or Musics which are
+ * loaded as soon as the game start.
  */
-
-//Singleton implementation
 public class AssetsManager {
 
     private AssetManager assetManager;
@@ -28,16 +29,27 @@ public class AssetsManager {
     public Texture highscoresBanner;
     public Texture gameOverBanner;
 
-    private static AssetsManager instance = new AssetsManager();
+    /**
+     * AssetManager instance
+     */
+    private static AssetsManager instance;
 
-    private AssetsManager(){
+    /**
+     * Private constructor only called by the instance variable
+     * when the manager has never been called before during this
+     * program's run.
+     */
+    private AssetsManager() {
         assetManager = new AssetManager();
         assetManager.update();
         loadAssets();
         assignAssets();
     }
 
-    private void loadAssets(){
+    /**
+     * Loads all assets using a LIBGdx AssetManager.
+     */
+    private void loadAssets() {
         assetManager.load("ballAnimation.png", Texture.class);
         assetManager.load("flyingAnimation.png", Texture.class);
         assetManager.load("normal.png", Texture.class);
@@ -49,14 +61,17 @@ public class AssetsManager {
         assetManager.load("exitButton.png", Texture.class);
         assetManager.load("confirmButton.png", Texture.class);
         assetManager.load("spiked2.png", Texture.class);
-        assetManager.load("music.mp3",Music.class);
+        assetManager.load("music.mp3", Music.class);
         assetManager.load("bubbleRunner.png", Texture.class);
         assetManager.load("congratulations.png", Texture.class);
         assetManager.load("gameOver.png", Texture.class);
         assetManager.finishLoading();
     }
 
-    private void assignAssets(){
+    /**
+     * Assigns all assets using a LIBGdx AssetManager
+     */
+    private void assignAssets() {
         this.ball = assetManager.get("ballAnimation.png");
         this.flyingBall = assetManager.get("flyingAnimation.png");
         this.normalLedge = assetManager.get("normal.png");
@@ -74,11 +89,23 @@ public class AssetsManager {
         this.gameOverBanner = assetManager.get("gameOver.png", Texture.class);
     }
 
-    public void dispose(){
+    /**
+     * Disposes the LIBGdx assetmanager.
+     */
+    public void dispose() {
         assetManager.dispose();
     }
 
-    public static AssetsManager getInstance(){
+
+    /**
+     * Returns the AssetManager instance.
+     *
+     * @return The current instance or creates a new AssetManager depending on
+     * whether the AssetManager has already been called or not.
+     */
+    public static AssetsManager getInstance() {
+        if (instance == null)
+            instance = new com.bubblerunner.game.utils.AssetsManager();
         return instance;
     }
 }

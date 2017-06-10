@@ -1,0 +1,13 @@
+com.bubblerunner.game
+com.bubblerunner.game.client
+com.bubblerunner.game.controller
+com.bubblerunner.game.controller.entities
+com.bubblerunner.game.desktop
+com.bubblerunner.game.model
+com.bubblerunner.game.model.entities
+com.bubblerunner.game.transitions.actors
+com.bubblerunner.game.transitions.screens
+com.bubblerunner.game.transitions.stages
+com.bubblerunner.game.utils
+com.bubblerunner.game.view
+com.bubblerunner.game.view.entities

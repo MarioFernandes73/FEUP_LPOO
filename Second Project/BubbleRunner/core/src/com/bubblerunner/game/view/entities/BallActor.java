@@ -17,22 +17,67 @@ import static com.bubblerunner.game.utils.Constants.BALL_NUMBER_FRAMES;
 import static com.bubblerunner.game.utils.Constants.PIXEL_TO_METER;
 
 /**
- * Created by Mario on 12/04/2017.
+ * Ball view extending LIBGdx Actor class.
  */
-
 public class BallActor extends Actor {
 
+    /**
+     * Base sprite
+     */
     private Sprite sprite;
+
+    /**
+     * Winged sprite
+     */
     private Sprite sprite2;
+
+    /**
+     * Base animation
+     */
     private Animation<TextureRegion> animation;
+
+    /**
+     * Winged animation
+     */
     private Animation<TextureRegion> animation2;
+
+    /**
+     * Base texture
+     */
     private Texture texture;
+
+    /**
+     * Winged texture
+     */
     private Texture texture2;
+
+    /**
+     * Time to pass animation frames
+     */
     private float stateTime = 0;
+
+    /**
+     * Ball's body which textures are mapped to.
+     */
     private BallBody body;
+
+    /**
+     * Last updated position which is used to trigger
+     * the isFalling flag.
+     */
     private float lastYPos;
+
+    /**
+     * Flag used to select which animation to draw.
+     */
     private boolean isFalling;
 
+    /**
+     * Constructs a new ball actor.
+     *
+     * @param assetsManager the manager which holds all textures.
+     * @param body the ball's body.
+     */
     public BallActor(AssetsManager assetsManager, BallBody body) {
         this.texture = assetsManager.ball;
         this.texture2 = assetsManager.flyingBall;
@@ -43,11 +88,20 @@ public class BallActor extends Actor {
         this.body = body;
     }
 
+    /**
+     * Override of setPostion method to adapt to a circle.
+     *
+     * @param x ball's x coordinate
+     * @param y ball's y coordinate
+     */
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x - getWidth() / 2, y - getHeight() / 2);
     }
 
+    /**
+     * Override of positionChanged method to adapt the sprites.
+     */
     @Override
     protected void positionChanged() {
         super.positionChanged();
@@ -55,6 +109,9 @@ public class BallActor extends Actor {
         this.sprite2.setPosition(getX(), getY());
     }
 
+    /**
+     * Override of rotation changed even though the ball has no rotation.
+     */
     @Override
     protected void rotationChanged() {
         super.rotationChanged();
@@ -62,24 +119,36 @@ public class BallActor extends Actor {
         this.sprite2.setRotation(getRotation());
     }
 
+    /**
+     * Act method to check if either the ball is falling or not
+     * and to update the sprite's region.
+     *
+     * @param delta time variation.
+     */
     @Override
     public void act(float delta) {
         super.act(delta);
-        if(body.getY()/PIXEL_TO_METER < lastYPos ){
+        if (body.getY() / PIXEL_TO_METER < lastYPos) {
             isFalling = true;
         } else {
             isFalling = false;
         }
-        lastYPos = body.getY()/PIXEL_TO_METER;
-        this.setPosition(body.getX()/PIXEL_TO_METER, body.getY()/PIXEL_TO_METER);
+        lastYPos = body.getY() / PIXEL_TO_METER;
+        this.setPosition(body.getX() / PIXEL_TO_METER, body.getY() / PIXEL_TO_METER);
         stateTime += delta;
         sprite.setRegion(animation.getKeyFrame(stateTime, true));
         sprite2.setRegion(animation2.getKeyFrame(stateTime, true));
     }
 
+    /**
+     * Draw method which selects which sprite to draw.
+     *
+     * @param batch The batch to draw in.
+     * @param parentAlpha parent's Alpha value
+     */
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if(isFalling){
+        if (isFalling) {
             sprite2.setColor(getColor());
             sprite2.draw(batch);
         } else {
@@ -88,7 +157,10 @@ public class BallActor extends Actor {
         }
     }
 
-    private void createAnimations(){
+    /**
+     * Animation's creation method
+     */
+    private void createAnimations() {
         // Split the texture into frame
         TextureRegion[][] thrustRegion = TextureRegion.split(texture, texture.getWidth() / BALL_NUMBER_FRAMES, texture.getHeight());
         TextureRegion[][] thrustRegion2 = TextureRegion.split(texture2, texture2.getWidth() / BALL_NUMBER_FRAMES, texture2.getHeight());
@@ -115,8 +187,14 @@ public class BallActor extends Actor {
         this.sprite2.setOrigin(getWidth() / 2, getHeight() / 2);
     }
 
-    public void setBodyLinearVelocity(float x, float y){
-        this.body.setLinearVelocity(x,y);
+    /**
+     * Sets body's linear velocity, which is used by the controller.
+     *
+     * @param x value of the velocity
+     * @param y value of the velocity
+     */
+    public void setBodyLinearVelocity(float x, float y) {
+        this.body.setLinearVelocity(x, y);
     }
 
 }

@@ -10,22 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import static com.bubblerunner.game.utils.Constants.BUTTON_SIZE_HEIGHT;
 import static com.bubblerunner.game.utils.Constants.BUTTON_SIZE_WIDTH;
 
-/**
- * Created by Mario on 22/05/2017.
- */
-
 public class GenericButton extends Image {
 
     private Texture texture;
     private boolean pressed;
 
-    public GenericButton(Texture texture){
+    public GenericButton(Texture texture) {
 
         this.texture = texture;
         this.pressed = false;
         this.setDrawable((new TextureRegionDrawable(new TextureRegion(this.texture))));
-        this.setSize(BUTTON_SIZE_WIDTH,BUTTON_SIZE_HEIGHT);
-        this.addListener(new InputListener(){
+        this.setSize(BUTTON_SIZE_WIDTH, BUTTON_SIZE_HEIGHT);
+        this.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -42,7 +38,7 @@ public class GenericButton extends Image {
 
     }
 
-    public boolean getPressed(){
+    public boolean getPressed() {
         return this.pressed;
     }
 }

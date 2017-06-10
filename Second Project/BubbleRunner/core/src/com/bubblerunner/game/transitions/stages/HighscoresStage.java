@@ -10,10 +10,6 @@ import com.bubblerunner.game.transitions.actors.HighscoresTableActor;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.utils.AssetsManager;
 
-/**
- * Created by Mario on 22/05/2017.
- */
-
 public class HighscoresStage extends Stage {
 
     static final int VIEWPORT_WIDTH = 400;
@@ -23,7 +19,7 @@ public class HighscoresStage extends Stage {
     private AssetsManager assetsManager;
     private HighscoresTableActor highscoresTableActor;
 
-    public HighscoresStage(BubbleRunner game){
+    public HighscoresStage(BubbleRunner game) {
         this.game = game;
         float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
         setViewport(new FitViewport(VIEWPORT_WIDTH, VIEWPORT_WIDTH * ratio));
@@ -43,10 +39,9 @@ public class HighscoresStage extends Stage {
     }
 
     @Override
-    public void act(float delta)
-    {
+    public void act(float delta) {
         super.act(delta);
-        if(backButton.getPressed()){
+        if (backButton.getPressed()) {
             game.setScreen(new GenericScreen(game, new MenuStage(game)));
         }
     }

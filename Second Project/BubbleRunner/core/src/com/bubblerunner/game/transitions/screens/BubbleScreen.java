@@ -11,10 +11,6 @@ import com.bubblerunner.game.view.GameStage;
 
 import static com.bubblerunner.game.utils.Constants.GAME_STATE.OVER;
 
-/**
- * Created by Mario on 12/04/2017.
- */
-
 public class BubbleScreen implements Screen {
 
     private final BubbleRunner game;
@@ -24,7 +20,7 @@ public class BubbleScreen implements Screen {
 
     public BubbleScreen(BubbleRunner game) {
         this.game = game;
-        this.gameStage = new GameStage(game);
+        this.gameStage = new GameStage();
         this.scoreStage = new ScoreStage(game);
         this.assetsManager = AssetsManager.getInstance();
         assetsManager.music.setLooping(true);
@@ -34,8 +30,8 @@ public class BubbleScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor( 103/255f, 69/255f, 117/255f, 1 );
-        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+        Gdx.gl.glClearColor(103 / 255f, 69 / 255f, 117 / 255f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         // Steps the stage
         gameStage.act(delta);
@@ -43,9 +39,9 @@ public class BubbleScreen implements Screen {
         scoreStage.addScore(gameStage.getScoreUpdate());
         gameStage.setScoreUpdate(0);
 
-        if(gameStage.getGameController().getGameState() == OVER){
+        if (gameStage.getGameController().getGameState() == OVER) {
             assetsManager.music.stop();
-            game.setScreen(new GenericScreen(game, new GameOverStage(game,scoreStage.getCurrentScore())));
+            game.setScreen(new GenericScreen(game, new GameOverStage(game, scoreStage.getCurrentScore())));
         }
 
         // Draws the stage

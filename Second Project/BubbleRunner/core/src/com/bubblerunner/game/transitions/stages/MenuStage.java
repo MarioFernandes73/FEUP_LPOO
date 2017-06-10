@@ -12,17 +12,13 @@ import com.bubblerunner.game.utils.AssetsManager;
 import static com.bubblerunner.game.utils.Constants.SCREEN_HEIGHT;
 import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 
-/**
- * Created by Mario on 08/05/2017.
- */
-
 public class MenuStage extends Stage {
 
     private BubbleRunner game;
     private AssetsManager assetsManager;
     private MenuTableActor menuTableActor;
 
-    public MenuStage (BubbleRunner game){
+    public MenuStage(BubbleRunner game) {
 
         //screen setup
         this.game = game;
@@ -36,14 +32,13 @@ public class MenuStage extends Stage {
     }
 
     @Override
-    public void act(float delta)
-    {
+    public void act(float delta) {
         super.act(delta);
         if (menuTableActor.getPlayPressed()) {
             game.setScreen(new BubbleScreen(game));
-        } else if(menuTableActor.getHighscoresPressed()) {
+        } else if (menuTableActor.getHighscoresPressed()) {
             game.setScreen(new GenericScreen(game, new HighscoresStage(game)));
-        } else if(menuTableActor.getExitPressed()) {
+        } else if (menuTableActor.getExitPressed()) {
             Gdx.app.exit();
         }
 

@@ -142,7 +142,9 @@ public class LedgeBody extends EntityBody {
      *
      * @param lethality either LETHAL if it's a spiked ledge or NONLETHAL if it's normal
      */
-    public void setLethality(LEDGE_LETHALITY lethality) {this.model.setLethality(lethality);}
+    public void setLethality(LEDGE_LETHALITY lethality) {
+        this.model.setLethality(lethality);
+    }
 
     /**
      * Returns the width of this body.

@@ -8,10 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.BubbleRunner;
 
-/**
- * Created by Mario on 12/04/2017.
- */
-
 public class ScoreStage extends Stage {
 
     static final int VIEWPORT_WIDTH = 400;
@@ -36,5 +32,7 @@ public class ScoreStage extends Stage {
         scoreLabel.setText("" + currentScore);
     }
 
-    public int getCurrentScore(){return this.currentScore;}
+    public int getCurrentScore() {
+        return this.currentScore;
+    }
 }

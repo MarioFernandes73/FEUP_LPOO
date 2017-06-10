@@ -77,8 +77,8 @@ public class GameModelState {
      *
      * @param creationMode to indicate the mode which the game will be initialized upon.
      */
-    public GameModelState(GAME_CREATION creationMode){
-        if(creationMode == RELEASE || creationMode == DEBUG){
+    public GameModelState(GAME_CREATION creationMode) {
+        if (creationMode == RELEASE || creationMode == DEBUG) {
             ballStartingCoord = new Point<Float>(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
             ledgeQuantity = LEDGE_STARTING_QUANTITY;
             ledgeStartingCoord = new Point[]{
@@ -86,17 +86,16 @@ public class GameModelState {
                     new Point<Float>(LEDGE_INITIAL_POS_X_SMALL[LEDGE_INITIAL_POS_X_INDEX_MLEFT], LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_MBOTTOM]),
                     new Point<Float>(LEDGE_INITIAL_POS_X_MEDIUM[LEDGE_INITIAL_POS_X_INDEX_LEFT], LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_BOTTOM])};
             ledgeSizes = new LedgeModel.LedgeSize[]{LedgeModel.LedgeSize.MEDIUM, LedgeModel.LedgeSize.MEDIUM, LedgeModel.LedgeSize.SMALL};
-            ledgeWidths = new float[]{LEDGE_WIDTH[MEDIUM.getValue()],LEDGE_WIDTH[MEDIUM.getValue()],LEDGE_WIDTH[SMALL.getValue()]};
+            ledgeWidths = new float[]{LEDGE_WIDTH[MEDIUM.getValue()], LEDGE_WIDTH[MEDIUM.getValue()], LEDGE_WIDTH[SMALL.getValue()]};
             ledgeHeight = LEDGE_HEIGHT;
-        }
-        else{
-            ballStartingCoord = new Point<Float>(BALL_INITIAL_POS_X_TEST,BALL_INITIAL_POS_Y_TEST);
+        } else {
+            ballStartingCoord = new Point<Float>(BALL_INITIAL_POS_X_TEST, BALL_INITIAL_POS_Y_TEST);
             ledgeQuantity = LEDGE_STARTING_QUANTITY_TEST;
             ledgeStartingCoord = new Point[]{
-                    new Point<Float>(LEDGE_1_INITIAL_POS_X_TEST,LEDGE_1_INITIAL_POS_Y_TEST),
-                    new Point<Float>(LEDGE_2_INITIAL_POS_X_TEST,LEDGE_2_INITIAL_POS_Y_TEST)};
+                    new Point<Float>(LEDGE_1_INITIAL_POS_X_TEST, LEDGE_1_INITIAL_POS_Y_TEST),
+                    new Point<Float>(LEDGE_2_INITIAL_POS_X_TEST, LEDGE_2_INITIAL_POS_Y_TEST)};
             ledgeSizes = new LedgeModel.LedgeSize[]{LedgeModel.LedgeSize.MEDIUM, LedgeModel.LedgeSize.SMALL};
-            ledgeWidths = new float[]{LEDGE_1_INITIAL_WIDTH_TEST,LEDGE_2_INITIAL_WIDTH_TEST};
+            ledgeWidths = new float[]{LEDGE_1_INITIAL_WIDTH_TEST, LEDGE_2_INITIAL_WIDTH_TEST};
             ledgeHeight = LEDGE_HEIGHT_TEST;
         }
     }
