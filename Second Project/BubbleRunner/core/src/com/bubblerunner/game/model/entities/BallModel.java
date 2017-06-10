@@ -1,62 +1,52 @@
 package com.bubblerunner.game.model.entities;
 
-/**
- * Created by Mario on 04/06/2017.
- */
-
 import com.bubblerunner.game.utils.Point;
 
 import static com.bubblerunner.game.utils.Constants.STARTING_HP;
 
 /**
- * A model representing a the user space ship.
+ * A model representing the user ball.
  */
 public class BallModel extends EntityModel {
+
     /**
-     * Is this ship accelerating in this update delta
+     * The hp of the ball.
      */
-    private boolean falling;
     private int hp;
 
     /**
-     * Creates a new ship model in a certain position and having a certain rotation.
+     * Creates a new ball model in a certain position.
      *
-     * @param x the x-coordinate in meters
-     * @param y the y-coordinate in meters
+     * @param coordinates the coordinate in meters
      */
     public BallModel(Point<Float> coordinates) {
         super(coordinates);
         this.hp = STARTING_HP;
-        this.falling = true;
     }
 
     /**
-     * Set the accelerating flag for this ship
+     * Returns the ball's hp.
      *
-     * @param falling the accelerating tag
+     * @return the ball's hp.
      */
-    public void setFalling(boolean falling) {
-        this.falling = falling;
-    }
-
-    /**
-     * Is the ship accelerating in this update
-     *
-     * @return the accelerating flag
-     */
-    public boolean isFalling() {
-        return falling;
-    }
-
-
-    public int getHp(){
+    public int getHp() {
         return this.hp;
     }
 
-    public void setHp(int hp){
+    /**
+     * Sets the ball's hp.
+     *
+     * @param hp the hp the ball has.
+     */
+    public void setHp(int hp) {
         this.hp = hp;
     }
 
+    /**
+     * Returns the model's type.
+     *
+     * @return the model's type.
+     */
     @Override
     public ModelType getType() {
         return ModelType.BALL;

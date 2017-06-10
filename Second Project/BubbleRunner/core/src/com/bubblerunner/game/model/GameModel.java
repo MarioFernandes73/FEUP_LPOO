@@ -5,37 +5,69 @@ import com.bubblerunner.game.model.entities.LedgeModel;
 
 import java.util.ArrayList;
 
-import static com.bubblerunner.game.utils.Constants.LEDGE_HEIGHT;
 import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY.NONLETHAL;
 
 /**
- * Created by Mario on 04/06/2017.
+ * A model representing a game.
  */
-
 public class GameModel {
 
+    /**
+     * The ball model.
+     */
     private final BallModel ballModel;
+
+    /**
+     * The ledge models.
+     */
     private ArrayList<LedgeModel> ledgeModels;
+
+    /**
+     * The state of the game.
+     */
     private GameModelState state;
 
-    public GameModel (GameModelState state){
+    /**
+     * Constructs a game model with a ball in the middle of the screen and
+     * the initial ledges.
+     *
+     * @param state the state of this model which holds all final variables.
+     */
+    public GameModel(GameModelState state) {
         this.state = state;
-            this.ballModel = new BallModel(state.ballStartingCoord);
-            this.ledgeModels = new ArrayList<LedgeModel>();
-            for(int i = 0; i < state.ledgeQuantity; i++){
-                this.ledgeModels.add(new LedgeModel(state.ledgeStartingCoord[i],state.ledgeSizes[i],state.ledgeWidths[i],state.ledgeHeight,NONLETHAL));
-            }
- }
+        this.ballModel = new BallModel(state.ballStartingCoord);
+        this.ledgeModels = new ArrayList<LedgeModel>();
+        for (int i = 0; i < state.ledgeQuantity; i++) {
+            this.ledgeModels.add(new LedgeModel(state.ledgeStartingCoord[i], state.ledgeSizes[i], state.ledgeWidths[i], state.ledgeHeight, NONLETHAL));
+        }
+    }
 
-    public BallModel getBallModel(){
+    /**
+     * Returns the model of the ball.
+     *
+     * @return The model of the ball.
+     */
+    public BallModel getBallModel() {
         return this.ballModel;
     }
 
-    public ArrayList<LedgeModel> getLedgeModels(){
+    /**
+     * Returns the model of the ledges.
+     *
+     * @return The model of the ledges.
+     */
+    public ArrayList<LedgeModel> getLedgeModels() {
         return this.ledgeModels;
     }
 
-    public float getLedgeHeight(){return this.state.ledgeHeight;}
+    /**
+     * Returns the fixed height of a ledge.
+     *
+     * @return The fixed height of a ledge.
+     */
+    public float getLedgeHeight() {
+        return this.state.ledgeHeight;
+    }
 
 
 }

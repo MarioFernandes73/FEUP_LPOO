@@ -34,18 +34,49 @@ import static com.bubblerunner.game.utils.Constants.LEDGE_WIDTH.MEDIUM;
 import static com.bubblerunner.game.utils.Constants.LEDGE_WIDTH.SMALL;
 
 /**
- * Created by Mario on 09/06/2017.
+ * The state of the game's model.
+ * This class defines all the game's starting coordinates, quantities and sizes.
+ * These variables act as either triggers for events or are directly used
+ * to create new objects.
  */
-
 public class GameModelState {
 
-    public final Point<Float> ballStartingCoord;
-    public final int ledgeQuantity;
-    public final Point<Float>[] ledgeStartingCoord;
-    public final LedgeModel.LedgeSize[] ledgeSizes;
-    public final float[] ledgeWidths;
-    public final float ledgeHeight;
+    /**
+     * The ball's starting coordinates
+     */
+    final Point<Float> ballStartingCoord;
 
+    /**
+     * The initial ledge's quantity
+     */
+    final int ledgeQuantity;
+
+    /**
+     * The ledge's starting coordinates.
+     */
+    final Point<Float>[] ledgeStartingCoord;
+
+    /**
+     * The ledge's starting sizes.
+     */
+    final LedgeModel.LedgeSize[] ledgeSizes;
+
+    /**
+     * The ledge's starting widths.
+     */
+    final float[] ledgeWidths;
+
+    /**
+     * The ledge's starting height.
+     */
+    final float ledgeHeight;
+
+    /**
+     * Creates the game model state.
+     * Tests use fixed value instead of screen related values.
+     *
+     * @param creationMode to indicate the mode which the game will be initialized upon.
+     */
     public GameModelState(GAME_CREATION creationMode){
         if(creationMode == RELEASE || creationMode == DEBUG){
             ballStartingCoord = new Point<Float>(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);

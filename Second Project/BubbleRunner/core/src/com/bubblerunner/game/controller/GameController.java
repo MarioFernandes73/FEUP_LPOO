@@ -93,7 +93,7 @@ public class GameController {
      * Creates and initializes the physics of this game.
      *
      * @param gameModel the starting model which this game will use.
-     * @param state all the variables representing the state of this controller.
+     * @param state     all the variables representing the state of this controller.
      */
     public GameController(GameModel gameModel, GameControllerState state) {
         this.state = state;
@@ -186,7 +186,6 @@ public class GameController {
      * Be LETHAL or NONLETHAL
      * Be of SMALL or MEDIUM size
      * Have a certain initial position depending on its size.
-     *
      */
     public LedgeBody createRandomLedge() {
         Random generator = new Random();

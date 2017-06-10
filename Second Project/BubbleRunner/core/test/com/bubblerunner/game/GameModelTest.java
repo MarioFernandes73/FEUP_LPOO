@@ -21,7 +21,6 @@ public class GameModelTest extends GameTest {
     @Test
     public void testGameModelBall() {
         assertTrue(gameModel.getBallModel().getHp() > 0);
-        assertTrue(gameModel.getBallModel().isFalling());
         assertTrue(gameModel.getBallModel().getX() == gameModel.getBallModel().getY() || gameModel.getBallModel().getX() != gameModel.getBallModel().getY());
     }
 

@@ -39,63 +39,63 @@ public class GameControllerState {
     /**
      * The maximum height the ball can reach.
      */
-    public final float ballMaxHeight;
+    final float ballMaxHeight;
 
     /**
      * The minimum height the ball can reach.
      */
-    public final float ballMinHeight;
+    final float ballMinHeight;
 
     /**
      * The maximum height a ledge can reach.
      */
-    public final float ledgeMaxHeight;
+    final float ledgeMaxHeight;
 
     /**
      * The height at which the game will be signaled to create a new random ledge.
      */
-    public final float ledgeGenHeight;
+    final float ledgeGenHeight;
 
     /**
      * The type possibilities a random ledge can have.
      */
-    public final int ledgeCreationTypePossibilities;
+    final int ledgeCreationTypePossibilities;
 
     /**
      * The width possibilities a random ledge can have.
      */
-    public final int ledgeCreationWidthPossibilities;
+    final int ledgeCreationWidthPossibilities;
 
     /**
      * The initial position possibilities a small ledge can have
      */
-    public final int ledgeSmallPositionPossibilities;
+    final int ledgeSmallPositionPossibilities;
 
     /**
      * The initial position possibilities a medium ledge can have
      */
-    public final int ledgeMediumPositionPossibilities;
+    final int ledgeMediumPositionPossibilities;
 
     /**
      * The fixed index used to select the starting position of a newly
      * generated ledge.
      */
-    public final int ledgeHeightGenIndex;
+    final int ledgeHeightGenIndex;
 
     /**
      * The initial horizontal positions a small ledge can have
      */
-    public final float[] ledgeSmallInitialXPos;
+    final float[] ledgeSmallInitialXPos;
 
     /**
      * The initial horizontal positions a medium ledge can have
      */
-    public final float[] ledgeMediumInitialXPos;
+    final float[] ledgeMediumInitialXPos;
 
     /**
      * The initial vertical positions a ledge can have.
      */
-    public final float[] ledgeInitialYPos;
+    final float[] ledgeInitialYPos;
 
     /**
      * Creates the game controller state.
@@ -103,8 +103,8 @@ public class GameControllerState {
      *
      * @param creationMode to indicate the mode which the game will be initialized upon.
      */
-    public GameControllerState(Constants.GAME_CREATION creationMode){
-        if(creationMode == RELEASE || creationMode == DEBUG){
+    public GameControllerState(Constants.GAME_CREATION creationMode) {
+        if (creationMode == RELEASE || creationMode == DEBUG) {
             ballMaxHeight = BALL_MAX_HEIGHT;
             ballMinHeight = BALL_MIN_HEIGHT;
             ledgeMaxHeight = VIEWPORT_WIDTH * RATIO;

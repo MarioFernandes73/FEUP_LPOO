@@ -39,11 +39,11 @@ public class BallBody extends EntityBody {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(model.getX(), model.getY());
-        body = world.createBody(bodyDef);
-        body.setUserData(model);
+        this.body = world.createBody(bodyDef);
+        this.body.setUserData(model);
 
         // Create the ball body
-        body.setTransform(model.getX(), model.getY(), 0); // Middle of the viewport, no rotation
+        this.body.setTransform(model.getX(), model.getY(), 0); // Middle of the viewport, no rotation
 
         // Create circle shape
         CircleShape circle = new CircleShape();
@@ -57,7 +57,7 @@ public class BallBody extends EntityBody {
         fixtureDef.restitution = BALL_RESTITUTION; // how bouncy is the ball
 
         // Attach fixture to body
-        body.createFixture(fixtureDef);
+        this.body.createFixture(fixtureDef);
 
         // Dispose of circle shape
         circle.dispose();

@@ -11,16 +11,15 @@ public abstract class EntityBody {
     /**
      * The Box2D body that supports this body.
      */
-    protected Body body;
+    Body body;
 
 
     /**
      * Constructs an entity without a body.
-     *
      */
-    public EntityBody() {
-            body = null;
-        }
+    EntityBody() {
+        body = null;
+    }
 
 
     /**
@@ -45,8 +44,8 @@ public abstract class EntityBody {
     /**
      * Wraps the setTransform method from the Box2D body class.
      *
-     * @param x the new x-coordinate for this body
-     * @param y the new y-coordinate for this body
+     * @param x     the new x-coordinate for this body
+     * @param y     the new y-coordinate for this body
      * @param angle the new rotation angle for this body
      */
     public void setTransform(float x, float y, float angle) {
@@ -69,6 +68,8 @@ public abstract class EntityBody {
      *
      * @return the body of this entity
      */
-    public Body getBody(){return this.body;}
+    public Body getBody() {
+        return this.body;
+    }
 
 }

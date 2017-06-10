@@ -1,9 +1,5 @@
 package com.bubblerunner.game.model.entities;
 
-/**
- * Created by Mario on 04/06/2017.
- */
-
 
 import com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY;
 import com.bubblerunner.game.utils.Point;
@@ -14,31 +10,48 @@ import static com.bubblerunner.game.model.entities.LedgeModel.LedgeSize.MEDIUM;
  * A model representing a asteroid with a certain size.
  */
 public class LedgeModel extends EntityModel {
+
     /**
-     * Possible asteroid sizes.
+     * Possible ledges sizes.
      */
     public enum LedgeSize {
         MEDIUM, SMALL
     }
 
     /**
-     * This asteroid size.
+     * This ledge's size.
      */
     private LedgeSize size;
 
+    /**
+     * This ledge's width.
+     */
     private final float width;
 
+    /**
+     * This ledge's height.
+     */
     private final float height;
 
+    /**
+     * This ledge's lethality.
+     */
     private LEDGE_LETHALITY lethality;
 
+    /**
+     * Flag which indicates if the event of creating a new ledge
+     * due to this ledge reaching a certain height.
+     */
     private boolean spawnedAnother;
 
     /**
-     * Constructs a asteroid model belonging to a game model.
+     * Constructs a ledge model belonging to a game model.
      *
-     * @param coordinates The x-coordinate of this asteroid.
-     * @param size        The size of this asteroid.
+     * @param coordinates    The coordinates of this ledge.
+     * @param size           The size of this ledge.
+     * @param width          The width of this ledge.
+     * @param height         The height of this ledge.
+     * @param ledgeLethality The lethality of this ledge.
      */
     public LedgeModel(Point<Float> coordinates, LedgeSize size, float width, float height, LEDGE_LETHALITY ledgeLethality) {
         super(coordinates);
@@ -50,14 +63,19 @@ public class LedgeModel extends EntityModel {
     }
 
     /**
-     * Returns the size of this asteroid.
+     * Returns the size of this ledge.
      *
-     * @return The size of this asteroid.
+     * @return The size of this ledge.
      */
     public LedgeSize getSize() {
         return size;
     }
 
+    /**
+     * Returns the type of this ledge.
+     *
+     * @return The type of this ledge.
+     */
     @Override
     public ModelType getType() {
         if (size == LedgeSize.SMALL)
@@ -67,23 +85,47 @@ public class LedgeModel extends EntityModel {
         return null;
     }
 
-
+    /**
+     * Returns the lethality of this ledge.
+     *
+     * @return The lethality of this ledge.
+     */
     public LEDGE_LETHALITY getLethality() {
         return this.lethality;
     }
 
+    /**
+     * Returns the spawnedAnother flag.
+     *
+     * @return The spawnedAnother flag
+     */
     public boolean getSpawnedAnother() {
         return this.spawnedAnother;
     }
 
+    /**
+     * Sets the spawnedAnother flag.
+     *
+     * @param spawnedAnother The value of the spawnedAnother flag.
+     */
     public void setSpawnedAnother(boolean spawnedAnother) {
         this.spawnedAnother = spawnedAnother;
     }
 
+    /**
+     * Returns the width of this ledge.
+     *
+     * @return The width of this ledge.
+     */
     public float getWidth() {
         return this.width;
     }
 
+    /**
+     * Returns the height of this ledge.
+     *
+     * @return The height of this ledge.
+     */
     public float getHeight() {
         return this.height;
     }

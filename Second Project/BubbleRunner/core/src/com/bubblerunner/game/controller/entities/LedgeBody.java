@@ -46,13 +46,13 @@ public class LedgeBody extends EntityBody {
      * @param world The world this body belongs to.
      * @param model The basic model of the ledge.
      */
-    public LedgeBody(World world, LedgeModel model){
+    public LedgeBody(World world, LedgeModel model) {
         super();
 
         this.needsDelete = false;
         this.canDelete = false;
 
-       this.model = model;
+        this.model = model;
 
         // Create the ledge body definition
         BodyDef bodyDef = new BodyDef();
@@ -61,21 +61,21 @@ public class LedgeBody extends EntityBody {
         body = world.createBody(bodyDef);
         body.setUserData(model);
 
-        body.setTransform(model.getX()+model.getWidth()/2, model.getY()+model.getHeight()/2, LEDGE_INITIAL_POS_Z); // Initial position
+        body.setTransform(model.getX() + model.getWidth() / 2, model.getY() + model.getHeight() / 2, LEDGE_INITIAL_POS_Z); // Initial position
 
-        this.body.setLinearVelocity(0,LEDGE_INITIAL_VELOCITY);
+        this.body.setLinearVelocity(0, LEDGE_INITIAL_VELOCITY);
 
 
         // Create rectangular shape
         PolygonShape rectangle = new PolygonShape();
-        rectangle.setAsBox(model.getWidth()/2, model.getHeight()/2); // Dimensions (half width, half height)
+        rectangle.setAsBox(model.getWidth() / 2, model.getHeight() / 2); // Dimensions (half width, half height)
 
         // Create ground fixture
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = rectangle;
         fixtureDef.density = LEDGE_DENSITY;      // how heavy is the ledge
-        fixtureDef.friction =  LEDGE_FRICTION;    // how slippery is the ledge
-        fixtureDef.restitution =  LEDGE_RESTITUTION; // how bouncy is the ledge
+        fixtureDef.friction = LEDGE_FRICTION;    // how slippery is the ledge
+        fixtureDef.restitution = LEDGE_RESTITUTION; // how bouncy is the ledge
 
         // Attach fixture to body
         body.createFixture(fixtureDef);
@@ -84,29 +84,38 @@ public class LedgeBody extends EntityBody {
         rectangle.dispose();
     }
 
-    public void setPos(float x, float y){
-        this.model.setPosition(x,y);
-    }
-
-    public boolean hasSpawnedAnother(){
+    /**
+     * Returns the spawnedAnother flag.
+     *
+     * @return the spawnedAnother flag.
+     */
+    public boolean hasSpawnedAnother() {
         return this.model.getSpawnedAnother();
     }
 
-    public void setSpawnedAnother(boolean value){
+    /**
+     * Sets the spawnedAnother flag.
+     *
+     * @param value the value of the spawnedAnother flag.
+     */
+    public void setSpawnedAnother(boolean value) {
         this.model.setSpawnedAnother(value);
     }
 
-    public void delete(){
+    /**
+     * Deletes a ledge.
+     */
+    public void delete() {
         this.body.setUserData(null);
         this.body = null;
     }
 
     /**
-     * Set's the vertical velocity of this body
+     * Sets the vertical velocity of this body
      *
      * @param yVelocity the vertical velocity of this body.
      */
-    public void setVelocity(float yVelocity){
+    public void setVelocity(float yVelocity) {
         this.body.setLinearVelocity(0, yVelocity);
     }
 
@@ -115,7 +124,7 @@ public class LedgeBody extends EntityBody {
      *
      * @return the bounds of this body.
      */
-    public Rectangle getBounds(){
+    public Rectangle getBounds() {
         return new Rectangle(this.getX(), this.getY(), this.model.getWidth(), this.model.getHeight());
     }
 
@@ -124,7 +133,7 @@ public class LedgeBody extends EntityBody {
      *
      * @return returns either LETHAL if it's a spiked ledge or NONLETHAL if it's normal
      */
-    public LEDGE_LETHALITY getLethality(){
+    public LEDGE_LETHALITY getLethality() {
         return this.model.getLethality();
     }
 
@@ -133,7 +142,7 @@ public class LedgeBody extends EntityBody {
      *
      * @return the width of this body.
      */
-    public float getWidth(){
+    public float getWidth() {
         return this.model.getWidth();
     }
 
@@ -142,7 +151,7 @@ public class LedgeBody extends EntityBody {
      *
      * @return the height of this body.
      */
-    public float getHeight(){
+    public float getHeight() {
         return this.model.getHeight();
     }
 
@@ -151,14 +160,18 @@ public class LedgeBody extends EntityBody {
      *
      * @param value the value of the flag.
      */
-    public void setHasActor(boolean value){this.hasActor = value; }
+    public void setHasActor(boolean value) {
+        this.hasActor = value;
+    }
 
     /**
      * Returns the hasActor flag.
      *
      * @return the hasActor flag.
      */
-    public boolean getHasActor(){return this.hasActor;}
+    public boolean getHasActor() {
+        return this.hasActor;
+    }
 
 
     /**
@@ -166,27 +179,35 @@ public class LedgeBody extends EntityBody {
      *
      * @return the needsDelete flag
      */
-    public boolean getNeedsDelete(){return this.needsDelete;}
+    public boolean getNeedsDelete() {
+        return this.needsDelete;
+    }
 
     /**
      * Sets the needDelete flag.
      *
      * @param value the value of the flag.
      */
-    public void setNeedsDelete(boolean value){this.needsDelete = value; }
+    public void setNeedsDelete(boolean value) {
+        this.needsDelete = value;
+    }
 
     /**
      * Sets the canDelete flag.
      *
      * @param value the value of the flag.
      */
-    public void setCanDelete(boolean value){this.canDelete = value;}
+    public void setCanDelete(boolean value) {
+        this.canDelete = value;
+    }
 
     /**
      * Returns the canDelete flag.
      *
      * @return the canDelete flag.
      */
-    public boolean getCanDelete(){return this.canDelete;}
+    public boolean getCanDelete() {
+        return this.canDelete;
+    }
 
 }
