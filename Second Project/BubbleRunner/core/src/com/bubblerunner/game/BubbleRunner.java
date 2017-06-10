@@ -1,11 +1,10 @@
 package com.bubblerunner.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.transitions.stages.MenuStage;
-import com.bubblerunner.game.utils.highscores.ScoreManager;
 import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.highscores.ScoreManager;
 
 import java.io.IOException;
 

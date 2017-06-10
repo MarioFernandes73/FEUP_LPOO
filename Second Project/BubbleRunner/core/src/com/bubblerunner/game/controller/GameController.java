@@ -3,12 +3,12 @@ package com.bubblerunner.game.controller;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.bubblerunner.game.utils.Constants;
-import com.bubblerunner.game.utils.Constants.GAME_STATE;
 import com.bubblerunner.game.controller.entities.BallBody;
 import com.bubblerunner.game.controller.entities.LedgeBody;
 import com.bubblerunner.game.model.GameModel;
 import com.bubblerunner.game.model.entities.LedgeModel;
+import com.bubblerunner.game.utils.Constants;
+import com.bubblerunner.game.utils.Constants.GAME_STATE;
 import com.bubblerunner.game.utils.Point;
 
 import java.util.ArrayList;

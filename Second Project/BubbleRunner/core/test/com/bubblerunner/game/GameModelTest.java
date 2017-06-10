@@ -5,7 +5,9 @@ import com.bubblerunner.game.model.entities.LedgeModel;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Mario on 06/06/2017.

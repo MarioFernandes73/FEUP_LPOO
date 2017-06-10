@@ -11,8 +11,8 @@ import static com.bubblerunner.game.utils.Constants.LEDGE_DENSITY;
 import static com.bubblerunner.game.utils.Constants.LEDGE_FRICTION;
 import static com.bubblerunner.game.utils.Constants.LEDGE_INITIAL_POS_Z;
 import static com.bubblerunner.game.utils.Constants.LEDGE_INITIAL_VELOCITY;
-import static com.bubblerunner.game.utils.Constants.LEDGE_RESTITUTION;
 import static com.bubblerunner.game.utils.Constants.LEDGE_LETHALITY;
+import static com.bubblerunner.game.utils.Constants.LEDGE_RESTITUTION;
 
 /**
  * Representation of a ledge's body.

@@ -3,19 +3,12 @@ package com.bubblerunner.game.transitions.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.transitions.stages.GameOverStage;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
-import com.bubblerunner.game.view.GameStage;
 import com.bubblerunner.game.transitions.stages.ScoreStage;
+import com.bubblerunner.game.view.GameStage;
 
 import static com.bubblerunner.game.utils.Constants.GAME_STATE.OVER;
-import static com.bubblerunner.game.utils.Constants.LEDGE_HEIGHT;
-import static com.bubblerunner.game.utils.Constants.PIXEL_TO_METER;
-import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 
 /**
  * Created by Mario on 12/04/2017.

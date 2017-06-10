@@ -6,9 +6,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.transitions.actors.OverTableActor;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
+import com.bubblerunner.game.utils.gui.GraphicsManager;
 import com.bubblerunner.game.utils.highscores.Highscores;
 import com.bubblerunner.game.utils.highscores.ScoreManager;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
 
 import java.io.IOException;
 import java.util.Map;
