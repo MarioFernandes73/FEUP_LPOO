@@ -11,7 +11,7 @@ import com.bubblerunner.game.controller.GameControllerState;
 import com.bubblerunner.game.controller.entities.LedgeBody;
 import com.bubblerunner.game.model.GameModel;
 import com.bubblerunner.game.model.GameModelState;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.AssetsManager;
 import com.bubblerunner.game.view.entities.BallActor;
 import com.bubblerunner.game.view.entities.ControllerTableActor;
 import com.bubblerunner.game.view.entities.LedgeActor;
@@ -36,7 +36,7 @@ import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 public class GameStage extends Stage {
 
     private final BubbleRunner game;
-    private final GraphicsManager graphicsManager;
+    private final AssetsManager assetsManager;
     private GameController gameController;
     private ControllerTableActor controllerTableActor;
     private final BallActor ballActor;
@@ -52,40 +52,31 @@ public class GameStage extends Stage {
         this.setViewport(new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
 
         //load textures
-        this.graphicsManager = GraphicsManager.getInstance();
-
-        //load textures
-      //  game.getAssetManager().load("kick.wav", Sound.class);
-       // game.getAssetManager().load("music.mp3", Music.class);
-       // game.getAssetManager().finishLoading();
-        //  kickSound = game.getAssetManager().get("kick.wav");
-        // Music music = game.getAssetManager().get("music.mp3");
-        //  music.setLooping(true);
-        // music.play();
+        this.assetsManager = AssetsManager.getInstance();
 
         //create ball
-        this.ballActor = new BallActor(graphicsManager, gameController.getBallBody());
+        this.ballActor = new BallActor(assetsManager, gameController.getBallBody());
         this.addActor(ballActor);
 
         //create initial ledges
         for(int i = 0; i < this.gameController.getLedgeBodies().size(); i++){
-            LedgeActor newLedgeActor = new LedgeActor(graphicsManager.normalLedge,this.gameController.getLedgeBodies().get(i));
+            LedgeActor newLedgeActor = new LedgeActor(assetsManager.normalLedge,this.gameController.getLedgeBodies().get(i));
             this.ledgeActors.add(newLedgeActor);
             this.addActor(newLedgeActor);
             newLedgeActor.setHasActor(true);
         }
 
         //create ceiling and floor spikes
-        Image floor = new Image(graphicsManager.spikedLedge);
+        Image floor = new Image(assetsManager.spikedLedge);
         floor.setBounds(0,0,SCREEN_WIDTH,LEDGE_HEIGHT/PIXEL_TO_METER);
         this.addActor(floor);
-        Image ceiling = new Image(graphicsManager.spikedLedge2);
+        Image ceiling = new Image(assetsManager.spikedLedge2);
         ceiling.setBounds(0,LEDGE_INITIAL_POS_Y[LEDGE_INITIAL_POS_Y_INDEX_UP]/PIXEL_TO_METER,SCREEN_WIDTH,LEDGE_HEIGHT/PIXEL_TO_METER);
         this.addActor(ceiling);
 
 
         //create controller
-        this.controllerTableActor = new ControllerTableActor(graphicsManager);
+        this.controllerTableActor = new ControllerTableActor(assetsManager);
         this.addActor(this.controllerTableActor);
 
         Gdx.input.setInputProcessor(this);
@@ -127,9 +118,9 @@ public class GameStage extends Stage {
             LedgeBody currentBody = this.gameController.getLedgeBodies().get(i);
             if(!currentBody.getHasActor()){
                 if(currentBody.getLethality() == NONLETHAL){
-                    this.addActor(new LedgeActor(graphicsManager.normalLedge, currentBody));
+                    this.addActor(new LedgeActor(assetsManager.normalLedge, currentBody));
                 } else if(currentBody.getLethality() == LETHAL){
-                    this.addActor(new LedgeActor(graphicsManager.spikedLedge, currentBody));
+                    this.addActor(new LedgeActor(assetsManager.spikedLedge, currentBody));
                 }
 
                 controllerTableActor.remove();

@@ -7,7 +7,7 @@ import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.transitions.actors.MenuTableActor;
 import com.bubblerunner.game.transitions.screens.BubbleScreen;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.AssetsManager;
 
 import static com.bubblerunner.game.utils.Constants.SCREEN_HEIGHT;
 import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
@@ -19,7 +19,7 @@ import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 public class MenuStage extends Stage {
 
     private BubbleRunner game;
-    private GraphicsManager graphicsManager;
+    private AssetsManager assetsManager;
     private MenuTableActor menuTableActor;
 
     public MenuStage (BubbleRunner game){
@@ -27,9 +27,9 @@ public class MenuStage extends Stage {
         //screen setup
         this.game = game;
         this.setViewport(new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
-        this.graphicsManager = graphicsManager.getInstance();
+        this.assetsManager = assetsManager.getInstance();
 
-        this.menuTableActor = new MenuTableActor(graphicsManager);
+        this.menuTableActor = new MenuTableActor(assetsManager);
         this.addActor(menuTableActor);
         Gdx.input.setInputProcessor(this);
 

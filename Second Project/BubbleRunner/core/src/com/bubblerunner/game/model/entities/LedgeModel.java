@@ -95,6 +95,15 @@ public class LedgeModel extends EntityModel {
     }
 
     /**
+     * Sets the lethality of this ledge.
+     *
+     * @param lethality The lethality of this ledge.
+     */
+    public void setLethality(LEDGE_LETHALITY lethality) {
+        this.lethality = lethality;
+    }
+
+    /**
      * Returns the spawnedAnother flag.
      *
      * @return The spawnedAnother flag

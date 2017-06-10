@@ -1,10 +1,12 @@
 package com.bubblerunner.game.transitions.actors;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.AssetsManager;
 
 import static com.bubblerunner.game.utils.Constants.MENU_BUTTON_SIZE_HEIGHT;
 import static com.bubblerunner.game.utils.Constants.MENU_BUTTON_SIZE_WIDTH;
+import static com.bubblerunner.game.utils.Constants.SCREEN_WIDTH;
 
 /**
  * Created by Mario on 15/05/2017.
@@ -16,12 +18,16 @@ public class MenuTableActor extends Table {
     private GenericButton highscoresButton;
     private GenericButton exitButton;
 
-    public MenuTableActor(GraphicsManager graphicsManager){
+    public MenuTableActor(AssetsManager assetsManager){
 
-        this.playButton = new GenericButton(graphicsManager.playButton);
-        this.highscoresButton = new GenericButton(graphicsManager.highscoresButton);
-        this.exitButton = new GenericButton(graphicsManager.exitButton);
+        this.playButton = new GenericButton(assetsManager.playButton);
+        this.highscoresButton = new GenericButton(assetsManager.highscoresButton);
+        this.exitButton = new GenericButton(assetsManager.exitButton);
 
+        this.add(new Image(assetsManager.menuBanner)).size(SCREEN_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
+        this.row();
+        this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/12);
+        this.row();
         this.add(playButton).size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT);
         this.row();
         this.add().size(MENU_BUTTON_SIZE_WIDTH, MENU_BUTTON_SIZE_HEIGHT/12);

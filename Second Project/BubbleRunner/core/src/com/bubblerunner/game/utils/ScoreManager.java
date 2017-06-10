@@ -1,4 +1,4 @@
-package com.bubblerunner.game.utils.highscores;
+package com.bubblerunner.game.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

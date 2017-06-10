@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.transitions.stages.GameOverStage;
 import com.bubblerunner.game.transitions.stages.ScoreStage;
+import com.bubblerunner.game.utils.AssetsManager;
 import com.bubblerunner.game.view.GameStage;
 
 import static com.bubblerunner.game.utils.Constants.GAME_STATE.OVER;
@@ -19,11 +20,15 @@ public class BubbleScreen implements Screen {
     private final BubbleRunner game;
     private final GameStage gameStage;
     private final ScoreStage scoreStage;
+    private final AssetsManager assetsManager;
 
     public BubbleScreen(BubbleRunner game) {
         this.game = game;
         this.gameStage = new GameStage(game);
         this.scoreStage = new ScoreStage(game);
+        this.assetsManager = AssetsManager.getInstance();
+        assetsManager.music.setLooping(true);
+        assetsManager.music.play();
     }
 
     @Override
@@ -39,6 +44,7 @@ public class BubbleScreen implements Screen {
         gameStage.setScoreUpdate(0);
 
         if(gameStage.getGameController().getGameState() == OVER){
+            assetsManager.music.stop();
             game.setScreen(new GenericScreen(game, new GameOverStage(game,scoreStage.getCurrentScore())));
         }
 

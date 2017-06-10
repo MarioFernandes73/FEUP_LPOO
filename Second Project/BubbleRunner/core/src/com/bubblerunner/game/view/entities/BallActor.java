@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bubblerunner.game.controller.entities.BallBody;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.AssetsManager;
 
 import static com.bubblerunner.game.utils.Constants.BALL_FRAMES_DURATION;
 import static com.bubblerunner.game.utils.Constants.BALL_INITIAL_FRAME;
@@ -33,9 +33,9 @@ public class BallActor extends Actor {
     private float lastYPos;
     private boolean isFalling;
 
-    public BallActor(GraphicsManager graphicsManager, BallBody body) {
-        this.texture = graphicsManager.ball;
-        this.texture2 = graphicsManager.flyingBall;
+    public BallActor(AssetsManager assetsManager, BallBody body) {
+        this.texture = assetsManager.ball;
+        this.texture2 = assetsManager.flyingBall;
         createAnimations();
         this.setPosition(BALL_INITIAL_POS_X, BALL_INITIAL_POS_Y);
         this.lastYPos = BALL_INITIAL_POS_Y;

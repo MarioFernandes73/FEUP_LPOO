@@ -2,7 +2,7 @@ package com.bubblerunner.game.view.entities;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bubblerunner.game.transitions.actors.GenericButton;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.AssetsManager;
 
 
 /**
@@ -14,11 +14,11 @@ public class ControllerTableActor extends Table {
     private GenericButton rightButton;
     private GenericButton leftButton;
 
-    public ControllerTableActor(GraphicsManager graphicsManager){
+    public ControllerTableActor(AssetsManager assetsManager){
 
         this.left().bottom();
-        this.leftButton = new GenericButton(graphicsManager.leftButton);
-        this.rightButton = new GenericButton(graphicsManager.rightButton);
+        this.leftButton = new GenericButton(assetsManager.leftButton);
+        this.rightButton = new GenericButton(assetsManager.rightButton);
         this.add(leftButton).size(leftButton.getWidth()*1.5f, leftButton.getHeight()*1.5f);
         this.add();
         this.add(rightButton).size(rightButton.getWidth()*1.5f, rightButton.getHeight()*1.5f);

@@ -1,6 +1,7 @@
-package com.bubblerunner.game.utils.gui;
+package com.bubblerunner.game.utils;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -8,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 
 //Singleton implementation
-public class GraphicsManager {
+public class AssetsManager {
 
     private AssetManager assetManager;
     public Texture ball;
@@ -22,10 +23,14 @@ public class GraphicsManager {
     public Texture exitButton;
     public Texture confirmButton;
     public Texture spikedLedge2;
+    public Music music;
+    public Texture menuBanner;
+    public Texture highscoresBanner;
+    public Texture gameOverBanner;
 
-    private static GraphicsManager instance = new GraphicsManager();
+    private static AssetsManager instance = new AssetsManager();
 
-    private GraphicsManager(){
+    private AssetsManager(){
         assetManager = new AssetManager();
         assetManager.update();
         loadAssets();
@@ -44,6 +49,10 @@ public class GraphicsManager {
         assetManager.load("exitButton.png", Texture.class);
         assetManager.load("confirmButton.png", Texture.class);
         assetManager.load("spiked2.png", Texture.class);
+        assetManager.load("music.mp3",Music.class);
+        assetManager.load("bubbleRunner.png", Texture.class);
+        assetManager.load("congratulations.png", Texture.class);
+        assetManager.load("gameOver.png", Texture.class);
         assetManager.finishLoading();
     }
 
@@ -59,13 +68,17 @@ public class GraphicsManager {
         this.exitButton = assetManager.get("exitButton.png");
         this.confirmButton = assetManager.get("confirmButton.png");
         this.spikedLedge2 = assetManager.get("spiked2.png");
+        this.music = assetManager.get("music.mp3");
+        this.menuBanner = assetManager.get("bubbleRunner.png", Texture.class);
+        this.highscoresBanner = assetManager.get("congratulations.png", Texture.class);
+        this.gameOverBanner = assetManager.get("gameOver.png", Texture.class);
     }
 
     public void dispose(){
         assetManager.dispose();
     }
 
-    public static GraphicsManager getInstance(){
+    public static AssetsManager getInstance(){
         return instance;
     }
 }

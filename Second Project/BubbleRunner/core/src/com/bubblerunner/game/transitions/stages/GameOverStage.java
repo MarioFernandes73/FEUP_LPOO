@@ -6,9 +6,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.transitions.actors.OverTableActor;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
-import com.bubblerunner.game.utils.highscores.Highscores;
-import com.bubblerunner.game.utils.highscores.ScoreManager;
+import com.bubblerunner.game.utils.AssetsManager;
+import com.bubblerunner.game.utils.Highscores;
+import com.bubblerunner.game.utils.ScoreManager;
 
 import java.io.IOException;
 import java.util.Map;
@@ -25,7 +25,7 @@ import static com.bubblerunner.game.utils.Constants.VIEWPORT_WIDTH;
 public class GameOverStage extends Stage {
 
     private BubbleRunner game;
-    private GraphicsManager graphicsManager;
+    private AssetsManager assetsManager;
     private OverTableActor overTableActor;
     private ScoreManager scoreManager;
     private Highscores highscores;
@@ -41,13 +41,13 @@ public class GameOverStage extends Stage {
         this.scoreManager = this.game.getScoreManager();
         this.highscores = scoreManager.getHighscores();
         this.allScores = highscores.getMap();
-        this.graphicsManager = graphicsManager.getInstance();
+        this.assetsManager = assetsManager.getInstance();
         this.register = checkMinimum();
 
         setViewport(new FitViewport(VIEWPORT_WIDTH/(20*PIXEL_TO_METER), VIEWPORT_WIDTH/(20*PIXEL_TO_METER) * RATIO));
 
 
-        this.overTableActor = new OverTableActor(graphicsManager,register);
+        this.overTableActor = new OverTableActor(assetsManager,register);
         this.addActor(overTableActor);
 
 

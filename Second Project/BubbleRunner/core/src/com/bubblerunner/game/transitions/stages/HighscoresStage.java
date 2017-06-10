@@ -8,7 +8,7 @@ import com.bubblerunner.game.BubbleRunner;
 import com.bubblerunner.game.transitions.actors.GenericButton;
 import com.bubblerunner.game.transitions.actors.HighscoresTableActor;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.AssetsManager;
 
 /**
  * Created by Mario on 22/05/2017.
@@ -20,7 +20,7 @@ public class HighscoresStage extends Stage {
     private Table backTable;
     private GenericButton backButton;
     private BubbleRunner game;
-    private GraphicsManager graphicsManager;
+    private AssetsManager assetsManager;
     private HighscoresTableActor highscoresTableActor;
 
     public HighscoresStage(BubbleRunner game){
@@ -28,12 +28,12 @@ public class HighscoresStage extends Stage {
         float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
         setViewport(new FitViewport(VIEWPORT_WIDTH, VIEWPORT_WIDTH * ratio));
 
-        this.graphicsManager = graphicsManager.getInstance();
+        this.assetsManager = assetsManager.getInstance();
 
         this.highscoresTableActor = new HighscoresTableActor(game.getScoreManager().displayHighscores());
         this.addActor(highscoresTableActor);
 
-        this.backButton = new GenericButton(graphicsManager.leftButton);
+        this.backButton = new GenericButton(assetsManager.leftButton);
         this.backTable = new Table();
         this.backTable.left().bottom();
         this.backTable.add(this.backButton).size(80, 80);

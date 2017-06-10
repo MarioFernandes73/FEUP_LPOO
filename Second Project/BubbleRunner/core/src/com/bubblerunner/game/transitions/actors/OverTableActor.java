@@ -2,9 +2,10 @@ package com.bubblerunner.game.transitions.actors;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
+import com.bubblerunner.game.utils.AssetsManager;
 
 import static com.bubblerunner.game.utils.Constants.PIXEL_TO_METER;
 import static com.bubblerunner.game.utils.Constants.RATIO;
@@ -19,9 +20,9 @@ public class OverTableActor extends Table {
     private GenericButton confirmButton;
     private TextField textField;
 
-    public OverTableActor(GraphicsManager graphicsManager, boolean register){
+    public OverTableActor(AssetsManager assetsManager, boolean register){
 
-        this.confirmButton = new GenericButton(graphicsManager.confirmButton);
+        this.confirmButton = new GenericButton(assetsManager.confirmButton);
 
         if(register){
             BitmapFont font = new BitmapFont();
@@ -35,10 +36,20 @@ public class OverTableActor extends Table {
             this.textField = new TextField("player" ,temp);
             this.textField.setText("Insert your name");
 
+            this.add(new Image(assetsManager.highscoresBanner)).size(VIEWPORT_WIDTH/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/4/(20*PIXEL_TO_METER));
+            this.row();
+            this.add().size(VIEWPORT_WIDTH/1.5f/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/32/(20*PIXEL_TO_METER));
+            this.row();
             this.add(textField).size(VIEWPORT_WIDTH/1.5f/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/8/(20*PIXEL_TO_METER));
+        } else {
+            this.add(new Image(assetsManager.gameOverBanner)).size(VIEWPORT_WIDTH/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/4/(20*PIXEL_TO_METER));
+            this.row();
+            this.add().size(VIEWPORT_WIDTH/1.5f/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/32/(20*PIXEL_TO_METER));
         }
 
-        this.row().size(VIEWPORT_WIDTH/1.5f/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/32/(20*PIXEL_TO_METER));
+        this.row();
+        this.add().size(VIEWPORT_WIDTH/1.5f/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/32/(20*PIXEL_TO_METER));
+        this.row();
         this.add(confirmButton).size(VIEWPORT_WIDTH/1.5f/(20*PIXEL_TO_METER), VIEWPORT_WIDTH*RATIO/8/(20*PIXEL_TO_METER));
 
         this.setFillParent(true);

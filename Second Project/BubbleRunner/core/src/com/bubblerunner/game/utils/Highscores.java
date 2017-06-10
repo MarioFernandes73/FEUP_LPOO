@@ -1,4 +1,4 @@
-package com.bubblerunner.game.utils.highscores;
+package com.bubblerunner.game.utils;
 
 import java.io.Serializable;
 import java.util.Collections;

@@ -3,8 +3,8 @@ package com.bubblerunner.game;
 import com.badlogic.gdx.Game;
 import com.bubblerunner.game.transitions.screens.GenericScreen;
 import com.bubblerunner.game.transitions.stages.MenuStage;
-import com.bubblerunner.game.utils.gui.GraphicsManager;
-import com.bubblerunner.game.utils.highscores.ScoreManager;
+import com.bubblerunner.game.utils.AssetsManager;
+import com.bubblerunner.game.utils.ScoreManager;
 
 import java.io.IOException;
 
@@ -22,14 +22,14 @@ public class BubbleRunner extends Game {
 	@Override
 	public void pause(){
 		super.pause();
-		GraphicsManager.getInstance().dispose();
+		AssetsManager.getInstance().dispose();
 		saveHighscores();
 	}
 
 	@Override
 	public void dispose(){
 		super.dispose();
-		GraphicsManager.getInstance().dispose();
+		AssetsManager.getInstance().dispose();
 		saveHighscores();
 	}
 
