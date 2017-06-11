@@ -107,23 +107,24 @@ To install this setup game, simply have a smartphone with android operating syst
   
   Fig12,13 - Release Controller Diagrams
     
-  ![Diagram ReleaseModel](UMLDiagrams/Model/model.bmp)![Diagram ReleaseModelEntities](UMLDiagrams/Model/modelEntities.bmp)
+  ![Diagram ReleaseModel](UMLDiagrams/Release/Model/model.bmp)![Diagram ReleaseModelEntities](UMLDiagrams/Release/Model/modelEntities.bmp)
    
     Fig14,15 - Release Models Diagrams
    
-  ![Diagram ReleaseView](UMLDiagrams/View/view.bmp)![Diagram ReleaseView](UMLDiagrams/View/viewEntities.bmp)
+  ![Diagram ReleaseView](UMLDiagrams/Release/View/view.bmp)
+  ![Diagram ReleaseView](UMLDiagrams/Release/View/viewEntities.bmp)
        
    Fig16,17 - Release Views Diagrams
        
-   ![Diagram ReleaseTransitionsScreens](UMLDiagrams/Transitions/transitionsScreens.bmp)![Diagram ReleaseTransitionsStages](UMLDiagrams/Transitions/transitionsStages.bmp)![Diagram ReleaseTransitionsActors](UMLDiagrams/Transitions/transitionsActors.bmp)
+   ![Diagram ReleaseTransitionsScreens](UMLDiagrams/Release/Transitions/transitionsScreens.bmp)![Diagram ReleaseTransitionsStages](UMLDiagrams/Release/Transitions/transitionsStages.bmp)![Diagram ReleaseTransitionsActors](UMLDiagrams/Release/Transitions/transitionsActors.bmp)
    
    Fig18,19,20 - Release Transitions Diagrams
    
-   ![Diagram ReleaseUtils](UMLDiagrams/Utils/utils.bmp)
+   ![Diagram ReleaseUtils](UMLDiagrams/Release/Utils/utils.bmp)
    
    Fig21 - Release Utils Diagram
   
-  ![Diagram ReleaseTest](UMLDiagrams/Test/test.bmp)
+  ![Diagram ReleaseTest](UMLDiagrams/Release/Test/test.bmp)
   
   Fig22 - Release Test Diagram
   
