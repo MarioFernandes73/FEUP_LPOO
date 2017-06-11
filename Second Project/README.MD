@@ -75,3 +75,39 @@ Fig7,8,9,10 - Menu, highscores, paused menu and gameplay mockup
 
 This last figure shows a red ball (the protagonist), ledges (which can be either normal or spiked) and spikes at the top (which continuously descend at a certain speed which increases the more the game prolongs).
 Ideally the user will be able to move the ball left and right aswel as making it jump.
+
+
+# BubbleRunner - RELEASE
+
+This section contains the specifications of the final product, the updated images, uml diagram's and an all around report about the making of this project.
+
+  * Instalation
+  
+To install this setup game, simply have a smartphone with android operating system and install one of the apk's which are on the "WorkingBuilds" directory. Notice that to install the debug apk, the device's depuration system needs to be active.
+
+  * Development
+  
+  During the development of this project, a lot of studying and planning had to be made in order to understand how a mobile game was structured and how LIBGdx works. The game was made solely using the incremental method. The first step was to have the game running and the development was progressed by firstly, creating a ball and a ledge, then by trying to make them move, then by generating dynamic ledges, and to finalize the game another ledge type (the spiked ledge) was added. Only after the game logic was fully created, the huge refactor of the code happened of changing the whole code's structure onto an MVC model. The game was completly seperate into the Model-View-Controller method and the only aid LIBGdx is providing is on the shapes, Dynamic vs. Kinematic bodies, the world updates and the whole view module, leaving the Model and Controller modules almost completly LIBGdx-free.
+  
+  At first, the game was divided onto 4 packages: Screens, Stages, Actors, Utils. This structure was heavily dependant on LIBGdx and very generic, making the developers not even know which variables they were supposed to use. As for example, the ball protagonist had actor coordinates, body coordinates and texture coordinates while only the body coordinates are actually needed.
+  
+  At the end, the game is divided onto 3 main packages, excluding some complementary ones: Model, View and Controller. The model represents the basic model of the objects on the game such as their actual positions, the ball's hp, the ledge's lethaltiy etc. The controller uses an initial game model and controlls everything that are physics, updating the whole game with an update cycle. The view model uses a new game controller and simply maps textures onto the object's bodies coordinates; it also handles the user's controls and updates the player's score.
+  
+  The game itself is fully unit-testable (even all of the collisions!) and could even be played on a console if some changes were made to the user's controls (since on the real game, they are directional arrow images which the user can push).
+  
+  
+  * Difficulties and lessons learned
+  
+  Making a mobile game, besides being an extremly fun experience, it was very challenging. The main difficulty throughout the project was how to deal with LIBGdx since this was the first experience with it that the group had. The second and biggest difficulty was refactoring the game to have an MVC model. 
+  
+  LIBGdx as an engine provides many abstractions such as actors which can easily be extended, providing the programmer a much simpler and faster way to implement their code. The flaws of using this method, besides making the game not unit-testable, are quite a few if the programmer is not fully aware of how the engine works. Nevertheless, the MVC model is far from not having flaws since it contains redundancies, and often a lot a of lazy classes especially on the model side.
+  
+  A third difficulty was mapping the textures and fixing visual bugs such has sometimes forgetting to convert from "meters" to pixels.
+
+  *  Overall work
+  
+  Both members had a 50% contribution to the project, Mario having a more active input on the game logic and Nelson dealing more with the visual side of the game and the whole time spent onto the whole project was around 90 hours.
+  
+  *  User manual
+  
+  The aim of the game is to reach as far as the user can. The player has to use the directional buttons to move the ball left or right while the ball is continuously falling. The ball can't go too far or stay behind or else it will get destroyed by spikes. New random ledges will be created from time to time to help the player navigate but watch out as these ledges can have spikes themselves or can even push the player to the upper spikes! After the game is done and if the player has done a good score, he will be able to register his name onto the highscores.
