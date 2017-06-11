@@ -1,3 +1,5 @@
+[![BCH compliance](https://bettercodehub.com/edge/badge/MarioFernandes73/LPOO1617_T4G7?branch=master&token=e4d0c96c98d75d5f06ded85cac1c04f218ac5ac6)](https://bettercodehub.com/)
+
 # BubbleRunner
 
 On this section of the repository all of the information regarding the second project is presented.
