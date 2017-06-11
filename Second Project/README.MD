@@ -104,3 +104,10 @@ To install this setup game, simply have a smartphone with android operating syst
   
   A third difficulty was mapping the textures and fixing visual bugs such has sometimes forgetting to convert from "meters" to pixels.
 
+  *  Overall work
+  
+  Both members had a 50% contribution to the project, Mario having a more active input on the game logic and Nelson dealing more with the visual side of the game and the whole time spent onto the whole project was around 90 hours.
+  
+  *  User manual
+  
+  The aim of the game is to reach as far as the user can. The player has to use the directional buttons to move the ball left or right while the ball is continuously falling. The ball can't go too far or stay behind or else it will get destroyed by spikes. New random ledges will be created from time to time to help the player navigate but watch out as these ledges can have spikes themselves or can even push the player to the upper spikes! After the game is done and if the player has done a good score, he will be able to register his name onto the highscores.
