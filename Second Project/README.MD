@@ -95,6 +95,37 @@ To install this setup game, simply have a smartphone with android operating syst
   
   The game itself is fully unit-testable (even all of the collisions!) and could even be played on a console if some changes were made to the user's controls (since on the real game, they are directional arrow images which the user can push).
   
+  * UML Diagrams
+  
+  The following images are the updated package and class diagrams. The sequence uml diagram is left unchanged since the game follows it.
+  
+  ![Diagram ReleasePackage](UMLDiagrams/Release/package.bmp)
+  
+  Fig11 - Release Package Diagram
+  
+    ![Diagram ReleaseController](UMLDiagrams/Release/Controller/controller.bmp) ![Diagram ReleaseControllerEntities](UMLDiagrams/Release/Controller/controllerEntities.bmp)
+  
+  Fig12,13 - Release Controller Diagrams
+    
+  ![Diagram ReleaseModel](UMLDiagrams/Model/model.bmp)![Diagram ReleaseModelEntities](UMLDiagrams/Model/modelEntities.bmp)
+   
+    Fig14,15 - Release Models Diagrams
+   
+  ![Diagram ReleaseView](UMLDiagrams/View/view.bmp)![Diagram ReleaseView](UMLDiagrams/View/viewEntities.bmp)
+       
+   Fig16,17 - Release Views Diagrams
+       
+   ![Diagram ReleaseTransitionsScreens](UMLDiagrams/Transitions/transitionsScreens.bmp)![Diagram ReleaseTransitionsStages](UMLDiagrams/Transitions/transitionsStages.bmp)![Diagram ReleaseTransitionsActors](UMLDiagrams/Transitions/transitionsActors.bmp)
+   
+   Fig18,19,20 - Release Transitions Diagrams
+   
+   ![Diagram ReleaseUtils](UMLDiagrams/Utils/utils.bmp)
+   
+   Fig21 - Release Utils Diagram
+  
+  ![Diagram ReleaseTest](UMLDiagrams/Test/test.bmp)
+  
+  Fig22 - Release Test Diagram
   
   * Difficulties and lessons learned
   
