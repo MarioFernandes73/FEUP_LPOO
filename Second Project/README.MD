@@ -81,6 +81,11 @@ Ideally the user will be able to move the ball left and right aswel as making it
 
 This section contains the specifications of the final product, the updated images, uml diagram's and an all around report about the making of this project.
 
+![Diagram ReleaseMainMenu](ReleaseImages/mainMenu.png) ![Diagram ReleaseGame](ReleaseImages/game.png) ![Diagram ReleaseGameOver](ReleaseImages/gameOver.png)
+
+Fig 11,12,13 - Main menu, Game and Gameover screen of the release version of the game.
+
+
   * Instalation
   
 To install this setup game, simply have a smartphone with android operating system and install one of the apk's which are on the "WorkingBuilds" directory. Notice that to install the debug apk, the device's depuration system needs to be active.
@@ -101,31 +106,31 @@ To install this setup game, simply have a smartphone with android operating syst
   
   ![Diagram ReleasePackage](UMLDiagrams/Release/package.bmp)
   
-  Fig11 - Release Package Diagram
+  Fig14 - Release Package Diagram
   
   ![Diagram ReleaseController](UMLDiagrams/Release/Controller/controller.bmp) ![Diagram ReleaseControllerEntities](UMLDiagrams/Release/Controller/controllerEntities.bmp)
   
-  Fig12,13 - Release Controller Diagrams
+  Fig15,16 - Release Controller Diagrams
     
   ![Diagram ReleaseModel](UMLDiagrams/Release/Model/model.bmp)![Diagram ReleaseModelEntities](UMLDiagrams/Release/Model/modelEntities.bmp)
    
-   Fig14,15 - Release Models Diagrams
+   Fig17,18 - Release Models Diagrams
    
   ![Diagram ReleaseView](UMLDiagrams/Release/View/view.bmp)![Diagram ReleaseView](UMLDiagrams/Release/View/viewEntities.bmp)
        
-   Fig16,17 - Release Views Diagrams
+   Fig19.20 - Release Views Diagrams
        
    ![Diagram ReleaseTransitionsScreens](UMLDiagrams/Release/Transitions/transitionsScreens.bmp)![Diagram ReleaseTransitionsStages](UMLDiagrams/Release/Transitions/transitionsStages.bmp)![Diagram ReleaseTransitionsActors](UMLDiagrams/Release/Transitions/transitionsActors.bmp)
    
-   Fig18,19,20 - Release Transitions Diagrams
+   Fig21,22,23 - Release Transitions Diagrams
    
    ![Diagram ReleaseUtils](UMLDiagrams/Release/utils/utils.bmp)
    
-   Fig21 - Release Utils Diagram
+   Fig24 - Release Utils Diagram
   
   ![Diagram ReleaseTest](UMLDiagrams/Release/test/test.bmp)
   
-  Fig22 - Release Test Diagram
+  Fig25 - Release Test Diagram
   
   * Difficulties and lessons learned
   
