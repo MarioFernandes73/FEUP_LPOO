@@ -132,6 +132,17 @@ To install this setup game, simply have a smartphone with android operating syst
   
   Fig25 - Release Test Diagram
   
+  
+  * Design patterns
+  
+  The following design patterns were used:
+  
+  - Singleton on the AssetsManager class so that the developer is assured that only one instance of this class is made throughout the game's life cycle.
+  - State in the Game class as well as some "pseudo-state" patterns on other classes such as the ballActor using a boolean. This pattern allowed the entire game cycle to update to other screens based on the state of the game. Because of this, checks like the ball's height or the diminishing ball's hp simply updated the game state and the view renderer switched screens accordingly.
+  - Template on game using a game model and some states of the controller and model. This allows a programmer to easily switch between starting models or even completly different models with different rules (such as the ball having invulnerability etc.)
+  - Factory pattern in order to create new ledges. The "createRandomLedge" method is a factory of new ledges creating a new completly randomised ledge and returning it. This allows for a very easy debug mechanic together with a nifty way of easily changing which ledges to produce.
+  - Facade is used both by LIBGdx and by the entire view package. This allows the player to only see what the view module is showing and absolutly nothing from the controller and the model modules, although these are the ones controlling the entire game.
+  
   * Difficulties and lessons learned
   
   Making a mobile game, besides being an extremly fun experience, it was very challenging. The main difficulty throughout the project was how to deal with LIBGdx since this was the first experience with it that the group had. The second and biggest difficulty was refactoring the game to have an MVC model. 
